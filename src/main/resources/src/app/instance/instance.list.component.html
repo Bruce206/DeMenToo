@@ -1,0 +1,26 @@
+<p-dataTable [value]="instances" #dt class="instance-list" exportFilename="instances" (onRowClick)="handleRowClick($event)">
+  <p-header>
+    <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:right"></button>
+    <div style="text-align:left">
+      <p-multiSelect [options]="columnOptions" [(ngModel)]="cols" (onChange)="colsChanged"></p-multiSelect>
+    </div>
+  </p-header>
+  <p-column *ngFor="let col of cols | sortBy : 'pos'" [field]="col.field" [header]="col.header" [filter]="col.filter" [filterMatchMode]="col.filterMatchMode ? col.filterMatchMode : 'contains'" [sortable]="true" [styleClass]="col.class">
+    <ng-template *ngIf="col.field === 'modified'" let-item let-data="rowData" pTemplate type="body">
+      <span>{{data.modified | date:"dd.MM.yyy &nbsp;&nbsp;hh:mm"}}</span>
+    </ng-template>
+
+    <ng-template *ngIf="col.field === 'domains'" let-item let-data="rowData" pTemplate type="body">
+      <a *ngIf="data.domains && data.domains.length > 0" [href]="'http://' + data.domains[0].url" target="_blank">{{data.domains[0].name}}</a>
+      <span style="float:right; color: #aaa;" *ngIf="data.domains.length > 1">[+{{data.domains.length}}]</span>
+    </ng-template>
+
+    <ng-template *ngIf="col.field === 'prod'" let-item let-data="rowData" pTemplate type="body">
+      <i class="fa fa-check" *ngIf="data.prod"></i>
+    </ng-template>
+
+    <ng-template *ngIf="col.field === 'type'" let-item let-data="rowData" pTemplate type="body">
+      <span [instance-type]="data.type">{{data.type}}</span>
+    </ng-template>
+  </p-column>
+</p-dataTable>

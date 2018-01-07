@@ -1,0 +1,7 @@
+instance tr:hover {
+  background-color: aliceblue !important;
+}
+
+.col-icon {
+  width: 50px;
+}

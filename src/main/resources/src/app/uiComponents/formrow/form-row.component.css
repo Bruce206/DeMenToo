@@ -1,0 +1,56 @@
+.ui-grid-row .inline-edit-description {
+  padding: .25em .5em;
+}
+
+.inline-edit {
+  padding: 0 3px;
+  min-width: 50px;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+.inline-edit.editable {
+  cursor: pointer;
+}
+.inline-edit.empty {
+  opacity: 0.5;
+}
+
+.inline-edit.editable:hover {
+  border: 1px solid grey;
+}
+
+.inline-edit-icon-box {
+  border: 1px solid grey;
+  border-left: none;
+  margin-left: -4px;
+  padding: 0 4px;
+  background-color: white;
+  color: #5f6c7a;
+  visibility: hidden;
+}
+
+.inline-edit-save-box {
+  border: 1px solid darkgrey;
+  border-left: none;
+  padding: 1px 4px;
+  background-color: white;
+  color: #5f6c7a;
+  cursor: pointer;
+  float: left;
+}
+
+.inline-edit.editable:hover ~ .inline-edit-icon-box {
+  visibility: visible !important;
+}
+
+input, select, textarea {
+  padding: 0;
+  width: calc(100% - 30px);
+  float: left;
+}
+
+.templateContainer {
+  margin-left: 4px;
+  margin-top: 4px;
+}

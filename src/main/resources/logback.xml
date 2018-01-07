@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{ISO8601} | %-5level | %logger{64} | %method, %line | %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>logs/demontoo/all.log</File>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<encoder>
+			<pattern>%d{ISO8601} | %-5level | %logger{64} | %method, %line | %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>logs/demontoo/old/all.log.%i</FileNamePattern>
+			<maxIndex>10</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>5MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>logs/demontoo/info.log</File>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator> <!-- defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+				<expression>return level == ERROR;</expression>
+			</evaluator>
+			<OnMismatch>NEUTRAL</OnMismatch>
+			<OnMatch>DENY</OnMatch>
+		</filter>
+		<encoder>
+			<pattern>%d{ISO8601} | %-5level | %logger{64} | %method, %line | %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>logs/demontoo/old/info.log.%i</FileNamePattern>
+			<maxIndex>10</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>5MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>logs/demontoo/error.log</File>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder>
+			<pattern>%d{ISO8601} | %-5level | %logger{64} | %method, %line | %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>logs/demontoo/old/error.log.%i</FileNamePattern>
+			<maxIndex>10</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>5MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ALL" />
+		<appender-ref ref="INFO" />
+		<appender-ref ref="ERROR" />
+	</root>
+</configuration>

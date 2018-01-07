@@ -1,0 +1,121 @@
+{
+  "predefinedValues": {
+    "colorType": [
+      {"value": "SINGLE", "label": "Single"},
+      {"value": "MULTIPLE", "label": "Multiple"}
+    ],
+    "conventionalDigital": [
+      {"value": "CONVENTIONAL", "label": "Conventional"},
+      {"value": "DIGITAL", "label": "Digital"}
+    ],
+    "dotSize": [
+      {"value": "VARIABLE", "label": "Variable"},
+      {"value": "CONSTANT", "label": "Constant"},
+      {"value": "BOTH_IS_POSSIBLE", "label": "Both is possible"},
+      {"value": "NO_DOTS", "label": "No dots"}
+    ],
+    "imageConstruction": [
+      {"value": "LINES", "label": "Lines"},
+      {"value": "DOTS", "label": "Dots"},
+      {"value": "CONTINUOUS", "label": "Continuous"},
+      {"value": "COMBINATION_OF_LINES_AND_DOTS", "label": "Combination of lines and dots"}
+    ],
+    "nonPrintableAreaLook": [
+      {"value": "SMALL_PRINT_PARTICLES_VISIBLE", "label": "Small print particles are visable on the substrate (background noise)"},
+      {"value": "CLEAN", "label": "Non-printed areas are clean (no background noise)"}
+    ],
+    "printLevelRelativeToSubstrate": [
+      {"value": "ABOVE", "label": "Print level above average substrate level"},
+      {"value": "BELOW", "label": "Print level below average substrate level"},
+      {"value": "EQUAL", "label": "Print level equal with average substrate level"}
+    ],
+    "screeningType": [
+      {"value": "AM", "label": "AM"},
+      {"value": "FM", "label": "FM"},
+      {"value": "BOTH_POSSIBLE", "label": "Both is possible"},
+      {"value": "NO_SCREENING", "label": "No Screening"}
+    ],
+    "substanceType": [
+      {"value": "INK", "label": "Ink"},
+      {"value": "TONER", "label": "Toner"},
+      {"value": "OTHER", "label": "Other"}
+    ],
+    "substrateDirectIndirect": [
+      {"value": "DIRECT", "label": "Direct"},
+      {"value": "INDIRECT", "label": "Indirect"}
+    ],
+    "tone": [
+      {"value": "CONTINUOUS", "label": "Continuous"},
+      {"value": "HALFTONE", "label": "Halftone"}
+    ],
+    "continents": [
+      {"value": "AFRICA", "label": "Africa"},
+      {"value": "ANTARCTICA", "label": "Antarctica"},
+      {"value": "ASIA", "label": "Asia"},
+      {"value": "AUSTRALIA", "label": "Australia"},
+      {"value": "EUROPE", "label": "Europe"},
+      {"value": "NORTH_AMERICA", "label": "North America"},
+      {"value": "SOUTH_AMERICA", "label": "South America"}
+    ],
+    "documentClassification": [
+      {"value": "UNKNOWN", "label": "Unknown"},
+      {"value": "GENUINE", "label": "Genuine"},
+      {"value": "FAKED", "label": "Faked"},
+      {"value": "COUNTERFEIT", "label": "Counterfeit"}
+    ],
+    "documentTemplateROILengthPart": [
+      {"value": "CM", "label": "CM"},
+      {"value": "INCH", "label": "Inch"},
+      {"value": "PIXEL", "label": "Pixel"}
+    ],
+    "documentType": [
+      {"value": "ID", "label": "ID-Document"},
+      {"value": "PASSPORT", "label": "Passport"},
+      {"value": "BREEDER_DOCUMENT", "label": "Breeder-Document"},
+      {"value": "BANKNOTE", "label": "Banknote"},
+      {"value": "REFERENCE_DOCUMENT", "label": "Reference-Document"}
+    ],
+    "paperType": [
+      {"value": "DEFAULT", "label": "Default"},
+      {"value": "PHOTO", "label": "Photo"}
+    ],
+    "printerTechnology": [
+      {"value": "OFFSET", "label": "Offset"},
+      {"value": "GRAVURE", "label": "Gravurele"},
+      {"value": "FLEXOGRAPHY", "label": "Flexography"},
+      {"value": "DYE_SUBLIMATION", "label": "Dye Sublimation"},
+      {"value": "INKJET", "label": "Inkjet"},
+      {"value": "LASER", "label": "Laser"},
+      {"value": "PAD", "label": "Pad"},
+      {"value": "RELIEF", "label": "Relief"},
+      {"value": "SCREEN", "label": "Screen"},
+      {"value": "INTAGLIO", "label": "Intaglio"},
+      {"value": "THERMAL", "label": "Thermal"}
+    ],
+    "printMode": [
+      {"value": "DEFAULT", "label": "Default"},
+      {"value": "DRAFT", "label": "Draft"},
+      {"value": "HIGH", "label": "High"}
+    ],
+    "roiType": [
+      {"value": "IMAGE", "label": "Image"},
+      {"value": "TEXT", "label": "Text"},
+      {"value": "STAMP", "label": "Stamp"},
+      {"value": "BACKGROUND", "label": "Background"},
+      {"value": "BARCODE", "label": "Barcode"},
+      {"value": "HOLOGRAM", "label": "Hologram"},
+      {"value": "NUMBER", "label": "Number"},
+      {"value": "SIGNATURE", "label": "Signature"},
+      {"value": "CODE_OF_ARMS", "label": "Code of Arms"},
+      {"value": "SUBSTRATE", "label": "Substrate"},
+      {"value": "PHOTO", "label": "Photo"}
+    ],
+    "lightingConditions": [
+      {"value": "OBLIQUE", "label": "Oblique"},
+      {"value": "COAXIAL", "label": "Coaxial"},
+      {"value": "INCIDENT_WITH_RINGLIGHT", "label": "Incident (with ringlight)"},
+      {"value": "INCIDENT_WITHOUT_RINGLIGHT", "label": "Incident (without ringlight)"},
+      {"value": "TRANSMITTED", "label": "Transmitted"}
+    ]
+  }
+}

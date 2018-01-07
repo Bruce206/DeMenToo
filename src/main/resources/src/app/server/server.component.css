@@ -1,0 +1,7 @@
+.server-list tr:hover {
+  background-color: aliceblue !important;
+}
+
+.col-icon {
+  width: 38px;
+}
