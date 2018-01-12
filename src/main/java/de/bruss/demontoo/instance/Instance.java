@@ -22,6 +22,8 @@ public class Instance extends MonitoredSuperEntity {
 	private String version;
 	private String licensedFor;
 	private String type;
+	private String paymentModel;
+	private Long usedSpaceInMB;
 	
 	@Column(name = "prod", columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean prod;
