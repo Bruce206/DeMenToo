@@ -1,12 +1,17 @@
 package de.bruss.demontoo.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.bruss.demontoo.common.CustomLocalDateTimeDeserializer;
+import de.bruss.demontoo.common.CustomLocalDateTimeSerializer;
 import de.bruss.demontoo.common.MonitoredSuperEntity;
 import de.bruss.demontoo.domain.Domain;
 import de.bruss.demontoo.server.Server;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +39,10 @@ public class Instance extends MonitoredSuperEntity {
 	@ManyToOne
     @JsonIgnoreProperties("instances")
 	private Server server;
+
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+	private LocalDateTime lastMessage;
 
 	@Override
 	public String toString() {

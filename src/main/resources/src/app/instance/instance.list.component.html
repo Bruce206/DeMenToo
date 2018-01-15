@@ -7,7 +7,7 @@
   </p-header>
   <p-column *ngFor="let col of cols | sortBy : 'pos'" [field]="col.field" [header]="col.header" [filter]="col.filter" [filterMatchMode]="col.filterMatchMode ? col.filterMatchMode : 'contains'" [sortable]="true" [styleClass]="col.class">
     <ng-template *ngIf="col.field === 'modified'" let-item let-data="rowData" pTemplate type="body">
-      <span>{{data.modified | date:"dd.MM.yyy &nbsp;&nbsp;HH:mm"}}</span>
+      <span>{{data.lastMessage | date:"dd.MM.yyy &nbsp;&nbsp;HH:mm"}}</span>
     </ng-template>
 
     <ng-template *ngIf="col.field === 'domains'" let-item let-data="rowData" pTemplate type="body">

@@ -4,7 +4,6 @@ import de.bruss.demontoo.server.Server;
 import de.bruss.demontoo.server.ServerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -45,7 +44,7 @@ public class InstanceService {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void doSomethingAfterStartup() {
+    public void startInstanceWorker() {
         logger.info("Starting Instance-Worker...");
         InstanceWorker instanceWorker = new InstanceWorker(this.instancesToAdd, this);
         Thread thread = new Thread(instanceWorker);
@@ -60,6 +59,9 @@ public class InstanceService {
      */
     @Transactional
     public Instance update(Instance instance) {
+        logger.info("Updating instance [" + instance.toString() + "]...");
+        instance.setLastMessage(LocalDateTime.now());
+
         // find matching server in database (by id and name)
         Server server = serverRepository.findByIpAndServerName(instance.getServer().getIp(), instance.getServer().getServerName());
 
@@ -71,17 +73,30 @@ public class InstanceService {
             serverRepository.save(server);
         }
 
-        Optional<Instance> persistedInstance = server.getInstances().stream().filter(i -> i.getIdentifier().equals(instance.getIdentifier())).findFirst();
-        if (persistedInstance.isPresent()) {
-            BeanUtils.copyProperties(instance, persistedInstance, "id", "server");
+        Optional<Instance> persistedInstanceOpt = server.getInstances().stream().filter(i -> i.getIdentifier().equals(instance.getIdentifier())).findFirst();
+        if (persistedInstanceOpt.isPresent()) {
+            Instance persistedInstance = persistedInstanceOpt.get();
+            persistedInstance.setDomains(instance.getDomains());
+            persistedInstance.setLicensedFor(instance.getLicensedFor());
+            persistedInstance.setPaymentModel(instance.getPaymentModel());
+            persistedInstance.setProd(instance.isProd());
+            persistedInstance.setUsedSpaceInMB(instance.getUsedSpaceInMB());
+            persistedInstance.setType(instance.getType());
+            persistedInstance.setVersion(instance.getVersion());
+
+            if (persistedInstance.getServer().getId() != instance.getServer().getId()) {
+                persistedInstance.getServer().removeInstance(persistedInstance);
+                persistedInstance.setServer(server);
+                server.addInstance(persistedInstance);
+            }
+
+            instanceRepository.save(persistedInstance);
         } else {
             server.addInstance(instance);
             instance.setServer(server);
             instanceRepository.save(instance);
-
         }
 
-        instance.setModified(LocalDateTime.now());
         logger.info("Instanceupdate successful! [" + instance.toString() + "]");
 
         return instance;
