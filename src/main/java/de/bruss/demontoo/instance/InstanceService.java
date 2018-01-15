@@ -1,6 +1,5 @@
 package de.bruss.demontoo.instance;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bruss.demontoo.server.Server;
 import de.bruss.demontoo.server.ServerRepository;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
@@ -55,8 +55,8 @@ public class InstanceService {
 
     /**
      * Updates / Creates an Instance after monitoring-request
-     * @param instance
-     * @return
+     * @param instance the instance to monitor
+     * @return monitored instance
      */
     @Transactional
     public Instance update(Instance instance) {
@@ -81,12 +81,11 @@ public class InstanceService {
 
         }
 
+        instance.setModified(LocalDateTime.now());
         logger.info("Instanceupdate successful! [" + instance.toString() + "]");
 
         return instance;
     }
-
-    private ObjectMapper mapper = new ObjectMapper();
 
     @Transactional
     public void delete(Long id) {
