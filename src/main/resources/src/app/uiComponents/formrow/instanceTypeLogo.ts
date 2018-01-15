@@ -14,7 +14,7 @@ export class InstanceTypeLogoDirective implements OnInit {
   }
 
   ngOnInit() {
-    if (this.type === "XibisOne" || this.type === "SkinGo") {
+    if (this.type === "XibisOne" || this.type === "SkinGo" || this.type === "Andrupos") {
       this.el.nativeElement.innerHTML = "<img src='/images/instancetypes/" + this.type + ".png' style='height: 15px;'>";
     }
   }
