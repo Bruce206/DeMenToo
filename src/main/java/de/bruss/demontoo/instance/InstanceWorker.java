@@ -24,6 +24,7 @@ public class InstanceWorker implements Runnable {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void run() {
         while (!Thread.interrupted()) {
+            logger.info("Checking Queue... Found: " + queue.size() + " elements in queue.");
             if (!queue.isEmpty()) {
                 Instance instance;
 
@@ -32,6 +33,13 @@ public class InstanceWorker implements Runnable {
                     instanceService.update(instance);
                 } catch (InterruptedException e) {
                     logger.error("Error occured while waiting for Queue", e);
+                }
+            } else {
+                try {
+                    logger.info("Found no elements in queue. Sleeping for a minute...");
+                    Thread.sleep(60000);
+                } catch (InterruptedException e) {
+                    logger.error("Sleeping IndexWorker interrupted", e);
                 }
             }
         }

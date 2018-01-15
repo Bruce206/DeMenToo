@@ -60,7 +60,6 @@ public class InstanceService {
     @Transactional
     public Instance update(Instance instance) {
         logger.info("Updating instance [" + instance.toString() + "]...");
-        instance.setLastMessage(LocalDateTime.now());
 
         // find matching server in database (by id and name)
         Server server = serverRepository.findByIpAndServerName(instance.getServer().getIp(), instance.getServer().getServerName());
@@ -90,8 +89,11 @@ public class InstanceService {
                 server.addInstance(persistedInstance);
             }
 
+            persistedInstance.setLastMessage(LocalDateTime.now());
+
             instanceRepository.save(persistedInstance);
         } else {
+            instance.setLastMessage(LocalDateTime.now());
             server.addInstance(instance);
             instance.setServer(server);
             instanceRepository.save(instance);
