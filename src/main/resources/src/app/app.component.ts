@@ -35,7 +35,9 @@ export class AppComponent {
         icon: 'fa-cubes',
         routerLink: '/instance'
       },
-      {}
+      {
+        separator: true
+      }
     ];
 
     this.instanceTypeService.getList().subscribe(types => {

@@ -59,7 +59,7 @@ public class InstanceWorker implements Runnable {
             }
 
             logger.info("Searching for Instance");
-            Instance persistedInstance = null;
+            Instance persistedInstance;
             Optional<Instance> persistedInstanceOpt = server.getInstances().stream().filter(i -> i.getIdentifier().equals(instance.getIdentifier())).findFirst();
             if (persistedInstanceOpt.isPresent()) {
                 logger.info("Instance found: " + persistedInstanceOpt.get().toString());
@@ -76,11 +76,14 @@ public class InstanceWorker implements Runnable {
             persistedInstance.setVersion(instance.getVersion());
             persistedInstance.setIdentifier(instance.getIdentifier());
 
-//            if (!persistedInstance.getServer().getIp().equals(instance.getServer().getIp()) || !persistedInstance.getServer().getServerName().equals(instance.getServer().getServerName()) ) {
-//                persistedInstance.getServer().removeInstance(persistedInstance);
-//                persistedInstance.setServer(server);
-//                server.addInstance(persistedInstance);
-//            }
+            if (persistedInstance.getServer() != null) {
+                if (!persistedInstance.getServer().getIp().equals(instance.getServer().getIp()) || !persistedInstance.getServer().getServerName().equals(instance.getServer().getServerName())) {
+                    persistedInstance.getServer().removeInstance(persistedInstance);
+                }
+            }
+
+            persistedInstance.setServer(server);
+            server.addInstance(persistedInstance);
 
             persistedInstance.getDomains().clear();
             persistedInstance.getDomains().addAll(instance.getDomains());
