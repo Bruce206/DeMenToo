@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 
 public interface ServerRepository extends JpaRepository<Server, Long>, JpaSpecificationExecutor<Server> {
-	public Server findByIpAndServerName(String remoteAddr, String asText);
+	Server findByIpAndServerName(String remoteAddr, String asText);
 }

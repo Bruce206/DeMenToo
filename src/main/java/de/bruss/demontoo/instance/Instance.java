@@ -33,7 +33,7 @@ public class Instance extends MonitoredSuperEntity {
 	@Column(name = "prod", columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean prod;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="instance", fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="instance", orphanRemoval = true)
 	private List<Domain> domains = new ArrayList<>();
 
 	@ManyToOne
