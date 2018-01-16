@@ -19,7 +19,7 @@ public class Server extends MonitoredSuperEntity {
 	private String serverName;
 	private String ip;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="server")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="server", fetch = FetchType.EAGER)
 	private List<Instance> instances = new ArrayList<>();
 	
 	public void addInstance(Instance instance) {

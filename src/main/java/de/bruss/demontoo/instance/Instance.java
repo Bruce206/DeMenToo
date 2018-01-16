@@ -12,8 +12,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,14 +27,15 @@ public class Instance extends MonitoredSuperEntity {
 	private String version;
 	private String licensedFor;
 	private String type;
-	private String paymentModel;
-	private Long usedSpaceInMB;
-	
+
 	@Column(name = "prod", columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean prod;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="instance", orphanRemoval = true)
-	private List<Domain> domains = new ArrayList<>();
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="instance", fetch = FetchType.EAGER, orphanRemoval = true)
+	private Set<Domain> domains = new HashSet<>();
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="instance", fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<InstanceDetail> details = new HashSet<>();
 
 	@ManyToOne
     @JsonIgnoreProperties("instances")
