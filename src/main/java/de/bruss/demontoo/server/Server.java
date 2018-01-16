@@ -2,14 +2,18 @@ package de.bruss.demontoo.server;
 
 import de.bruss.demontoo.common.MonitoredSuperEntity;
 import de.bruss.demontoo.instance.Instance;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Server extends MonitoredSuperEntity {
 
 	@Id
@@ -30,6 +34,8 @@ public class Server extends MonitoredSuperEntity {
 		this.instances.remove(instance);		
 	}
 
-	
-
+    public Server(String serverName, String ip) {
+        this.serverName = serverName;
+        this.ip = ip;
+    }
 }

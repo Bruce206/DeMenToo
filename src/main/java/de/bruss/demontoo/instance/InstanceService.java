@@ -1,27 +1,27 @@
 package de.bruss.demontoo.instance;
 
-import de.bruss.demontoo.server.ServerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 public class InstanceService {
     @Autowired
     private InstanceRepository instanceRepository;
 
-    @Autowired
-    private ServerRepository serverRepository;
-
     private static Logger logger = LoggerFactory.getLogger(InstanceService.class);
+
+    @Autowired
+    private TaskExecutor taskExecutor;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Transactional
     public Instance findOne(Long id) {
@@ -34,17 +34,11 @@ public class InstanceService {
     }
 
     public void addToQueue(Instance instance) {
-        this.service.submit(new InstanceWorker(instanceRepository, serverRepository, instance));
+        InstanceWorker worker = applicationContext.getBean(InstanceWorker.class);
+        worker.setInstance(instance);
+
+        taskExecutor.execute(worker);
         logger.info("Instance-Thread added to Queue: " + instance.toString());
-    }
-
-    private ExecutorService service;
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void startInstanceWorker() {
-        logger.info("Starting Instance-Worker...");
-        service = Executors.newSingleThreadExecutor();
-        logger.info("Instance-Worker started!");
     }
 
     @Transactional

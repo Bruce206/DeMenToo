@@ -8,15 +8,17 @@ import de.bruss.demontoo.common.CustomLocalDateTimeSerializer;
 import de.bruss.demontoo.common.MonitoredSuperEntity;
 import de.bruss.demontoo.domain.Domain;
 import de.bruss.demontoo.server.Server;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Instance extends MonitoredSuperEntity {
 	
 	@Id
@@ -26,7 +28,13 @@ public class Instance extends MonitoredSuperEntity {
 	private String identifier;
 	private String version;
 	private String licensedFor;
-	private String type;
+
+	@ManyToOne
+    @JsonIgnoreProperties("instances")
+	private InstanceType instanceType;
+
+	@Transient
+    private String type;
 
 	@Column(name = "prod", columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean prod;
@@ -52,5 +60,13 @@ public class Instance extends MonitoredSuperEntity {
 
     public void addDomain(Domain domain) {
 	    this.domains.add(domain);
+    }
+
+    public Map<String, List<InstanceDetail>> getInstanceDetailsByCategory() {
+	    return this.details.stream().sorted(Comparator.comparing(InstanceDetail::getCategory)).collect(Collectors.groupingBy(InstanceDetail::getCategory));
+    }
+
+    public Map<String, List<InstanceDetail>> getInstanceDetailsByKey() {
+        return this.details.stream().sorted(Comparator.comparing(InstanceDetail::getKey)).collect(Collectors.groupingBy(InstanceDetail::getKey));
     }
 }

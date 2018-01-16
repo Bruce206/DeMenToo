@@ -2,7 +2,8 @@ package de.bruss.demontoo.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -16,7 +17,8 @@ import java.time.LocalDateTime;
  * Adds a created- and a modified-date to all entities which extend this one.
  */
 @MappedSuperclass
-@Data
+@Getter
+@Setter
 public abstract class MonitoredSuperEntity {
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)

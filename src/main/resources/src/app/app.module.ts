@@ -16,9 +16,11 @@ import {ServerService} from "./server/server.service";
 import {InstanceListComponent} from "./instance/instance.list.component";
 import {InstanceService} from "./instance/instance.service";
 import {SortPipe} from "./sort.pipe";
-import {InstanceDetailComponent} from "./instance/instance.detail.component";
+import {InstanceDetailComponent, KeysPipe} from "./instance/instance.detail.component";
 import {FormRowComponent} from "./uiComponents/formrow/form-row.component";
 import {InstanceTypeLogoDirective} from "./uiComponents/formrow/instanceTypeLogo";
+import {InstanceTypeService} from "./instance/instancetype.service";
+import {InstanceTypeComponent} from "./instance/instancetype.component";
 
 @NgModule({
   imports: [
@@ -52,6 +54,10 @@ import {InstanceTypeLogoDirective} from "./uiComponents/formrow/instanceTypeLogo
       {
         path: 'instance/detail/:id',
         component: InstanceDetailComponent
+      },
+      {
+        path: 'instanceType/:type',
+        component: InstanceTypeComponent
       }
     ])
 
@@ -63,12 +69,16 @@ import {InstanceTypeLogoDirective} from "./uiComponents/formrow/instanceTypeLogo
     ServerListComponent,
     InstanceListComponent,
     InstanceDetailComponent,
+    InstanceTypeComponent,
     SortPipe,
+    KeysPipe,
     InstanceTypeLogoDirective
   ],
   providers: [
     ServerService,
     InstanceService,
+    InstanceTypeService,
+    SortPipe
   ],
   entryComponents: [],
   bootstrap: [AppComponent]

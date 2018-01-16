@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {InstanceService} from "./instance.service";
 import {ActivatedRoute} from "@angular/router";
+import { PipeTransform, Pipe } from '@angular/core';
 
 
 @Component({
@@ -18,11 +19,21 @@ export class InstanceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.instanceService.get(+params['id']).subscribe((data) => {
+      this.instanceService.get(+params['name']).subscribe((data) => {
         this.instance = data;
       });
     });
 
   }
+}
 
+@Pipe({name: 'keys'})
+export class KeysPipe implements PipeTransform {
+  transform(value, args: string[]): any {
+    let keys = [];
+    for (let key in value) {
+      keys.push({key: key, value: value[key]});
+    }
+    return keys;
+  }
 }

@@ -1,11 +1,16 @@
 import {Component} from '@angular/core';
 import {MenuItem} from "primeng/primeng";
+import {InstanceTypeService} from "./instance/instancetype.service";
 
 @Component({
   selector: 'app',
   templateUrl: 'frame.html'
 })
 export class AppComponent {
+
+  constructor(private instanceTypeService: InstanceTypeService) {
+
+  }
 
   items: MenuItem[];
 
@@ -22,15 +27,22 @@ export class AppComponent {
       },
       {
         label: 'Servers',
-        icon: 'fa-file-o',
+        icon: 'fa-server',
         routerLink: '/server'
       },
       {
         label: 'Apps',
-        icon: 'fa-file-o',
+        icon: 'fa-cubes',
         routerLink: '/instance'
       },
+      {}
     ];
+
+    this.instanceTypeService.getList().subscribe(types => {
+      for (let type of types) {
+        this.items.push({icon: 'fa-cubes', label: type.name, routerLink: '/instanceType/' + type.name});
+      }
+    });
   }
 
 }

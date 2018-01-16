@@ -16,12 +16,15 @@
         </ng-template>
       </form-row>
     </p-panel>
-  </div>
-  <div class="ui-g-6">
     <p-panel header="Domänen">
       <div *ngFor="let domain of instance.domains">
         <a [href]="'http://' + domain.url">{{domain.name}}</a>
       </div>
+    </p-panel>
+  </div>
+  <div class="ui-g-6">
+    <p-panel [header]="cat.key" *ngFor="let cat of instance.instanceDetailsByCategory | keys | sortBy:'key'">
+      <form-row *ngFor="let det of cat.value | sortBy:'key'" [editable]="false" [label]="det.key" [(ngModel)]="det.value"></form-row>
     </p-panel>
   </div>
 </div>

@@ -5,26 +5,29 @@ import de.bruss.demontoo.server.Server;
 import de.bruss.demontoo.server.ServerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Component
+@Scope("prototype")
 public class InstanceWorker implements Runnable {
-    protected InstanceRepository instanceRepository;
-    protected ServerRepository serverRepository;
+    @Autowired
+    private InstanceRepository instanceRepository;
+    @Autowired
+    private ServerRepository serverRepository;
+    @Autowired
+    private InstanceTypeService instanceTypeService;
 
-    protected static Logger logger = LoggerFactory.getLogger(InstanceWorker.class);
+    private static Logger logger = LoggerFactory.getLogger(InstanceWorker.class);
 
-    protected Instance instance;
-
-    public InstanceWorker(InstanceRepository instanceRepository, ServerRepository serverRepository, Instance instance) {
-        super();
-        this.instanceRepository = instanceRepository;
-        this.serverRepository = serverRepository;
-        this.instance = instance;
-    }
+    private Instance instance;
 
     @Override
     @Transactional
@@ -56,56 +59,62 @@ public class InstanceWorker implements Runnable {
             }
 
             logger.info("Searching for Instance");
+            Instance persistedInstance = null;
             Optional<Instance> persistedInstanceOpt = server.getInstances().stream().filter(i -> i.getIdentifier().equals(instance.getIdentifier())).findFirst();
             if (persistedInstanceOpt.isPresent()) {
                 logger.info("Instance found: " + persistedInstanceOpt.get().toString());
-                Instance persistedInstance = persistedInstanceOpt.get();
-                persistedInstance.setDomains(instance.getDomains());
-                persistedInstance.setLicensedFor(instance.getLicensedFor());
-                persistedInstance.setProd(instance.isProd());
-                persistedInstance.setType(instance.getType());
-                persistedInstance.setVersion(instance.getVersion());
-
-                if (persistedInstance.getServer().getId() != instance.getServer().getId()) {
-                    persistedInstance.getServer().removeInstance(persistedInstance);
-                    persistedInstance.setServer(server);
-                    server.addInstance(persistedInstance);
-                }
-
-                persistedInstance.setLastMessage(LocalDateTime.now());
-
-                persistedInstance.setDomains(instance.getDomains());
-                for (Domain domain : persistedInstance.getDomains()) {
-                    domain.setInstance(persistedInstance);
-                }
-
-                persistedInstance.setDetails(instance.getDetails());
-                for (InstanceDetail detail : persistedInstance.getDetails()) {
-                    detail.setInstance(persistedInstance);
-                }
-
-                instanceRepository.save(persistedInstance);
+                persistedInstance = persistedInstanceOpt.get();
             } else {
-                logger.info("Instance not found. Creating a new one..");
-                instance.setLastMessage(LocalDateTime.now());
-                server.addInstance(instance);
-                instance.setServer(server);
-
-                for (Domain domain : instance.getDomains()) {
-                    domain.setInstance(instance);
-                }
-
-                for (InstanceDetail detail : instance.getDetails()) {
-                    detail.setInstance(instance);
-                }
-
-                instanceRepository.save(instance);
-                logger.info("Instance created: " + instance.toString());
+                logger.info("Instance created");
+                persistedInstance = new Instance();
             }
+
+            persistedInstance.setLastMessage(LocalDateTime.now());
+
+            persistedInstance.setLicensedFor(instance.getLicensedFor());
+            persistedInstance.setProd(instance.isProd());
+            persistedInstance.setVersion(instance.getVersion());
+            persistedInstance.setIdentifier(instance.getIdentifier());
+
+//            if (!persistedInstance.getServer().getIp().equals(instance.getServer().getIp()) || !persistedInstance.getServer().getServerName().equals(instance.getServer().getServerName()) ) {
+//                persistedInstance.getServer().removeInstance(persistedInstance);
+//                persistedInstance.setServer(server);
+//                server.addInstance(persistedInstance);
+//            }
+
+            persistedInstance.getDomains().clear();
+            persistedInstance.getDomains().addAll(instance.getDomains());
+            for (Domain domain : persistedInstance.getDomains()) {
+                domain.setInstance(persistedInstance);
+            }
+
+            persistedInstance.getDetails().clear();
+            persistedInstance.getDetails().addAll(instance.getDetails());
+            for (InstanceDetail detail : persistedInstance.getDetails()) {
+                detail.setInstance(persistedInstance);
+            }
+
+            if (!StringUtils.isEmpty(instance.getType())) {
+                InstanceType persistedType = instanceTypeService.findByName(instance.getType());
+                if (persistedType == null) {
+                    persistedType = new InstanceType(instance.getType());
+                    instanceTypeService.save(persistedType);
+                }
+
+                persistedType.getInstances().add(persistedInstance);
+                persistedInstance.setInstanceType(persistedType);
+            }
+
+            instanceRepository.save(persistedInstance);
+
 
             logger.info("Instanceupdate successful! [" + instance.toString() + "]");
         } catch (Exception e) {
             logger.error("Error during instanceupdate", e);
         }
+    }
+
+    public void setInstance(Instance instance) {
+        this.instance = instance;
     }
 }
