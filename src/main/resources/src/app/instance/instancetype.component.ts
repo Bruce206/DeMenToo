@@ -23,13 +23,17 @@ export class InstanceTypeComponent implements OnInit {
   ngOnInit(): void {
     this.cols = [
       {field: 'prod', header: 'Prod', filter: false, pos: 1, class: "col-icon"},
-      {field: 'type', header: 'App-Type', filter: true, pos: 2},
-      {field: 'identifier', header: 'App-Name', filter: true, pos: 3},
-      {field: 'domains', header: 'Domain', filter: true, pos: 4},
-      {field: 'licensedFor', header: 'Customer', filter: true, pos: 5},
-      {field: 'version', header: 'Version', filter: true, pos: 6},
-      {field: 'modified', header: 'Last Message', filter: false, pos: 7}
+      {field: 'identifier', header: 'App-Name', filter: true, pos: 2},
+      {field: 'domains', header: 'Domain', filter: true, pos: 3},
+      {field: 'licensedFor', header: 'Customer', filter: true, pos: 4},
+      {field: 'version', header: 'Version', filter: true, pos: 5},
+      {field: 'modified', header: 'Last Message', filter: false, pos: 6}
     ];
+
+    this.columnOptions = [];
+    for (let i = 0; i < this.cols.length; i++) {
+      this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
+    }
 
     this.route.params.subscribe(params => {
       this.instanceTypeService.get(params['type']).subscribe((data) => {
@@ -37,19 +41,14 @@ export class InstanceTypeComponent implements OnInit {
         if (data.instances && data.instances.length > 0) {
           for (let instance of data.instances) {
             for (let detail of instance.details) {
-              data.instances[0][detail.key] = data.instances[0].instanceDetailsByKey[detail.key][0].value;
+              instance[detail.key] = instance.instanceDetailsByKey[detail.key][0].value;
             }
           }
 
-          let pos = 8;
+          let pos = 7;
           this.sortPipe.transform(data.instances[0].details, 'key');
-          for (let detail of data.instances[0].details) {
-            this.cols.push({field: detail.key, header: detail.key, filter: true, pos: pos++});
-          }
-
-          this.columnOptions = [];
-          for (let i = 0; i < this.cols.length; i++) {
-            this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
+          for (let key of data.instanceDetailKeys) {
+            this.columnOptions.push({label: key, value: {field: key, header: key, filter: true, pos: pos++}});
           }
         }
       });

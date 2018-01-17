@@ -29,4 +29,16 @@ public class InstanceType {
     public InstanceType(String name) {
         this.name = name;
     }
+
+    public Set<String> getInstanceDetailKeys () {
+        Set<String> keys = new HashSet<>();
+
+        for (Instance instance : instances) {
+            for (InstanceDetail detail : instance.getDetails()) {
+                keys.add(detail.getKey());
+            }
+        }
+
+        return keys;
+    }
 }
