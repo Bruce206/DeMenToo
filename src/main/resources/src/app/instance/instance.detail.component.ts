@@ -19,7 +19,7 @@ export class InstanceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.instanceService.get(+params['name']).subscribe((data) => {
+      this.instanceService.get(+params['id']).subscribe((data) => {
         this.instance = data;
       });
     });
