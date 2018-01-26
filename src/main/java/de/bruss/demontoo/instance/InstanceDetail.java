@@ -18,7 +18,7 @@ public class InstanceDetail {
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Instance instance;
 
     private String category;

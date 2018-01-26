@@ -43,7 +43,13 @@ public class InstanceService {
 
     @Transactional
     public void delete(Long id) {
-        instanceRepository.delete(id);
+        Instance instance = instanceRepository.findOne(id);
+        instance.getServer().removeInstance(instance);
+        instance.setServer(null);
+
+        instance.getInstanceType().removeInstance(instance);
+        instance.setInstanceType(null);
+        instanceRepository.delete(instance);
     }
 
     @Transactional

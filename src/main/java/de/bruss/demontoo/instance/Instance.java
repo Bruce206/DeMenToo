@@ -10,6 +10,8 @@ import de.bruss.demontoo.domain.Domain;
 import de.bruss.demontoo.server.Server;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.*;
@@ -42,11 +44,13 @@ public class Instance extends MonitoredSuperEntity {
 	@Column(name = "prod", columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean prod;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="instance", fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Domain> domains = new HashSet<>();
+	@OneToMany(mappedBy="instance", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
+	private List<Domain> domains = new ArrayList<>();
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="instance", fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<InstanceDetail> details = new HashSet<>();
+    @OneToMany(mappedBy="instance", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<InstanceDetail> details = new ArrayList<>();
 
 	@ManyToOne
     @JsonIgnoreProperties("instances")

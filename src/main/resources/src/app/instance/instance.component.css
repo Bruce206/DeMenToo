@@ -10,6 +10,10 @@ instance tr:hover {
   background: red !important;
 }
 
+.testcritical {
+  background: #ffcb6d !important;
+}
+
 .col-selector .ui-multiselect-panel {
   height: 600px;
   width: 400px;

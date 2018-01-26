@@ -6,7 +6,7 @@ import { PipeTransform, Pipe } from '@angular/core';
 
 
 @Component({
-  selector: 'instanceDet',
+  selector: 'instanceDetail',
   templateUrl: 'instance.detail.component.html',
   styleUrls: ['instance.component.css']
 })
@@ -27,7 +27,7 @@ export class InstanceDetailComponent implements OnInit {
 
   delete(): void {
     this.instanceService.delete(this.instance).subscribe();
-    // window.close();
+    window.close();
   }
 }
 

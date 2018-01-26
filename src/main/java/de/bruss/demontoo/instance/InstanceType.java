@@ -45,4 +45,8 @@ public class InstanceType {
 
         return keys;
     }
+
+    public void removeInstance(Instance instance) {
+        this.getInstances().remove(instance);
+    }
 }

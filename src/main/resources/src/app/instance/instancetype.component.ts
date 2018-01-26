@@ -56,7 +56,13 @@ export class InstanceTypeComponent implements OnInit {
   }
 
   lookupRowStyleClass(instance: any) {
-    return instance.lastMessageCritical ? 'critical' : '';
+    if (instance.lastMessageCritical) {
+      if (instance.prod) {
+        return "critical";
+      } else {
+        return "testcritical";
+      }
+    }
   }
 
   save() {

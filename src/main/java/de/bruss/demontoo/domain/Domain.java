@@ -24,7 +24,7 @@ public class Domain  extends MonitoredSuperEntity {
 	private String url;
 		
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Instance instance;
 
     public Domain(String name, String url) {
