@@ -41,6 +41,10 @@ export class InstanceListComponent implements OnInit {
     }
   }
 
+  lookupRowStyleClass(instance: any) {
+    return instance.lastMessageCritical ? 'critical' : '';
+  }
+
   handleRowClick(event: any) {
     window.open('/instance/detail/' + event.data.id, "_blank");
   }

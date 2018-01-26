@@ -10,9 +10,12 @@ import de.bruss.demontoo.domain.Domain;
 import de.bruss.demontoo.server.Server;
 import lombok.Getter;
 import lombok.Setter;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,5 +71,21 @@ public class Instance extends MonitoredSuperEntity {
 
     public Map<String, List<InstanceDetail>> getInstanceDetailsByKey() {
         return this.details.stream().sorted(Comparator.comparing(InstanceDetail::getKey)).collect(Collectors.groupingBy(InstanceDetail::getKey));
+    }
+
+    public String getTimeAgo() {
+	    if (this.lastMessage == null) {
+	        return "n.A.";
+        }
+
+        PrettyTime p = new PrettyTime(new Locale("de"));
+        return p.format(Date.from(this.lastMessage.atZone(ZoneId.systemDefault()).toInstant()));
+    }
+
+    public boolean getLastMessageCritical() {
+	    if ( ChronoUnit.MINUTES.between(lastMessage, LocalDateTime.now()) > (this.instanceType.getMessageInterval() == null ? 60 : this.instanceType.getMessageInterval())) {
+            return true;
+        }
+        return false;
     }
 }

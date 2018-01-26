@@ -17,8 +17,10 @@ public class InstanceTypeService {
     }
 
     @Transactional
-    public void save(InstanceType instancetype) {
-        instancetypeRepository.save(instancetype);
+    public InstanceType save(InstanceType instancetype) {
+        InstanceType persistedType = instancetypeRepository.findOne(instancetype.getId());
+        persistedType.setMessageInterval(instancetype.getMessageInterval());
+        return persistedType;
     }
 
     @Transactional
@@ -39,5 +41,10 @@ public class InstanceTypeService {
     @Transactional
     public InstanceType findByName(String name) {
         return instancetypeRepository.findByName(name);
+    }
+
+    @Transactional
+    public void setFile(Long id, byte[] bytes) {
+        instancetypeRepository.findOne(id).setImage(bytes);
     }
 }

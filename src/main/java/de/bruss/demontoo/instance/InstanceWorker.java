@@ -58,6 +58,8 @@ public class InstanceWorker implements Runnable {
                 logger.info("Server created: " + server.toString());
             }
 
+            server.setLastMessage(LocalDateTime.now());
+
             logger.info("Searching for Instance");
             Instance persistedInstance;
             Optional<Instance> persistedInstanceOpt = server.getInstances().stream().filter(i -> i.getIdentifier().equals(instance.getIdentifier())).findFirst();

@@ -1,13 +1,13 @@
-<p-dataTable [value]="instances" #dt class="instance-list" exportFilename="instances" (onRowClick)="handleRowClick($event)">
+<p-dataTable [value]="instances" #dt class="instance-list" exportFilename="instances" (onRowClick)="handleRowClick($event)" [rowStyleClass]="lookupRowStyleClass">
   <p-header>
     <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:right"></button>
     <div style="text-align:left">
-      <p-multiSelect [options]="columnOptions" [(ngModel)]="cols" (onChange)="colsChanged"></p-multiSelect>
+      <p-multiSelect [options]="columnOptions" [(ngModel)]="cols" (onChange)="colsChanged" scrollHeight="545px" styleClass="col-selector"></p-multiSelect>
     </div>
   </p-header>
   <p-column *ngFor="let col of cols | sortBy : 'pos'" [field]="col.field" [header]="col.header" [filter]="col.filter" [filterMatchMode]="col.filterMatchMode ? col.filterMatchMode : 'contains'" [sortable]="true" [styleClass]="col.class">
     <ng-template *ngIf="col.field === 'modified'" let-item let-data="rowData" pTemplate type="body">
-      <span>{{data.lastMessage | date:"dd.MM.yyy &nbsp;&nbsp;HH:mm"}}</span>
+      <span [title]="data.lastMessage | date:'dd.MM.yyy &nbsp;&nbsp;HH:mm'">{{data.timeAgo}}</span>
     </ng-template>
 
     <ng-template *ngIf="col.field === 'domains'" let-item let-data="rowData" pTemplate type="body">
@@ -20,7 +20,7 @@
     </ng-template>
 
     <ng-template *ngIf="col.field === 'type'" let-item let-data="rowData" pTemplate type="body">
-      <span [instance-type]="data.type">{{data.type}}</span>
+      <img [src]="'data:image/png;base64,' + data.instanceType.image" [alt]="data.instanceType.name">
     </ng-template>
   </p-column>
 </p-dataTable>

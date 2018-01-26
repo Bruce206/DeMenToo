@@ -9,6 +9,7 @@ import {
   DropdownModule, GalleriaModule, SidebarModule, CheckboxModule, TieredMenuModule, FileUploadModule, DataGridModule,
   DialogModule, LightboxModule, MenubarModule, MultiSelectModule, OverlayPanelModule
 } from "primeng/primeng";
+import {CardModule} from 'primeng/card';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {ServerListComponent} from "./server/server.list.component";
@@ -18,7 +19,6 @@ import {InstanceService} from "./instance/instance.service";
 import {SortPipe} from "./sort.pipe";
 import {InstanceDetailComponent, KeysPipe} from "./instance/instance.detail.component";
 import {FormRowComponent} from "./uiComponents/formrow/form-row.component";
-import {InstanceTypeLogoDirective} from "./uiComponents/formrow/instanceTypeLogo";
 import {InstanceTypeService} from "./instance/instancetype.service";
 import {InstanceTypeComponent} from "./instance/instancetype.component";
 
@@ -32,7 +32,7 @@ import {InstanceTypeComponent} from "./instance/instancetype.component";
     TieredMenuModule, MenuModule, ButtonModule, PanelModule, DataTableModule, SharedModule,
     DropdownModule, GalleriaModule, AccordionModule, FieldsetModule, SidebarModule, CheckboxModule,
     FileUploadModule, DataGridModule, DialogModule, LightboxModule, MenubarModule, MultiSelectModule,
-    OverlayPanelModule,
+    OverlayPanelModule, CardModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -71,8 +71,7 @@ import {InstanceTypeComponent} from "./instance/instancetype.component";
     InstanceDetailComponent,
     InstanceTypeComponent,
     SortPipe,
-    KeysPipe,
-    InstanceTypeLogoDirective
+    KeysPipe
   ],
   providers: [
     ServerService,

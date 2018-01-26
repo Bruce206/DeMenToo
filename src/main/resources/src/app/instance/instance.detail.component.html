@@ -4,7 +4,7 @@
       <form-row [editable]="false" label="Identifier" [(ngModel)]="instance.identifier"></form-row>
       <form-row [editable]="false" label="Type" [(ngModel)]="instance.type">
         <ng-template>
-          <span [instance-type]="instance.type">{{instance.type}}</span>
+          <img [src]="instance.instanceType.image" [alt]="instance.instanceType.name">
         </ng-template>
       </form-row>
       <form-row [editable]="false" label="Version" [(ngModel)]="instance.version"></form-row>

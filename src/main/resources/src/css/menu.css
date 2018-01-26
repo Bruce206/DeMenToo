@@ -12,7 +12,7 @@
   border: none;
 }
 
-.menu-container .ui-menu {
+.menu-container .ui-tieredmenu {
   background: transparent;
   border: none;
 }
@@ -58,15 +58,15 @@
   padding: 5px 5px;
 }
 
-.menu-container .ui-menu .ui-menuitem-link {
+.menu-container .ui-tieredmenu .ui-tieredmenuitem-link {
    padding: .5em;
  }
 
-.menu-container .ui-menu .ui-menuitem .ui-menuitem-link:hover {
+.menu-container .ui-tieredmenu .ui-tieredmenuitem .ui-tieredmenuitem-link:hover {
   background-color: #448077;
 }
 
-.menu-container .ui-menu .ui-menuitem .ui-menuitem-link.ui-state-active {
+.menu-container .ui-tieredmenu .ui-tieredmenuitem .ui-tieredmenuitem-link.ui-state-active {
   background: #ffa500;
   color: #2d465c;
 }
@@ -75,4 +75,10 @@
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
+}
+
+.ui-state-active {
+  border-color: #2d465b;
+  background: #2d465b;
+  color: white !important;
 }

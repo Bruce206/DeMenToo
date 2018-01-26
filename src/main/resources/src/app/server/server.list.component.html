@@ -22,7 +22,7 @@
                 <p-panel [header]="instance.identifier">
                   <div class="ui-g">
                   <div class="ui-g-6" style="padding: 0">Type:</div>
-                  <div class="ui-g-6" style="padding: 0" [instance-type]="instance.type">{{instance.type}}</div>
+                  <div class="ui-g-6" style="padding: 0"><img [src]="instance?.instanceType.image" [alt]="instance.instanceType.name"></div>
                   <div class="ui-g-6" style="padding: 0">Version:</div>
                   <div class="ui-g-6" style="padding: 0">{{instance.version}}</div>
                   <div class="ui-g-6" style="padding: 0">Customer:</div>

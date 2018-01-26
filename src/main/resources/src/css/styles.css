@@ -66,3 +66,6 @@ p-panel ~ p-panel > .ui-panel {
   margin-top: 10px;
 }
 
+.ui-datatable-data tr {
+  cursor: pointer;
+}

@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +20,12 @@ public class InstanceType {
     private String name;
 
     @Lob
-    private Blob imagePath;
+    private byte[] image;
+
+    /**
+     * in minutes!
+     */
+    private Long messageInterval;
 
     @OneToMany(cascade=CascadeType.ALL, mappedBy="instanceType", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Instance> instances = new HashSet<>();

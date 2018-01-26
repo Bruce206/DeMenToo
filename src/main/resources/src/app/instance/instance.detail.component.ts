@@ -23,7 +23,10 @@ export class InstanceDetailComponent implements OnInit {
         this.instance = data;
       });
     });
+  }
 
+  delete(): void {
+    this.instanceService.delete(this.instance);
   }
 }
 

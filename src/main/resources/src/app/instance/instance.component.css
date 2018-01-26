@@ -5,3 +5,12 @@ instance tr:hover {
 .col-icon {
   width: 50px;
 }
+
+.critical {
+  background: red !important;
+}
+
+.col-selector .ui-multiselect-panel {
+  height: 600px;
+  width: 400px;
+}

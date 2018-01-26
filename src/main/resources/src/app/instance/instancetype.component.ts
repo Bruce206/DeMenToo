@@ -53,8 +53,16 @@ export class InstanceTypeComponent implements OnInit {
         }
       });
     });
+  }
 
+  lookupRowStyleClass(instance: any) {
+    return instance.lastMessageCritical ? 'critical' : '';
+  }
 
+  save() {
+    this.instanceTypeService.save(this.instanceType).subscribe(it => {
+      this.instanceType = it;
+    });
   }
 
   handleRowClick(event: any) {
