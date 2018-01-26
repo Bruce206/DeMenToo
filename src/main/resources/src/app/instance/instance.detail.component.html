@@ -1,6 +1,12 @@
 <div class="ui-g" *ngIf="instance">
   <div class="ui-g-6">
-    <p-panel header="Informations">
+    <p-panel>
+      <p-header>
+        <div class="ui-helper-clearfix">
+          <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Informations</span>
+          <button pButton type="button" label="Delete" (click)="delete()" style="float: right;"></button>
+        </div>
+      </p-header>
       <form-row [editable]="false" label="Identifier" [(ngModel)]="instance.identifier"></form-row>
       <form-row [editable]="false" label="Type" [(ngModel)]="instance.type">
         <ng-template>
