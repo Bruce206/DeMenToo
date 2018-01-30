@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +22,11 @@ public class InstanceType {
 
     @Lob
     private byte[] image;
+
+    @Lob
+    private byte[] update;
+
+    private LocalDateTime updateTime;
 
     /**
      * in minutes!

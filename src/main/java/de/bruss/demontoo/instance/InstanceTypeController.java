@@ -1,5 +1,8 @@
 package de.bruss.demontoo.instance;
 
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
+import de.bruss.demontoo.ssh.SshService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +49,18 @@ public class InstanceTypeController {
     @RequestMapping(value="/image/{id}", method = RequestMethod.POST)
     public void setImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
         instancetypeService.setFile(id, file.getBytes());
+    }
+
+    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
+    public void setUpdate(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
+        instancetypeService.setUpdateFile(id, file.getBytes());
+    }
+
+    @Autowired
+    private SshService sshService;
+
+    @RequestMapping(value="/deploy/{id}", method = RequestMethod.GET)
+    public void setUpdate(@PathVariable Long id) throws JSchException, SftpException {
+        instancetypeService.deploy(id);
     }
 }
