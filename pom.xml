@@ -163,6 +163,17 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources/</directory>
+                <excludes>
+                    <exclude>src/**</exclude>
+                    <exclude>src/node_modules/**</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 
     <repositories>

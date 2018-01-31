@@ -1,5 +1,6 @@
 package de.bruss.demontoo.instance;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class InstanceType {
     private byte[] image;
 
     @Lob
+    @JsonIgnore
     private byte[] update;
 
     private LocalDateTime updateTime;

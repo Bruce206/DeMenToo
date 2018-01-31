@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/src/main/resources/src/node_modules" includeSubdirectories="true" />
+    </excludeFromCompile>
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DeMenToo" />
+        <module name="DeMonToo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="DeMenToo" target="1.8" />
+      <module name="DeMonToo" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -18,6 +18,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/resources/src/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/targettmp" />
     </content>
     <content url="file://$MODULE_DIR$/src/main/resources/src/node_modules" />
     <orderEntry type="inheritedJdk" />
@@ -109,7 +110,10 @@
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
   </component>
   <component name="sonarModuleSettings">
+    <option name="alternativeWorkingDirPath" value="" />
     <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
     <option name="serverName" value="&lt;PROJECT&gt;" />
+    <option name="useAlternativeWorkingDir" value="false" />
+    <option name="workingDirSelection" value="&lt;MODULE&gt;" />
   </component>
 </module>
