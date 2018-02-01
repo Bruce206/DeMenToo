@@ -29,13 +29,17 @@ module.exports = {
         loader: 'html-loader'
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file-loader?name=assets/[name].[hash].[ext]'
+        test: /\.(png|jpe?g|gif|ico)$/,
+        loader: 'file-loader?name=images/[name].[hash].[ext]'
+      },
+      {
+        test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+          loader: 'file-loader?name=fonts/[name].[ext]'
       },
       {
         test: /\.css$/,
         exclude: path.resolve('app'),
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?sourceMap' })
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
       },
       {
         test: /\.css$/,

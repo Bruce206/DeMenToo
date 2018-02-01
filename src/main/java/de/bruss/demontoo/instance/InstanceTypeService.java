@@ -23,15 +23,16 @@ public class InstanceTypeService {
     private final Logger logger = LoggerFactory.getLogger(InstanceTypeService.class);
 
     @Transactional
-    public InstanceType findOne(Long id) {
-        return instancetypeRepository.findOne(id);
-    }
-
-    @Transactional
     public InstanceType save(InstanceType instancetype) {
-        InstanceType persistedType = instancetypeRepository.findOne(instancetype.getId());
+        InstanceType persistedType;
+        if (instancetype.getId() != null) {
+            persistedType = instancetypeRepository.findOne(instancetype.getId());
+        } else {
+            persistedType = instancetype;
+        }
+
         persistedType.setMessageInterval(instancetype.getMessageInterval());
-        return persistedType;
+        return instancetypeRepository.save(persistedType);
     }
 
     @Transactional
@@ -60,20 +61,22 @@ public class InstanceTypeService {
     }
 
     @Transactional
-    public void setUpdateFile(Long id, byte[] bytes) {
-        instancetypeRepository.findOne(id).setUpdate(bytes);
+    public void setUpdateFile(Long id, byte[] bytes, String originalFilename) {
+        InstanceType type = instancetypeRepository.findOne(id);
+        type.setUpdate(bytes);
+        type.setUpdateFileName(originalFilename);
     }
 
     @Transactional
     public void deploy(Long id) throws JSchException, SftpException {
-        Session session = sshService.getSession("http://brucenet.de");
+        Session session = sshService.getSession("brucenet.de");
         session.connect();
 
         ChannelSftp sftpChannel = sshService.getSftpChannel(session);
 
         InstanceType instanceType = instancetypeRepository.findOne(id);
 
-        sftpChannel.put(new ByteArrayInputStream(instanceType.getUpdate()), "/tmp/test.jar", new SftpProgressMonitor() {
+        sftpChannel.put(new ByteArrayInputStream(instanceType.getUpdate()), "/wwwhome/" + instanceType.getUpdateFileName().toLowerCase(), new SftpProgressMonitor() {
 
             private double bytes;
             private double max;

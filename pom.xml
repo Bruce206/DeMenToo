@@ -144,7 +144,7 @@
 
                     <!--npm install -->
                     <execution>
-                        <id>npm install</id>
+                        <id>npm run build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>

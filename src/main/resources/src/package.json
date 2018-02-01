@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8008",
     "tsc": "tsc -p ./ -w",
-    "build": "webpack --config webpack.prod.js",
+    "build": "rimraf ../public/ && webpack --config webpack.prod.js",
     "webpack-watch": "webpack --watch",
     "webpack-dev-server": "webpack-dev-server --inline"
   },
@@ -50,7 +50,8 @@
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1",
-    "webpack-merge": "^4.1.1"
+    "webpack-merge": "^4.1.1",
+    "rimraf": "latest"
   },
   "repository": {}
 }

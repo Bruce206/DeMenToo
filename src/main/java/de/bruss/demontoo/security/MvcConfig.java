@@ -59,9 +59,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         ).addResourceLocations(staticLocations)
                 .setCachePeriod(cachePeriod);
 
-        registry.addResourceHandler("/images/**")
-                .addResourceLocations("classpath:/src/images/");
-
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/public/index.html")
                 .setCachePeriod(cachePeriod).resourceChain(true)

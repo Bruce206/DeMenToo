@@ -33,6 +33,7 @@ public class InstanceService {
         return instanceRepository.save(instance);
     }
 
+    @Transactional
     public void addToQueue(Instance instance) {
         InstanceWorker worker = applicationContext.getBean(InstanceWorker.class);
         worker.setInstance(instance);

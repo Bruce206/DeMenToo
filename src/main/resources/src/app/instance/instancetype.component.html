@@ -1,8 +1,5 @@
 <div class="ui-g">
   <div class="ui-g-6">
-    <span style="font-weight: bold; font-size: 100px; line-height: 90px; font-variant: small-caps;">{{instanceType.name}}</span>
-  </div>
-  <div class="ui-g-6">
     <p-card *ngIf="instanceType">
       <div class="ui-grid-row">
         <div class="ui-grid-col-5" style="padding: .25em .5em;">
@@ -19,11 +16,13 @@
     <p-card *ngIf="instanceType">
       <h2>Deployment</h2>
       <div class="ui-grid-row">
-        <div class="ui-grid-col-5" style="padding: .25em .5em;">
-          Update
+        <div class="ui-grid-col-12">
+          Aktuelle Updatedatei: {{instanceType.updateFileName}}
         </div>
-        <div class="ui-grid-col-7">
-          <p-fileUpload mode="basic" name="file" [url]="'/api/instanceType/update/' + instanceType?.id" accept="*/*" maxFileSize="100000000" auto="true" chooseLabel="Upload new Update"></p-fileUpload>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+          <p-fileUpload name="file" [url]="'/api/instanceType/update/' + instanceType?.id" maxFileSize="100000000" chooseLabel="Upload new Update"></p-fileUpload>
         </div>
       </div>
       <a [href]="'/api/instanceType/deploy/' + instanceType.id" target="_blank">Deploy</a>

@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/.gitattributes">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/npmlib/webpack.common.js">
           <value>
             <set />
@@ -38,7 +43,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceDetail.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceService.java">
           <value>
             <set />
           </value>
@@ -59,6 +74,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceWorker.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/security/MvcConfig.java">
           <value>
             <set />
           </value>
@@ -84,6 +104,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/logback.xml">
           <value>
             <set />
           </value>
@@ -168,6 +193,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/src/webpack.common.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/templates/login.html">
           <value>
             <set />
@@ -183,7 +213,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/configuration/ConfigurationController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/monitoring/MonitoringScheduler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/application.properties">
           <value>
             <set />
           </value>
@@ -229,6 +269,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/finances/invoice/detail.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/templates/login.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/test/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/admin/scripts/node/tree/angular.treeview.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/0aaf4062-dd50-45a5-a7e9-6f310a15c42d/console.sql">
           <value>
             <set />
           </value>

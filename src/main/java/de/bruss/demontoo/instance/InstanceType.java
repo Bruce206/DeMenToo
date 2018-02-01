@@ -28,6 +28,8 @@ public class InstanceType {
     @JsonIgnore
     private byte[] update;
 
+    private String updateFileName;
+
     private LocalDateTime updateTime;
 
     /**

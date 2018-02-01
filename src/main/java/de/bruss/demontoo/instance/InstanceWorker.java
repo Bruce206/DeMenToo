@@ -108,6 +108,7 @@ public class InstanceWorker implements Runnable {
 
                 persistedType.getInstances().add(persistedInstance);
                 persistedInstance.setInstanceType(persistedType);
+                instanceTypeService.save(persistedType);
             }
 
             instanceRepository.save(persistedInstance);

@@ -1,10 +1,11 @@
 package de.bruss.demontoo.instance;
 
-import de.bruss.demontoo.domain.Domain;
-import de.bruss.demontoo.server.Server;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ public class InstanceController {
 
     @Autowired
     private InstanceService instanceService;
+
+    private final Logger logger = LoggerFactory.getLogger(InstanceController.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Instance> findAllInstances() {
@@ -47,7 +50,11 @@ public class InstanceController {
 //            return new ResponseEntity<>(HttpStatus.CREATED);
 //        }
 
-        instance.getServer().setIp(request.getHeader("X-Forwarded-For"));
+        String remoteAddr = request.getHeader("X-Forwarded-For");
+        if (StringUtils.isEmpty(remoteAddr)) {
+            remoteAddr = request.getRemoteAddr();
+        }
+        instance.getServer().setIp(remoteAddr);
 
         instanceService.addToQueue(instance);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -59,14 +66,14 @@ public class InstanceController {
 
         instance.setType("SkinGo");
         instance.setIdentifier("IDENT1");
-        instance.getDetails().add(new InstanceDetail("cat1", "key1", "val1"));
-        instance.getDetails().add(new InstanceDetail("cat1", "key2", "val2"));
-        instance.getDetails().add(new InstanceDetail("cat2", "key3", "val3"));
-        instance.getDetails().add(new InstanceDetail("cat2", "key4", "val4"));
-        instance.getDomains().add(new Domain("domain1", "domain1.localhost"));
-        instance.setServer(new Server("LOCAL", "127.0.0.1"));
+//        instance.getDetails().add(new InstanceDetail("cat1", "key1", "val1"));
+//        instance.getDetails().add(new InstanceDetail("cat1", "key2", "val2"));
+//        instance.getDetails().add(new InstanceDetail("cat2", "key3", "val3"));
+//        instance.getDetails().add(new InstanceDetail("cat2", "key4", "val4"));
+//        instance.getDomains().add(new Domain("domain1", "domain1.localhost"));
+//        instance.setServer(new Server("LOCAL", "127.0.0.1"));
 
-        instanceService.addToQueue(instance);
+        instanceService.save(instance);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
