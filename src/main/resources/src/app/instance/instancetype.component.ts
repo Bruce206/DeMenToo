@@ -35,6 +35,17 @@ export class InstanceTypeComponent implements OnInit {
       this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
     }
 
+    this.fetchInstanceType();
+
+
+  }
+
+  fetchInstanceType() {
+    this.columnOptions = [];
+    for (let i = 0; i < this.cols.length; i++) {
+      this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
+    }
+
     this.route.params.subscribe(params => {
       this.instanceTypeService.get(params['type']).subscribe((data) => {
         this.instanceType = data;
@@ -69,6 +80,10 @@ export class InstanceTypeComponent implements OnInit {
     this.instanceTypeService.save(this.instanceType).subscribe(it => {
       this.instanceType = it;
     });
+  }
+
+  onUploadFinished($event) {
+    this.fetchInstanceType();
   }
 
   handleRowClick(event: any) {

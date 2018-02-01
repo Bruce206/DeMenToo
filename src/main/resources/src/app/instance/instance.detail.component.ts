@@ -27,7 +27,7 @@ export class InstanceDetailComponent implements OnInit {
 
   delete(): void {
     this.instanceService.delete(this.instance).subscribe();
-    window.close();
+    // window.close();
   }
 }
 

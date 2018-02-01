@@ -1,32 +1,39 @@
 <div class="ui-g">
   <div class="ui-g-6">
-    <p-card *ngIf="instanceType">
+    <p-panel *ngIf="instanceType" header="Details">
       <div class="ui-grid-row">
         <div class="ui-grid-col-5" style="padding: .25em .5em;">
           Image
         </div>
         <div class="ui-grid-col-7">
-          <img [src]="'data:image/png;base64,' + instanceType?.image" alt="No Image uploaded"><p-fileUpload mode="basic" name="file" [url]="'/api/instanceType/image/' + instanceType?.id" accept="image/*" maxFileSize="1000000" auto="true" chooseLabel="Change"></p-fileUpload>
+          <img [src]="'data:image/png;base64,' + instanceType?.image" alt="No Image uploaded"><p-fileUpload mode="basic" name="file" [url]="'/api/instanceType/image/' + instanceType?.id" accept="image/*" maxFileSize="1000000" auto="true" chooseLabel="Change" (onUpload)="onUploadFinished($event)"></p-fileUpload>
         </div>
       </div>
       <form-row [(ngModel)]="instanceType.messageInterval" [editable]="true" label="Message-Interval in minutes" (submitted)="save()"></form-row>
-    </p-card>
+    </p-panel>
   </div>
   <div class="ui-g-6">
-    <p-card *ngIf="instanceType">
-      <h2>Deployment</h2>
+    <p-panel *ngIf="instanceType" header="">
+      <p-header>
+        Deployment
+        <a [href]="'/api/instanceType/deploy/' + instanceType.id" target="_blank" style="float: right;">Deploy</a>
+      </p-header>
+      <form-row [(ngModel)]="instanceType.updatePath" [editable]="true" label="Update-Path" (submitted)="save()"></form-row>
       <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-          Aktuelle Updatedatei: {{instanceType.updateFileName}}
+          <form-row [(ngModel)]="instanceType.updateFileName" [editable]="true" label="Aktuelle Updatedatei" (submitted)="save()">
+            <ng-template>
+              {{instanceType.updateFileName}} <span (click)="changeFile = true;" style="cursor: pointer; color: blue;">Ändern</span>
+            </ng-template>
+          </form-row>
         </div>
       </div>
-      <div class="ui-grid-row">
+      <div class="ui-grid-row" style="padding-left: 8px;" *ngIf="changeFile">
         <div class="ui-grid-col-12">
-          <p-fileUpload name="file" [url]="'/api/instanceType/update/' + instanceType?.id" maxFileSize="100000000" chooseLabel="Upload new Update"></p-fileUpload>
+          <p-fileUpload name="file" [url]="'/api/instanceType/update/' + instanceType?.id" maxFileSize="100000000" chooseLabel="Upload new Update" (onUpload)="onUploadFinished($event)"></p-fileUpload>
         </div>
       </div>
-      <a [href]="'/api/instanceType/deploy/' + instanceType.id" target="_blank">Deploy</a>
-    </p-card>
+    </p-panel>
   </div>
 </div>
 <div class="ui-g">

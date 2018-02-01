@@ -1,16 +1,20 @@
 package de.bruss.demontoo.instance;
 
 import com.jcraft.jsch.*;
+import de.bruss.demontoo.server.Server;
 import de.bruss.demontoo.ssh.SshService;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class InstanceTypeService {
@@ -32,6 +36,7 @@ public class InstanceTypeService {
         }
 
         persistedType.setMessageInterval(instancetype.getMessageInterval());
+        persistedType.setUpdatePath(instancetype.getUpdatePath());
         return instancetypeRepository.save(persistedType);
     }
 
@@ -69,38 +74,67 @@ public class InstanceTypeService {
 
     @Transactional
     public void deploy(Long id) throws JSchException, SftpException {
-        Session session = sshService.getSession("brucenet.de");
-        session.connect();
-
-        ChannelSftp sftpChannel = sshService.getSftpChannel(session);
-
         InstanceType instanceType = instancetypeRepository.findOne(id);
 
-        sftpChannel.put(new ByteArrayInputStream(instanceType.getUpdate()), "/wwwhome/" + instanceType.getUpdateFileName().toLowerCase(), new SftpProgressMonitor() {
+        String remotePath = instanceType.getUpdatePath();
+        if (StringUtils.isEmpty(remotePath)) {
+            throw new RuntimeException("remotePath empty");
+        }
 
-            private double bytes;
-            private double max;
+        if (!remotePath.startsWith("/")) {
+            remotePath = "/" + remotePath;
+        }
 
-            @Override
-            public void init(int op, String src, String dest, long max) {
-                this.max = max;
-                logger.info("-- Starting upload... FileSize: " + FileUtils.byteCountToDisplaySize(max));
+        if (!remotePath.endsWith("/")) {
+            remotePath = remotePath + "/";
+        }
+
+        Map<Server, List<Instance>> instancesByServer = instanceType.getInstances().stream().collect(Collectors.groupingBy(Instance::getServer));
+
+        for (Server server : instancesByServer.keySet()) {
+            List<Instance> instancesOnServer = instancesByServer.get(server);
+
+            Session session = sshService.getSession(server.getIp());
+            session.connect();
+
+            ChannelSftp sftpChannel = sshService.getSftpChannel(session);
+
+            sftpChannel.put(new ByteArrayInputStream(instanceType.getUpdate()), remotePath + instanceType.getName().toLowerCase() + ".jar", new SftpProgressMonitor() {
+
+                private long bytes;
+                private long max;
+
+                @Override
+                public void init(int op, String src, String dest, long max) {
+                    this.max = max;
+                    logger.info("-- Starting upload... FileSize: " + FileUtils.byteCountToDisplaySize(max));
+                }
+
+                @Override
+                public void end() {
+                    logger.info("-- Finished uploading!");
+                }
+
+                @Override
+                public boolean count(long bytes) {
+                    this.bytes += bytes;
+                    logger.info("Bytes transferred: " + FileUtils.byteCountToDisplaySize(this.bytes) + " of " + FileUtils.byteCountToDisplaySize(this.max));
+                    return true;
+                }
+            });
+
+            for (Instance i : instancesOnServer) {
+                logger.info("restarting instance: " + i.getIdentifier());
+                sshService.sendCommand(session, "service " + i.getIdentifier() + " restart");
+                logger.info("restarted  instance: " + i.getIdentifier());
             }
 
-            @Override
-            public void end() {
-                logger.info("-- Finished uploading!");
-            }
+            sftpChannel.exit();
+            sftpChannel.disconnect();
 
-            @Override
-            public boolean count(long bytes) {
-                this.bytes += bytes;
-                logger.info("Bytes transferred: " + FileUtils.byteCountToDisplaySize(bytes));
-                return true;
-            }
-        });
-
-        sftpChannel.exit();
-        sftpChannel.disconnect();
+        }
     }
+
+
+
 }

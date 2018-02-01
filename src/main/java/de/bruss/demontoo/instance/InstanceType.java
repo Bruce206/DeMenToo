@@ -30,6 +30,8 @@ public class InstanceType {
 
     private String updateFileName;
 
+    private String updatePath;
+
     private LocalDateTime updateTime;
 
     /**

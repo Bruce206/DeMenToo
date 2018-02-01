@@ -218,12 +218,67 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/Appointment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/AppointmentController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/AppointmentService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/AppointmentValidationError.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/AppointmentValidationService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/cabin/Cabin.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/configuration/ConfigurationController.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/customer/Customer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/device/Device.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/device/DeviceService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/employee/Employee.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/monitoring/MonitoringScheduler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/security/MvcConfig.java">
           <value>
             <set />
           </value>
@@ -288,7 +343,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SmartToolCenter/src/main/java/de/eins/smarttoolcloud/component/masterdata/ComponentMasterData.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartToolCenter/src/main/java/de/eins/smarttoolcloud/tool/masterdata/ToolMasterData.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartToolCenter/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/admin/scripts/node/tree/angular.treeview.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell">
           <value>
             <set />
           </value>

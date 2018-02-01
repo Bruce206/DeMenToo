@@ -44,6 +44,7 @@ public class InstanceService {
 
     @Transactional
     public void delete(Long id) {
+        logger.info("Deleting instance with id: " + id);
         Instance instance = instanceRepository.findOne(id);
         instance.getServer().removeInstance(instance);
         instance.setServer(null);
