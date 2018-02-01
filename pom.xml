@@ -171,7 +171,15 @@
                 <excludes>
                     <exclude>src/**</exclude>
                     <exclude>src/node_modules/**</exclude>
+                    <exclude>public/fonts/**</exclude>
                 </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>public/fonts/**</include>
+                </includes>
             </resource>
         </resources>
     </build>
