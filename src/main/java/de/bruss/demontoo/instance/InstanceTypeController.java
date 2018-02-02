@@ -5,6 +5,7 @@ import com.jcraft.jsch.SftpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,11 +19,19 @@ public class InstanceTypeController {
     @Autowired
     private InstanceTypeService instancetypeService;
 
+    @Autowired
+    private SimpMessagingTemplate template;
+
     private final Logger logger = LoggerFactory.getLogger(InstanceTypeController.class);
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<InstanceType> findAllInstanceTypes() {
         return instancetypeService.findAll();
+    }
+
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public void testWebsocket() {
+        template.convertAndSend("/chat", instancetypeService.findByName("SkinGo"));
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)

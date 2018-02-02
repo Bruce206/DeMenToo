@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {ActivatedRoute} from "@angular/router";
 import {SelectItem} from "primeng/primeng";
 import {InstanceTypeService} from "./instancetype.service";
 import {SortPipe} from "../sort.pipe";
+import {StompService} from 'ng2-stomp-service';
 
 
 @Component({
@@ -12,12 +13,32 @@ import {SortPipe} from "../sort.pipe";
   styleUrls: ['instance.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class InstanceTypeComponent implements OnInit {
-
+export class InstanceTypeComponent implements OnInit, OnDestroy {
   public instanceType: any = {instances: []};
   public columnOptions: SelectItem[];
   public cols: any[];
-  constructor(private instanceTypeService: InstanceTypeService, private route: ActivatedRoute, private sortPipe: SortPipe) {
+
+  private subscription: any;
+
+  constructor(private instanceTypeService: InstanceTypeService, private route: ActivatedRoute, private sortPipe: SortPipe, private stomp: StompService) {
+  }
+
+  private subscribeToInstanceHealth() {
+    let stomp = this.stomp;
+    let getUrl = window.location;
+    let baseUrl = getUrl.protocol + "//" + getUrl.host;
+
+    stomp.configure({
+      host: baseUrl + '/socket',
+      debug: false,
+      queue: {'init': false}
+    });
+
+
+    stomp.startConnect().then(() => {
+      stomp.done('init');
+      this.subscription = stomp.subscribe('/instancestatus', this.updateInstanceStatus.bind(this));
+    });
   }
 
   ngOnInit(): void {
@@ -27,7 +48,8 @@ export class InstanceTypeComponent implements OnInit {
       {field: 'domains', header: 'Domain', filter: true, pos: 3},
       {field: 'licensedFor', header: 'Customer', filter: true, pos: 4},
       {field: 'version', header: 'Version', filter: true, pos: 5},
-      {field: 'modified', header: 'Last Message', filter: false, pos: 6}
+      {field: 'modified', header: 'Last Message', filter: false, pos: 6},
+      {field: 'status', header: 'Status', filter: false, pos: 7}
     ];
 
     this.columnOptions = [];
@@ -36,8 +58,11 @@ export class InstanceTypeComponent implements OnInit {
     }
 
     this.fetchInstanceType();
+  }
 
-
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.stomp.disconnect().then(() => console.log("Socket closd"));
   }
 
   fetchInstanceType() {
@@ -49,6 +74,7 @@ export class InstanceTypeComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.instanceTypeService.get(params['type']).subscribe((data) => {
         this.instanceType = data;
+        this.subscribeToInstanceHealth();
         if (data.instances && data.instances.length > 0) {
           for (let instance of data.instances) {
             for (let detail of instance.details) {
@@ -56,7 +82,7 @@ export class InstanceTypeComponent implements OnInit {
             }
           }
 
-          let pos = 7;
+          let pos = 8;
           this.sortPipe.transform(data.instances[0].details, 'key');
           for (let key of data.instanceDetailKeys) {
             this.columnOptions.push({label: key, value: {field: key, header: key, filter: true, pos: pos++}});
@@ -66,8 +92,21 @@ export class InstanceTypeComponent implements OnInit {
     });
   }
 
+  public updateInstanceStatus(data) {
+    for (let i of this.instanceType.instances) {
+      if (i.id === data.instance.id) {
+        i.status = data.status;
+        i.lastMessage = data.instance.lastMessage;
+      }
+    }
+  }
+
   lookupRowStyleClass(instance: any) {
-    if (instance.lastMessageCritical) {
+    if (instance.status === undefined && instance.instanceType.healthUrl) {
+      return "pending";
+    }
+
+    if (instance.lastMessageCritical || instance.status !== "OK") {
       if (instance.prod) {
         return "critical";
       } else {

@@ -21,6 +21,7 @@ import {InstanceDetailComponent, KeysPipe} from "./instance/instance.detail.comp
 import {FormRowComponent} from "./uiComponents/formrow/form-row.component";
 import {InstanceTypeService} from "./instance/instancetype.service";
 import {InstanceTypeComponent} from "./instance/instancetype.component";
+import { StompService } from 'ng2-stomp-service';
 
 @NgModule({
   imports: [
@@ -77,7 +78,8 @@ import {InstanceTypeComponent} from "./instance/instancetype.component";
     ServerService,
     InstanceService,
     InstanceTypeService,
-    SortPipe
+    SortPipe,
+    StompService
   ],
   entryComponents: [],
   bootstrap: [AppComponent]

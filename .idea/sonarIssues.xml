@@ -33,6 +33,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/Application.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/WebSocketConf.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/WebSocketConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/common/FollowRedirectHttpClient.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/domain/Domain.java">
           <value>
             <set />
@@ -83,6 +103,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/WebsocketController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/security/MvcConfig.java">
           <value>
             <set />
@@ -104,6 +129,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/ssh/SshUtils.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/websockets/InstanceHealthChecker.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/websockets/SessionListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/websockets/WebSocketConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/websockets/WebsocketConnectionListener.java">
           <value>
             <set />
           </value>
@@ -199,6 +244,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/src/webpack.common.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/src/webpack.dev.js">
           <value>
             <set />
           </value>
@@ -328,6 +378,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/finances/cashbook/cashbook.html">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/finances/invoice/controllers.js">
           <value>
             <set />
@@ -359,6 +414,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SmartToolCenter/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/resources/default-logback.xml">
           <value>
             <set />
           </value>

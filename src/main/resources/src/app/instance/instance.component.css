@@ -6,6 +6,10 @@ instance tr:hover {
   width: 50px;
 }
 
+.pending {
+  background: lightgrey !important;
+}
+
 .critical {
   background: red !important;
 }
