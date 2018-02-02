@@ -1,6 +1,5 @@
 package de.bruss.demontoo.instance;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,15 +23,15 @@ public class InstanceType {
     @Lob
     private byte[] image;
 
-    @Lob
-    @JsonIgnore
-    private byte[] update;
-
     private String updateFileName;
 
     private String updatePath;
 
     private LocalDateTime updateTime;
+
+    @Enumerated(EnumType.STRING)
+    private AppType appType;
+    private String healthUrl;
 
     /**
      * in minutes!
@@ -61,4 +60,5 @@ public class InstanceType {
     public void removeInstance(Instance instance) {
         this.getInstances().remove(instance);
     }
+
 }

@@ -10,6 +10,10 @@
         </div>
       </div>
       <form-row [(ngModel)]="instanceType.messageInterval" [editable]="true" label="Message-Interval in minutes" (submitted)="save()"></form-row>
+      <form-row [(ngModel)]="instanceType.appType" [editable]="true" label="App-Type" (submitted)="save()" [options]="['SPRING_BOOT', 'OTHER']"></form-row>
+      <div *ngIf="instanceType.appType === 'OTHER'">
+        <form-row [(ngModel)]="instanceType.healthUrl" [editable]="true" label="Heath-URL" (submitted)="save()"></form-row>
+      </div>
     </p-panel>
   </div>
   <div class="ui-g-6">

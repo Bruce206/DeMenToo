@@ -7,11 +7,14 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -23,6 +26,9 @@ public class InstanceTypeService {
 
     @Autowired
     private SshService sshService;
+
+    @Value("${files.home}")
+    private String filesHome;
 
     private final Logger logger = LoggerFactory.getLogger(InstanceTypeService.class);
 
@@ -37,6 +43,14 @@ public class InstanceTypeService {
 
         persistedType.setMessageInterval(instancetype.getMessageInterval());
         persistedType.setUpdatePath(instancetype.getUpdatePath());
+        persistedType.setAppType(instancetype.getAppType());
+
+        if (AppType.SPRING_BOOT.equals(persistedType.getAppType())) {
+            persistedType.setHealthUrl("/management/health");
+        } else {
+            persistedType.setHealthUrl(instancetype.getHealthUrl());
+        }
+
         return instancetypeRepository.save(persistedType);
     }
 
@@ -65,11 +79,17 @@ public class InstanceTypeService {
         instancetypeRepository.findOne(id).setImage(bytes);
     }
 
+
     @Transactional
-    public void setUpdateFile(Long id, byte[] bytes, String originalFilename) {
+    public void setUpdateFile(Long id, MultipartFile file) throws IOException {
         InstanceType type = instancetypeRepository.findOne(id);
-        type.setUpdate(bytes);
-        type.setUpdateFileName(originalFilename);
+
+        if (!filesHome.endsWith("/")) {
+            filesHome += "/";
+        }
+
+        file.transferTo(new File(filesHome + type.getName() + ".jar"));
+        type.setUpdateFileName(file.getOriginalFilename());
     }
 
     @Transactional
@@ -89,6 +109,10 @@ public class InstanceTypeService {
             remotePath = remotePath + "/";
         }
 
+        if (!filesHome.endsWith("/")) {
+            filesHome += "/";
+        }
+
         Map<Server, List<Instance>> instancesByServer = instanceType.getInstances().stream().collect(Collectors.groupingBy(Instance::getServer));
 
         for (Server server : instancesByServer.keySet()) {
@@ -99,7 +123,7 @@ public class InstanceTypeService {
 
             ChannelSftp sftpChannel = sshService.getSftpChannel(session);
 
-            sftpChannel.put(new ByteArrayInputStream(instanceType.getUpdate()), remotePath + instanceType.getName().toLowerCase() + ".jar", new SftpProgressMonitor() {
+            sftpChannel.put(filesHome + instanceType.getName() + ".jar", remotePath + instanceType.getName().toLowerCase() + ".jar", new SftpProgressMonitor() {
 
                 private long bytes;
                 private long max;
@@ -134,7 +158,4 @@ public class InstanceTypeService {
 
         }
     }
-
-
-
 }

@@ -52,7 +52,7 @@ public class InstanceTypeController {
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
     public void setUpdate(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
-        instancetypeService.setUpdateFile(id, file.getBytes(), file.getOriginalFilename());
+        instancetypeService.setUpdateFile(id, file);
     }
 
     @RequestMapping(value="/deploy/{id}", method = RequestMethod.GET)
