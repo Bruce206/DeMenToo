@@ -45,6 +45,8 @@ export class InstanceListComponent implements OnInit, OnDestroy {
       if (i.id === data.instance.id) {
         i.status = data.status;
         i.lastMessage = data.instance.lastMessage;
+        i.lastMessageCritical = data.instance.lastMessageCritical;
+        i.responseTime = data.responseTime;
       }
     }
   };

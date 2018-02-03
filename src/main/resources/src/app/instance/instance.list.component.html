@@ -22,5 +22,9 @@
     <ng-template *ngIf="col.field === 'type'" let-item let-data="rowData" pTemplate type="body">
       <img [src]="'data:image/png;base64,' + data.instanceType.image" [alt]="data.instanceType.name">
     </ng-template>
+
+    <ng-template *ngIf="col.field === 'status'" let-item let-data="rowData" pTemplate type="body">
+      {{data.status}} <small title="Responsetime">[{{data.responseTime}}ms]</small>
+    </ng-template>
   </p-column>
 </p-dataTable>

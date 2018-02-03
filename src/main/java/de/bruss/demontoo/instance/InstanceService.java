@@ -1,14 +1,10 @@
 package de.bruss.demontoo.instance;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -61,14 +57,6 @@ public class InstanceService {
     @Transactional
     public List<Instance> findAll() {
         return instanceRepository.findAll();
-    }
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    public static class InstanceHealthMessage {
-        private Instance instance;
-        private HttpStatus status;
     }
 
 }

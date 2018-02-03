@@ -93,10 +93,13 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
   }
 
   public updateInstanceStatus(data) {
+    console.log(data);
     for (let i of this.instanceType.instances) {
       if (i.id === data.instance.id) {
         i.status = data.status;
         i.lastMessage = data.instance.lastMessage;
+        i.lastMessageCritical = data.instance.lastMessageCritical;
+        i.responseTime = data.responseTime;
       }
     }
   }
