@@ -6,7 +6,8 @@
           Image
         </div>
         <div class="ui-grid-col-7">
-          <img [src]="'data:image/png;base64,' + instanceType?.image" alt="No Image uploaded"><p-fileUpload mode="basic" name="file" [url]="'/api/instanceType/image/' + instanceType?.id" accept="image/*" maxFileSize="1000000" auto="true" chooseLabel="Change" (onUpload)="onUploadFinished($event)"></p-fileUpload>
+          <img [src]="'data:image/png;base64,' + instanceType?.image" alt="No Image uploaded">
+          <p-fileUpload mode="basic" name="file" [url]="'/api/instanceType/image/' + instanceType?.id" accept="image/*" maxFileSize="1000000" auto="true" chooseLabel="Change" (onUpload)="onUploadFinished($event)"></p-fileUpload>
         </div>
       </div>
       <form-row [(ngModel)]="instanceType.messageInterval" [editable]="true" label="Message-Interval in minutes" (submitted)="save()"></form-row>
@@ -30,6 +31,19 @@
               {{instanceType.updateFileName}} <span (click)="changeFile = true;" style="cursor: pointer; color: blue;">Ändern</span>
             </ng-template>
           </form-row>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-5" style="padding: .25em .5em;">
+              Update-Zeitpunkt
+            </div>
+            <div class="ui-grid-col-7">
+              <div *ngIf="!changeTime">
+                {{instanceType.updateTime | date:'dd.MM.yyy &nbsp;&nbsp;HH:mm'}} <span (click)="instanceType.updateTime = null; changeTime = true;" style="cursor: pointer; color: blue;">Ändern</span>
+              </div>
+              <div *ngIf="changeTime">
+                <p-calendar [(ngModel)]="instanceType.updateTime" showTime="true" hourFormat="24" dateFormat="dd.mm.yy"></p-calendar><span (click)="changeTime = false; save();" style="cursor: pointer; color: blue;">Speichern</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="ui-grid-row" style="padding-left: 8px;" *ngIf="changeFile">
@@ -68,7 +82,12 @@
         </ng-template>
 
         <ng-template *ngIf="col.field === 'status'" let-item let-data="rowData" pTemplate type="body">
-          {{data.status}} <small title="Responsetime"> [{{data.responseTime}}ms]</small>
+          {{data.status}}
+          <small title="Responsetime"> [{{data.responseTime}}ms]</small>
+        </ng-template>
+
+        <ng-template *ngIf="col.field === 'server'" let-item let-data="rowData" pTemplate type="body">
+          {{data.server.serverName}}
         </ng-template>
       </p-column>
     </p-dataTable>

@@ -13,6 +13,16 @@
             <set />
           </value>
         </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/monitoring/MonitoringScheduler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/.gitattributes">
           <value>
             <set />
@@ -78,6 +88,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceService.java">
           <value>
             <set />
@@ -99,6 +114,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceWorker.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/OldApiController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/UpdateWorker.java">
           <value>
             <set />
           </value>
@@ -129,6 +154,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/ssh/SshUtils.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/websockets/InstanceHealthCheckWorker.java">
           <value>
             <set />
           </value>
@@ -418,12 +448,52 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/admin/HomeController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/job/implementations/LicensingService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/job/implementations/MonitoringScheduler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/mail/AjaxMailService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/nodes/node/NodeEntityService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/shop/sales/SaleService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/resources/default-logback.xml">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/resources/default.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/admin/scripts/node/tree/angular.treeview.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/styles/person/layout_personlist.xsl">
           <value>
             <set />
           </value>

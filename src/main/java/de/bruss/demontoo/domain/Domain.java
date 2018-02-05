@@ -19,8 +19,7 @@ public class Domain  extends MonitoredSuperEntity {
 	@GeneratedValue
 	private Long id;
 	
-	private long node;
-	private String name;	
+	private String name;
 	private String url;
 		
 	@JsonIgnore

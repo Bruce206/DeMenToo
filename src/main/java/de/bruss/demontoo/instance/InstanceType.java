@@ -1,11 +1,15 @@
 package de.bruss.demontoo.instance;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.bruss.demontoo.common.CustomZonedDateTimeDeserializer;
+import de.bruss.demontoo.common.CustomZonedDateTimeSerializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +31,9 @@ public class InstanceType {
 
     private String updatePath;
 
-    private LocalDateTime updateTime;
+    @JsonSerialize(using = CustomZonedDateTimeSerializer.class)
+    @JsonDeserialize(using = CustomZonedDateTimeDeserializer.class)
+    private ZonedDateTime updateTime;
 
     @Enumerated(EnumType.STRING)
     private AppType appType;

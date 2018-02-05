@@ -1,5 +1,6 @@
 package de.bruss.demontoo;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,17 @@ public class Application {
         executor.setCorePoolSize(1);
         executor.setMaxPoolSize(1);
         executor.setThreadNamePrefix("default_task_executor_thread");
+        executor.initialize();
+        return executor;
+    }
+
+    @Bean
+    @Qualifier("HealthCheckTaskExcecuter")
+    public TaskExecutor healthCheckThreadPoolTaskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(20);
+        executor.setThreadNamePrefix("health_check_task_executor_thread");
         executor.initialize();
         return executor;
     }

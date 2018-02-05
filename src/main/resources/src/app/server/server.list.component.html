@@ -1,10 +1,10 @@
 <p-dataTable [value]="servers" #st class="server-list" expandableRows="true">
-  <p-header>List of Servers</p-header>
+  <p-header>Serverliste</p-header>
   <p-column expander="true" styleClass="col-icon"></p-column>
   <p-column field="serverName" header="Name" [filter]="true" [sortable]="true"></p-column>
   <p-column field="ip" header="IP" [filter]="true" filterMatchMode="startsWith" [sortable]="true"></p-column>
-  <p-column field="instances.length" header="No. of Instances" [sortable]="true"></p-column>
-  <p-column field="modified" header="Last Message" [sortable]="true">
+  <p-column field="instances.length" header="Laufende Instanzen" [sortable]="true"></p-column>
+  <p-column field="modified" header="Letzte Meldung" [sortable]="true">
     <ng-template let-col let-modified="rowData.modified" pTemplate="body">
       <span>{{modified | date:"dd.MM.yyy &nbsp;&nbsp;hh:mm"}}</span>
     </ng-template>
@@ -15,26 +15,29 @@
         <div class="ui-grid-col-12" style="text-align:left">
           <p-dataGrid [value]="data.instances">
             <p-header>
-              List of Instances
+              Instanzen
             </p-header>
             <ng-template let-instance pTemplate="item">
               <div style="padding:3px" class="ui-g-3">
-                <p-panel [header]="instance.identifier">
-                  <div class="ui-g">
-                  <div class="ui-g-6" style="padding: 0">Type:</div>
-                  <div class="ui-g-6" style="padding: 0"><img [src]="instance?.instanceType.image" [alt]="instance.instanceType.name"></div>
-                  <div class="ui-g-6" style="padding: 0">Version:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.version}}</div>
-                  <div class="ui-g-6" style="padding: 0">Customer:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.licensedFor}}</div>
-                  <div class="ui-g-6" style="padding: 0">Prod:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.prod}}</div>
-                  <div class="ui-g-6" style="padding: 0">No of Domains:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.domains.length}}</div>
-                  </div>
-                  <span>
+                <p-panel>
+                  <p-header>
+                    <b>{{instance.identifier}}</b>
+                    <span style="float:right;">
                     <a [routerLink]="['/instance/detail', instance.id]" href="" target="_blank">Details</a>
                   </span>
+                  </p-header>
+                  <div class="ui-g">
+                  <div class="ui-g-6" style="padding: 0">Typ:</div>
+                  <div class="ui-g-6" style="padding: 0"><img [src]="'data:image/png;base64,' + instance.instanceType.image" [alt]="instance.instanceType.name"></div>
+                  <div class="ui-g-6" style="padding: 0">Version:</div>
+                  <div class="ui-g-6" style="padding: 0">{{instance.version}}</div>
+                  <div class="ui-g-6" style="padding: 0">Kunde:</div>
+                  <div class="ui-g-6" style="padding: 0">{{instance.licensedFor}}</div>
+                  <div class="ui-g-6" style="padding: 0">Produktiv:</div>
+                  <div class="ui-g-6" style="padding: 0">{{instance.prod ? 'Ja' : 'Nein'}}</div>
+                  <div class="ui-g-6" style="padding: 0">Anzahl Domains:</div>
+                  <div class="ui-g-6" style="padding: 0">{{instance.domains.length}}</div>
+                  </div>
                 </p-panel>
               </div>
             </ng-template>

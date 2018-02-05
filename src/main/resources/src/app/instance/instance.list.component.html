@@ -26,5 +26,9 @@
     <ng-template *ngIf="col.field === 'status'" let-item let-data="rowData" pTemplate type="body">
       {{data.status}} <small title="Responsetime">[{{data.responseTime}}ms]</small>
     </ng-template>
+
+    <ng-template *ngIf="col.field === 'server'" let-item let-data="rowData" pTemplate type="body">
+      {{data.server.serverName}}
+    </ng-template>
   </p-column>
 </p-dataTable>

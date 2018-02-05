@@ -43,8 +43,10 @@ export class InstanceListComponent implements OnInit, OnDestroy {
   public response = (data) => {
     for (let i of this.instances) {
       if (i.id === data.instance.id) {
+        console.log(data.instance.lastMessage);
         i.status = data.status;
         i.lastMessage = data.instance.lastMessage;
+        i.timeAgo = data.instance.timeAgo;
         i.lastMessageCritical = data.instance.lastMessageCritical;
         i.responseTime = data.responseTime;
       }
@@ -58,13 +60,14 @@ export class InstanceListComponent implements OnInit, OnDestroy {
 
     this.cols = [
       {field: 'prod', header: 'Prod', filter: false, pos: 1, class: "col-icon"},
-      {field: 'type', header: 'App-Type', filter: true, pos: 2},
+      {field: 'type', header: 'App-Typ', filter: true, pos: 2},
       {field: 'identifier', header: 'App-Name', filter: true, pos: 3},
       {field: 'domains', header: 'Domain', filter: true, pos: 4},
-      {field: 'licensedFor', header: 'Customer', filter: true, pos: 5},
+      {field: 'licensedFor', header: 'Kunde', filter: true, pos: 5},
       {field: 'version', header: 'Version', filter: true, pos: 6},
-      {field: 'modified', header: 'Last Message', filter: false, pos: 7},
-      {field: 'status', header: 'Status', filter: false, pos: 8}
+      {field: 'server', header: 'Server', filter: true, pos: 7},
+      {field: 'modified', header: 'Letzte Meldung', filter: false, pos: 8},
+      {field: 'status', header: 'Status', filter: false, pos: 9}
     ];
 
     this.columnOptions = [];

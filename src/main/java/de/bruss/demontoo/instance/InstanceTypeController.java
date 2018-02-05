@@ -1,7 +1,5 @@
 package de.bruss.demontoo.instance;
 
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.SftpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +25,6 @@ public class InstanceTypeController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<InstanceType> findAllInstanceTypes() {
         return instancetypeService.findAll();
-    }
-
-    @RequestMapping(value = "test", method = RequestMethod.GET)
-    public void testWebsocket() {
-        template.convertAndSend("/chat", instancetypeService.findByName("SkinGo"));
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
@@ -64,8 +57,4 @@ public class InstanceTypeController {
         instancetypeService.setUpdateFile(id, file);
     }
 
-    @RequestMapping(value="/deploy/{id}", method = RequestMethod.GET)
-    public void setUpdate(@PathVariable Long id) throws JSchException, SftpException {
-        instancetypeService.deploy(id);
-    }
 }

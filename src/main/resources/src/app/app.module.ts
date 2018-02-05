@@ -9,6 +9,7 @@ import {
   DropdownModule, GalleriaModule, SidebarModule, CheckboxModule, TieredMenuModule, FileUploadModule, DataGridModule,
   DialogModule, LightboxModule, MenubarModule, MultiSelectModule, OverlayPanelModule
 } from "primeng/primeng";
+import {CalendarModule} from 'primeng/calendar';
 import {CardModule} from 'primeng/card';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
@@ -33,7 +34,7 @@ import { StompService } from 'ng2-stomp-service';
     TieredMenuModule, MenuModule, ButtonModule, PanelModule, DataTableModule, SharedModule,
     DropdownModule, GalleriaModule, AccordionModule, FieldsetModule, SidebarModule, CheckboxModule,
     FileUploadModule, DataGridModule, DialogModule, LightboxModule, MenubarModule, MultiSelectModule,
-    OverlayPanelModule, CardModule,
+    OverlayPanelModule, CardModule, CalendarModule,
     RouterModule.forRoot([
       {
         path: '',

@@ -48,8 +48,9 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
       {field: 'domains', header: 'Domain', filter: true, pos: 3},
       {field: 'licensedFor', header: 'Customer', filter: true, pos: 4},
       {field: 'version', header: 'Version', filter: true, pos: 5},
-      {field: 'modified', header: 'Last Message', filter: false, pos: 6},
-      {field: 'status', header: 'Status', filter: false, pos: 7}
+      {field: 'server', header: 'Server', filter: true, pos: 6},
+      {field: 'modified', header: 'Last Message', filter: false, pos: 7},
+      {field: 'status', header: 'Status', filter: false, pos: 8}
     ];
 
     this.columnOptions = [];
@@ -82,7 +83,7 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
             }
           }
 
-          let pos = 8;
+          let pos = 9;
           this.sortPipe.transform(data.instances[0].details, 'key');
           for (let key of data.instanceDetailKeys) {
             this.columnOptions.push({label: key, value: {field: key, header: key, filter: true, pos: pos++}});
@@ -98,6 +99,7 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
       if (i.id === data.instance.id) {
         i.status = data.status;
         i.lastMessage = data.instance.lastMessage;
+        i.timeAgo = data.instance.timeAgo;
         i.lastMessageCritical = data.instance.lastMessageCritical;
         i.responseTime = data.responseTime;
       }

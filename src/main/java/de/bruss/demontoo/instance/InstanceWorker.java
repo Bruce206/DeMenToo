@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@Scope("prototype")
+@Scope(value = "prototype")
 public class InstanceWorker implements Runnable {
     @Autowired
     private InstanceRepository instanceRepository;

@@ -57,7 +57,6 @@ public class OldApiController {
         for (JsonNode domainNode : node.path("domains")) {
             Domain domain = new Domain();
             domain.setName(domainNode.path("name").asText());
-            domain.setNode(domainNode.path("id").asLong());
             domain.setUrl(domainNode.path("url").asText());
             domain.setInstance(instance);
             instance.addDomain(domain);

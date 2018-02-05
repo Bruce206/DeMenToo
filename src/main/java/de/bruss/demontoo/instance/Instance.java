@@ -44,13 +44,13 @@ public class Instance extends MonitoredSuperEntity {
 	@Column(name = "prod", columnDefinition = "boolean NOT NULL DEFAULT false")
 	private boolean prod;
 	
-	@OneToMany(mappedBy="instance", orphanRemoval = true, cascade = CascadeType.ALL)
-    @Fetch(FetchMode.SUBSELECT)
-	private List<Domain> domains = new ArrayList<>();
+	@OneToMany(mappedBy="instance", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch (FetchMode.SELECT)
+    private List<Domain> domains = new ArrayList<>();
 
-    @OneToMany(mappedBy="instance", orphanRemoval = true, cascade = CascadeType.ALL)
-    @Fetch(FetchMode.SUBSELECT)
-    private List<InstanceDetail> details = new ArrayList<>();
+    @OneToMany(mappedBy="instance", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
+    private Set<InstanceDetail> details = new HashSet<>();
 
 	@ManyToOne
     @JsonIgnoreProperties("instances")

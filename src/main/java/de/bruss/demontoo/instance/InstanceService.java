@@ -59,4 +59,8 @@ public class InstanceService {
         return instanceRepository.findAll();
     }
 
+    @Transactional
+    public List<Instance> findByType(InstanceType type) {
+        return instanceRepository.findByInstanceType(type);
+    }
 }

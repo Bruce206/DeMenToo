@@ -1,5 +1,7 @@
 package de.bruss.demontoo.instance;
 
+import de.bruss.demontoo.domain.Domain;
+import de.bruss.demontoo.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,14 +68,14 @@ public class InstanceController {
 
         instance.setType("SkinGo");
         instance.setIdentifier("IDENT1");
-//        instance.getDetails().add(new InstanceDetail("cat1", "key1", "val1"));
-//        instance.getDetails().add(new InstanceDetail("cat1", "key2", "val2"));
-//        instance.getDetails().add(new InstanceDetail("cat2", "key3", "val3"));
-//        instance.getDetails().add(new InstanceDetail("cat2", "key4", "val4"));
-//        instance.getDomains().add(new Domain("domain1", "domain1.localhost"));
-//        instance.setServer(new Server("LOCAL", "127.0.0.1"));
+        instance.getDetails().add(new InstanceDetail("cat1", "key1", "val1"));
+        instance.getDetails().add(new InstanceDetail("cat1", "key2", "val2"));
+        instance.getDetails().add(new InstanceDetail("cat2", "key3", "val3"));
+        instance.getDetails().add(new InstanceDetail("cat2", "key4", "val4"));
+        instance.getDomains().add(new Domain("domain1", "domain1.localhost"));
+        instance.setServer(new Server("LOCAL", "127.0.0.1"));
 
-        instanceService.save(instance);
+        instanceService.addToQueue(instance);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

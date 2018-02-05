@@ -1,13 +1,12 @@
 package de.bruss.demontoo.instance;
 
-import com.jcraft.jsch.*;
-import de.bruss.demontoo.server.Server;
-import de.bruss.demontoo.ssh.SshService;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,22 +14,39 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.ScheduledFuture;
 
 @Service
 public class InstanceTypeService {
     @Autowired
     private InstanceTypeRepository instancetypeRepository;
 
-    @Autowired
-    private SshService sshService;
-
     @Value("${files.home}")
     private String filesHome;
 
+    @Autowired
+    private TaskScheduler taskExecutor;
+
     private final Logger logger = LoggerFactory.getLogger(InstanceTypeService.class);
+
+    private Map<String, ScheduledFuture> scheduledFutures = new HashMap<>();
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void scheduleUpdateTasks() {
+        logger.info("Scheduling Updates...");
+        List<InstanceType> types = instancetypeRepository.findAll();
+
+        for (InstanceType t : types) {
+            if (t.getUpdateTime() != null && t.getUpdateTime().isAfter(ZonedDateTime.now()) && !StringUtils.isEmpty(t.getUpdateFileName())) {
+                addUpdateTask(t);
+            }
+        }
+    }
 
     @Transactional
     public InstanceType save(InstanceType instancetype) {
@@ -45,6 +61,17 @@ public class InstanceTypeService {
         persistedType.setUpdatePath(instancetype.getUpdatePath());
         persistedType.setAppType(instancetype.getAppType());
 
+        if (instancetype.getUpdateTime() != null) {
+            // if updateTime was changed, set new time and schedule update, else leave as is
+            if (!instancetype.getUpdateTime().withSecond(0).withNano(0).equals(persistedType.getUpdateTime())) {
+                persistedType.setUpdateTime(instancetype.getUpdateTime().withSecond(0).withNano(0));
+                addUpdateTask(persistedType);
+            }
+        } else {
+            persistedType.setUpdateTime(null);
+            cancelUpdateTask(persistedType);
+        }
+
         if (AppType.SPRING_BOOT.equals(persistedType.getAppType())) {
             persistedType.setHealthUrl("/management/health");
         } else {
@@ -52,6 +79,13 @@ public class InstanceTypeService {
         }
 
         return instancetypeRepository.save(persistedType);
+    }
+
+    private void cancelUpdateTask(InstanceType instanceType) {
+        if (this.scheduledFutures.containsKey(instanceType.getName())) {
+            this.scheduledFutures.get(instanceType.getName()).cancel(false);
+            this.scheduledFutures.remove(instanceType.getName());
+        }
     }
 
     @Transactional
@@ -92,70 +126,15 @@ public class InstanceTypeService {
         type.setUpdateFileName(file.getOriginalFilename());
     }
 
-    @Transactional
-    public void deploy(Long id) throws JSchException, SftpException {
-        InstanceType instanceType = instancetypeRepository.findOne(id);
+    private void addUpdateTask(InstanceType instanceType) {
+        cancelUpdateTask(instanceType);
 
-        String remotePath = instanceType.getUpdatePath();
-        if (StringUtils.isEmpty(remotePath)) {
-            throw new RuntimeException("remotePath empty");
-        }
+        logger.info("Scheduling update for " + instanceType.getName() + " on " + instanceType.getUpdateTime().toString());
 
-        if (!remotePath.startsWith("/")) {
-            remotePath = "/" + remotePath;
-        }
+        UpdateWorker updateWorker = new UpdateWorker();
+        updateWorker.setInstanceType(instanceType);
+        ScheduledFuture future = taskExecutor.schedule(updateWorker, Date.from(instanceType.getUpdateTime().toInstant()));
 
-        if (!remotePath.endsWith("/")) {
-            remotePath = remotePath + "/";
-        }
-
-        if (!filesHome.endsWith("/")) {
-            filesHome += "/";
-        }
-
-        Map<Server, List<Instance>> instancesByServer = instanceType.getInstances().stream().collect(Collectors.groupingBy(Instance::getServer));
-
-        for (Server server : instancesByServer.keySet()) {
-            List<Instance> instancesOnServer = instancesByServer.get(server);
-
-            Session session = sshService.getSession(server.getIp());
-            session.connect();
-
-            ChannelSftp sftpChannel = sshService.getSftpChannel(session);
-
-            sftpChannel.put(filesHome + instanceType.getName() + ".jar", remotePath + instanceType.getName().toLowerCase() + ".jar", new SftpProgressMonitor() {
-
-                private long bytes;
-                private long max;
-
-                @Override
-                public void init(int op, String src, String dest, long max) {
-                    this.max = max;
-                    logger.info("-- Starting upload... FileSize: " + FileUtils.byteCountToDisplaySize(max));
-                }
-
-                @Override
-                public void end() {
-                    logger.info("-- Finished uploading!");
-                }
-
-                @Override
-                public boolean count(long bytes) {
-                    this.bytes += bytes;
-                    logger.info("Bytes transferred: " + FileUtils.byteCountToDisplaySize(this.bytes) + " of " + FileUtils.byteCountToDisplaySize(this.max));
-                    return true;
-                }
-            });
-
-            for (Instance i : instancesOnServer) {
-                logger.info("restarting instance: " + i.getIdentifier());
-                sshService.sendCommand(session, "service " + i.getIdentifier() + " restart");
-                logger.info("restarted  instance: " + i.getIdentifier());
-            }
-
-            sftpChannel.exit();
-            sftpChannel.disconnect();
-
-        }
+        scheduledFutures.put(instanceType.getName(), future);
     }
 }

@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface InstanceRepository extends JpaRepository<Instance, Long>, JpaSpecificationExecutor<Instance> {
 	List<Instance> findByServerAndIdentifier(Server server, String identifier);
+
+    List<Instance> findByInstanceType(InstanceType type);
 }

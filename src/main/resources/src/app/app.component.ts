@@ -26,7 +26,7 @@ export class AppComponent {
         routerLink: '/dashboard',
       },
       {
-        label: 'Servers',
+        label: 'Server',
         icon: 'fa-server',
         routerLink: '/server'
       },
