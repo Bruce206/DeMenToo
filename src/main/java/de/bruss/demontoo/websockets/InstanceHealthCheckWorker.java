@@ -90,6 +90,8 @@ public class InstanceHealthCheckWorker implements Runnable {
             } catch (ResourceAccessException ste) {
                 if (ste.getMessage().contains("timed out")) {
                     template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Timeout", responseTime));
+                } else if (ste.getMessage().contains("Connection refused")) {
+                    template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Connection refused", responseTime));
                 } else {
                     template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, ste.getMessage(), responseTime));
                 }

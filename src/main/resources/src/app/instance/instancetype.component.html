@@ -31,6 +31,11 @@
               {{instanceType.updateFileName}} <span (click)="changeFile = true;" style="cursor: pointer; color: blue;">Ändern</span>
             </ng-template>
           </form-row>
+          <div class="ui-grid-row" style="padding-left: 8px;" *ngIf="changeFile">
+            <div class="ui-grid-col-12">
+              <p-fileUpload name="file" [url]="'/api/instanceType/update/' + instanceType?.id" maxFileSize="100000000" chooseLabel="Upload new Update" (onUpload)="onUploadFinished($event)"></p-fileUpload>
+            </div>
+          </div>
           <div class="ui-grid-row">
             <div class="ui-grid-col-5" style="padding: .25em .5em;">
               Update-Zeitpunkt
@@ -44,11 +49,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="ui-grid-row" style="padding-left: 8px;" *ngIf="changeFile">
-        <div class="ui-grid-col-12">
-          <p-fileUpload name="file" [url]="'/api/instanceType/update/' + instanceType?.id" maxFileSize="100000000" chooseLabel="Upload new Update" (onUpload)="onUploadFinished($event)"></p-fileUpload>
         </div>
       </div>
     </p-panel>

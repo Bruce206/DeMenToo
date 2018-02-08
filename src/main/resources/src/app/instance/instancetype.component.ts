@@ -17,6 +17,7 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
   public instanceType: any = {instances: []};
   public columnOptions: SelectItem[];
   public cols: any[];
+  changeFile: boolean = false;
 
   private subscription: any;
 
@@ -127,7 +128,10 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
   }
 
   onUploadFinished($event) {
+    this.changeFile = false;
     this.fetchInstanceType();
+    this.subscription.unsubscribe();
+    this.subscription = this.stomp.subscribe('/instancestatus', this.updateInstanceStatus.bind(this));
   }
 
   handleRowClick(event: any) {

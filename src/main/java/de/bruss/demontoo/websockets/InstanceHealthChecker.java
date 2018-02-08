@@ -53,7 +53,7 @@ public class InstanceHealthChecker {
     }
 
     @Async
-    @Scheduled(cron = "59 */5 * * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void checkHealthStatus() {
         logger.info("Currently connected subscribers: " + sessionListener.getCurrentUsers());
         if (sessionListener.getCurrentUsers() > 0) {

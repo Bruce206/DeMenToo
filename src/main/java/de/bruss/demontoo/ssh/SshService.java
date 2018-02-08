@@ -1,10 +1,6 @@
 package de.bruss.demontoo.ssh;
 
 import com.jcraft.jsch.*;
-import com.jcraft.jsch.agentproxy.AgentProxyException;
-import com.jcraft.jsch.agentproxy.Connector;
-import com.jcraft.jsch.agentproxy.ConnectorFactory;
-import com.jcraft.jsch.agentproxy.RemoteIdentityRepository;
 import javafx.scene.control.ProgressBar;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,8 +24,6 @@ public class SshService {
 		try {
 			JSch jsch = new JSch();
 
-			authenticateJschWithPageant(jsch);
-
 			if (jsch.getIdentityNames().size() == 0) {
 				jsch.addIdentity(prvKeyLocation, "Q2gAgpA-rn)65*2}B;wd%8N8vC$f]_[v");
 			}
@@ -46,36 +40,6 @@ public class SshService {
 			logger.error("Connection failed", e);
 		}
 		return null;
-	}
-
-	public void authenticateJschWithPageant(JSch jsch) {
-		Connector con = null;
-
-		try {
-			ConnectorFactory cf = ConnectorFactory.getDefault();
-			con = cf.createConnector();
-
-		} catch (AgentProxyException e) {
-			logger.error("Auth failed :(");
-		}
-
-		if (con != null && con.isAvailable()) {
-			IdentityRepository irepo = new RemoteIdentityRepository(con);
-			if (irepo.getIdentities().size() > 0) {
-				jsch.setIdentityRepository(irepo);
-				return;
-			}
-		}
-
-		logger.error("Identities could not be added");
-    }
-	
-	public boolean isPageantAvailable () throws JSchException {
-		JSch jsch = new JSch();
-		authenticateJschWithPageant(jsch);
-		
-		return jsch.getIdentityNames().size() > 0;
-		
 	}
 
 	public ChannelSftp getSftpChannel(Session session) throws JSchException {
@@ -200,6 +164,22 @@ public class SshService {
 		return true;
 	}
 
+    public String stopService(Session session, ServiceType serviceType, String serviceName) {
+        if (ServiceType.UPSTART.equals(serviceType)) {
+            return sendCommand(session, "stop " + serviceName);
+        } else {
+            return sendCommand(session, "service " + serviceName + " stop");
+        }
+    }
+
+    public String startService(Session session, ServiceType serviceType, String serviceName) {
+        if (ServiceType.UPSTART.equals(serviceType)) {
+            return sendCommand(session, "start " + serviceName);
+        } else {
+            return sendCommand(session, "service " + serviceName + " start");
+        }
+    }
+
 	public String sendCommand(Session session, String command) {
 
 		try {
@@ -239,4 +219,25 @@ public class SshService {
 		sftpChannel.exit();
 		sftpChannel.disconnect();
 	}
+
+    public ServiceType getServiceType(Session session) {
+        String response = sendCommand(session, "lsb_release -r");
+
+        String version = response.substring(response.indexOf(":") + 1, response.length()).trim();
+
+        Double versionDbl = Double.parseDouble(version);
+
+        if (versionDbl < 16) {
+            logger.info("Detected Ubuntu-Version: " + version + ". Using " + ServiceType.UPSTART.toString());
+            return ServiceType.UPSTART;
+        } else {
+            logger.info("Detected Ubuntu-Version: " + version + ". Using " + ServiceType.SYSTEMD.toString());
+            return ServiceType.SYSTEMD;
+        }
+
+    }
+
+    public enum ServiceType {
+        UPSTART, SYSTEMD
+    }
 }

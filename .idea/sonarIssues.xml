@@ -138,6 +138,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/security/SecurityConfiguration.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/server/Server.java">
           <value>
             <set />
@@ -328,6 +333,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/article/Article.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/article/ArticleCategory.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/article/ArticleController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/article/ArticleExportService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/cabin/Cabin.java">
           <value>
             <set />
@@ -343,6 +368,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/customer/CustomerService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/device/Device.java">
           <value>
             <set />
@@ -353,7 +383,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/employee/Availability.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/employee/Employee.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/employee/EmployeeService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/invoice/statistic/EmployeeStatistics.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/invoice/statistic/EmployeeStatisticsCombinedContainer.java">
           <value>
             <set />
           </value>
@@ -368,7 +418,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/security/Permission.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/security/PermissionTarget.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/database/changelogs/1.500-changelog.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/logback-spring.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/JSscripts/HomeController.js">
           <value>
             <set />
           </value>
@@ -379,6 +454,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/appointment/appointments.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/appointment/calendarDay.js">
           <value>
             <set />
           </value>
@@ -398,12 +478,47 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/appointment/resource.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/article/stocklist.html">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/changelog.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/configuration/appSettings.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/configuration/employee/addAvailabilityModal.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/configuration/employee/availability.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/configuration/employee/controllers.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/customer/fragments/appointments.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/dashboard/dashboard.html">
           <value>
             <set />
           </value>
@@ -419,6 +534,31 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/finances/invoice/detail.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/finances/invoice/list.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/help/configuration.employee.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/help/configuration.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/help/modal.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/templates/backend/index.html">
           <value>
             <set />
           </value>
@@ -448,6 +588,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/admin/HomeController.java">
           <value>
             <set />
@@ -464,6 +609,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/mail/AjaxMailService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/nodes/node/NodeEntity.java">
           <value>
             <set />
           </value>
@@ -499,6 +649,11 @@
           </value>
         </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/02f346fd-bed2-42a2-a000-021b7404c753/console.sql">
           <value>
             <set />
           </value>

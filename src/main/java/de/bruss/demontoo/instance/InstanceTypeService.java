@@ -1,5 +1,6 @@
 package de.bruss.demontoo.instance;
 
+import de.bruss.demontoo.ssh.SshService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class InstanceTypeService {
 
     @Autowired
     private TaskScheduler taskExecutor;
+
+    @Autowired
+    private SshService sshService;
 
     private final Logger logger = LoggerFactory.getLogger(InstanceTypeService.class);
 
@@ -131,7 +135,7 @@ public class InstanceTypeService {
 
         logger.info("Scheduling update for " + instanceType.getName() + " on " + instanceType.getUpdateTime().toString());
 
-        UpdateWorker updateWorker = new UpdateWorker();
+        UpdateWorker updateWorker = new UpdateWorker(sshService, filesHome);
         updateWorker.setInstanceType(instanceType);
         ScheduledFuture future = taskExecutor.schedule(updateWorker, Date.from(instanceType.getUpdateTime().toInstant()));
 

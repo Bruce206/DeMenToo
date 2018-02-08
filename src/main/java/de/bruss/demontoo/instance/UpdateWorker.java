@@ -6,9 +6,7 @@ import de.bruss.demontoo.ssh.SshService;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -22,14 +20,16 @@ import java.util.stream.Collectors;
 public class UpdateWorker implements Runnable {
 
     private final Logger logger = LoggerFactory.getLogger(UpdateWorker.class);
+    private String filesHome;
 
     private InstanceType instanceType;
 
-    @Autowired
-    private SshService sshService;
+    private final SshService sshService;
 
-    @Autowired
-    private Environment environment;
+    public UpdateWorker(SshService sshService, String filesHome) {
+        this.sshService = sshService;
+        this.filesHome = filesHome;
+    }
 
     @Override
     @Transactional
@@ -48,7 +48,6 @@ public class UpdateWorker implements Runnable {
             remotePath = remotePath + "/";
         }
 
-        String filesHome = environment.getProperty("files.home");
         if (!filesHome.endsWith("/")) {
             filesHome += "/";
         }
@@ -63,9 +62,14 @@ public class UpdateWorker implements Runnable {
                 Session session = sshService.getSession(server.getIp());
                 session.connect();
 
+                // find out service-type (UPSTART or SYSTEMD)
+                SshService.ServiceType serviceType = sshService.getServiceType(session);
+
                 ChannelSftp sftpChannel = sshService.getSftpChannel(session);
 
-                sftpChannel.put(filesHome + instanceType.getName() + ".jar", remotePath + instanceType.getName().toLowerCase() + ".jar", new SftpProgressMonitor() {
+                String remoteFilePath = remotePath + instanceType.getName().toLowerCase() + ".jar";
+
+                sftpChannel.put(filesHome + instanceType.getName() + ".jar", remoteFilePath + "_tmp", new SftpProgressMonitor() {
 
                     private long bytes;
                     private long max;
@@ -89,10 +93,21 @@ public class UpdateWorker implements Runnable {
                     }
                 });
 
-
+                // stop instances
                 for (Instance i : instancesOnServer) {
                     logger.info("restarting instance: " + i.getIdentifier());
-                    sshService.sendCommand(session, "service " + i.getIdentifier() + " restart");
+                    sshService.stopService(session, serviceType, i.getIdentifier());
+                    logger.info("restarted  instance: " + i.getIdentifier());
+                }
+
+                // copy tmp to prod jar
+                sftpChannel.rename(remoteFilePath, remoteFilePath + "_old");
+                sftpChannel.rename(remoteFilePath + "_tmp", remoteFilePath);
+
+                // start instances
+                for (Instance i : instancesOnServer) {
+                    logger.info("restarting instance: " + i.getIdentifier());
+                    sshService.startService(session, serviceType, i.getIdentifier());
                     logger.info("restarted  instance: " + i.getIdentifier());
                 }
 
