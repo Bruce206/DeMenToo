@@ -40,11 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         if (enabled) {
-
-
             http.exceptionHandling().authenticationEntryPoint(customEntryPoint);
-
-
             http.authorizeRequests()
                     .antMatchers("/images/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/instances/**").permitAll()

@@ -18,7 +18,292 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/InitialDataLoader.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/analyseFTPFolder/AnalyseController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/analyseFTPFolder/AnalyseReport.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/analyseFTPFolder/ReAnalyseDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/analyseFTPFolder/ReportDocumentStatus.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/analytics/FeatureCompare.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/barcode/DecodeBarcodeService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/common/LazyLoadEvent.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/companies/CompaniesService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/companies/Company.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/companies/CompanyDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/Document.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/DocumentPage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/DocumentRoi.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/DocumentService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/DocumentSide.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/dtos/DocumentDto.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/dtos/DocumentTypeCount.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/dtos/TempImage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/DocumentTemplate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/DocumentTemplatePage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/DocumentTemplateRoi.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/DocumentTemplateService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/DocumentTemplateSide.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/dtos/CompactTemplate.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/entityHelper/AbstractTimestampEntity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/files/CropRequest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/files/FileController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/files/FileService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/files/TempUploadService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/imageupload/Images.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/monitoring/MonitoringScheduler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/Printer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/PrinterTechnique.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/PrinterTechniqueController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/PrinterTechniqueRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/PrintingTechnique.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/PrintingTechniqueController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/PrintingTechniqueImage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printer/PrintingTechniqueService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/security/MvcConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/security/Role.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/security/RoleDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/security/SecurityConfiguration.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/users/User.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/users/Users.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/users/UsersService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/app.module.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique.list.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique.list.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/user/userList.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/user/userlist.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/package.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/webpack.common.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/webpack.dev.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/templates/login.html">
           <value>
             <set />
           </value>
