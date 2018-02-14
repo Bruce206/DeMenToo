@@ -11,4 +11,8 @@ public interface InstanceRepository extends JpaRepository<Instance, Long>, JpaSp
 	List<Instance> findByServerAndIdentifier(Server server, String identifier);
 
     List<Instance> findByInstanceType(InstanceType type);
+
+    List<Instance> findByInstanceTypeAndAndExcludeFromHealthcheckFalse(InstanceType type);
+
+    List<Instance> findByAndExcludeFromHealthcheckFalse();
 }

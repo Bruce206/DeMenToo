@@ -62,7 +62,7 @@ public class InstanceHealthCheckWorker implements Runnable {
                 instanceUrl = "http://" + instanceUrl;
             }
 
-            logger.info("checking health for: " + instanceUrl + instance.getInstanceType().getHealthUrl());
+            logger.debug("checking health for: " + instanceUrl + instance.getInstanceType().getHealthUrl());
             int responseTime = 0;
             try {
                 int tries = 0;

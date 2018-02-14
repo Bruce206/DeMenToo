@@ -3,7 +3,20 @@
 }
 
 .pending {
-  background: lightgrey !important;
+  opacity: 0.6;
+}
+
+tr {
+  background-color: white !important;
+}
+
+.ok {
+  box-shadow: inset 5px 0 0 0 #4CAF50;
+}
+
+.excluded-from-healthcheck {
+  opacity: 0.6;
+  box-shadow: inset 5px 0 0 0 grey;
 }
 
 .critical {
@@ -17,4 +30,8 @@
 .col-selector .ui-multiselect-panel {
   height: 600px;
   width: 400px;
+}
+
+.col-align-right {
+  text-align: right;
 }

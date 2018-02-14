@@ -31,6 +31,10 @@ export class InstanceDetailComponent implements OnInit {
       window.close();
     }, 1000);
   }
+
+  save(): void {
+    this.instanceService.save(this.instance).subscribe();
+  }
 }
 
 @Pipe({name: 'keys'})

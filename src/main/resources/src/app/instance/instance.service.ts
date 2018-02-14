@@ -19,11 +19,19 @@ export class InstanceService {
   }
 
   save(instance: any): Observable<any> {
-    return this.http.post("/api/instance", instance);
+    return this.http.put("/api/instance", instance);
   }
 
   delete(instance: any) {
     return this.http.delete("/api/instance/" + instance.id);
+  }
+
+  refreshHealth() {
+    this.http.get("/api/instance/refresh").subscribe();
+  }
+
+  refreshHealthForType(type: string) {
+    this.http.get("/api/instance/refresh/" + type).subscribe();
   }
 
 }

@@ -1,6 +1,7 @@
 <p-dataTable [value]="instances" #dt class="instance-list" exportFilename="instances" (onRowClick)="handleRowClick($event)" [rowStyleClass]="lookupRowStyleClass">
   <p-header>
-    <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:right"></button>
+    <button type="button" pButton icon="fa-refresh" iconPos="left" label="Refresh Health-Status" (click)="refreshHealth()" style="float:right" class="ui-button-success"></button>
+    <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:right" class="ui-button-secondary"></button>
     <div style="text-align:left">
       <p-multiSelect [options]="columnOptions" [(ngModel)]="cols" (onChange)="colsChanged" scrollHeight="545px" styleClass="col-selector"></p-multiSelect>
     </div>
@@ -24,7 +25,12 @@
     </ng-template>
 
     <ng-template *ngIf="col.field === 'status'" let-item let-data="rowData" pTemplate type="body">
-      {{data.status}} <small title="Responsetime">[{{data.responseTime}}ms]</small>
+      <span *ngIf="!data.status"><span class="fa fa-spinner fa-pulse"></span> Checking </span>
+      {{data.status}}
+    </ng-template>
+
+    <ng-template *ngIf="col.field === 'responseTime'" let-item let-data="rowData" pTemplate type="body">
+      <span [ngStyle]="{ 'color': getColorForResponseTime(data.responseTime)}">{{data.responseTime}}<span *ngIf="data.responseTime">ms</span></span>
     </ng-template>
 
     <ng-template *ngIf="col.field === 'server'" let-item let-data="rowData" pTemplate type="body">

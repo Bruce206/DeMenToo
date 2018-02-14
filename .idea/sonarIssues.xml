@@ -518,6 +518,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/src/app/instance/instance.service.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/src/app/instance/instancetype.component.html">
           <value>
             <set />
@@ -983,6 +988,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/search/IndexedDocument.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/shop/sales/SaleService.java">
           <value>
             <set />
@@ -999,6 +1009,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/admin/scripts/node/tree/angular.treeview.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/styles/person/layout_person.xsl">
           <value>
             <set />
           </value>
@@ -1029,6 +1044,31 @@
           </value>
         </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/3da7c5a1-e0ba-4aa9-a244-9e776af5a657/console.sql">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AndroidStudioProjects/IontoApp/app/build/generated/source/apt/debug/de/ionto/gmbh/eins/ionto/MainActivity_.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AndroidStudioProjects/IontoApp/app/src/main/assets/DeviceConfiguration.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AndroidStudioProjects/IontoApp/app/src/main/java/de/ionto/gmbh/eins/ionto/MainActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AndroidStudioProjects/IontoApp/app/src/main/java/de/ionto/gmbh/eins/ionto/Models/Fragments/ProgramFragmentsRightSide.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AndroidStudioProjects/IontoApp/app/src/main/java/de/ionto/gmbh/eins/ionto/Models/Fragments/ServiceFragment.java">
           <value>
             <set />
           </value>

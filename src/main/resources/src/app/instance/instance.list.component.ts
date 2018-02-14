@@ -43,12 +43,11 @@ export class InstanceListComponent implements OnInit, OnDestroy {
   public response = (data) => {
     for (let i of this.instances) {
       if (i.id === data.instance.id) {
-        console.log(data.instance.lastMessage);
         i.status = data.status;
         i.lastMessage = data.instance.lastMessage;
         i.timeAgo = data.instance.timeAgo;
         i.lastMessageCritical = data.instance.lastMessageCritical;
-        i.responseTime = data.responseTime;
+        i.responseTime = i.status === 'OK' ? data.responseTime : "";
       }
     }
   };
@@ -67,7 +66,8 @@ export class InstanceListComponent implements OnInit, OnDestroy {
       {field: 'version', header: 'Version', filter: true, pos: 6},
       {field: 'server', header: 'Server', filter: true, pos: 7},
       {field: 'modified', header: 'Letzte Meldung', filter: false, pos: 8},
-      {field: 'status', header: 'Status', filter: false, pos: 9}
+      {field: 'status', header: 'Status', filter: false, pos: 9},
+      {field: 'responseTime', header: 'Responsetime', filter: false, pos: 10, class: "col-align-right"}
     ];
 
     this.columnOptions = [];
@@ -77,6 +77,11 @@ export class InstanceListComponent implements OnInit, OnDestroy {
   }
 
   lookupRowStyleClass(instance: any) {
+    if (instance.excludeFromHealthcheck === true) {
+      instance.status = "Excluded";
+      return "excluded-from-healthcheck";
+    }
+
     if (instance.status === undefined && instance.instanceType.healthUrl) {
       return "pending";
     }
@@ -88,10 +93,33 @@ export class InstanceListComponent implements OnInit, OnDestroy {
         return "testcritical";
       }
     }
+
+    return "ok";
+  }
+
+  getColorForResponseTime(responseTime: number) {
+    if (responseTime < 150) {
+      return "green";
+    }
+
+    if (responseTime >= 150 && responseTime < 300) {
+      return "orange";
+    }
+
+    if (responseTime >= 300) {
+      return "red";
+    }
   }
 
   handleRowClick(event: any) {
     window.open('/instance/detail/' + event.data.id, "_blank");
+  }
+
+  refreshHealth() {
+    for (let instance of this.instances) {
+      delete instance.status;
+    }
+    this.instanceService.refreshHealth();
   }
 
 }

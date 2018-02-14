@@ -30,7 +30,9 @@ public class InstanceService {
 
     @Transactional
     public Instance save(Instance instance) {
-        return instanceRepository.save(instance);
+        Instance persistedInstance = instanceRepository.findOne(instance.getId());
+        persistedInstance.setExcludeFromHealthcheck(instance.isExcludeFromHealthcheck());
+        return persistedInstance;
     }
 
     @Transactional
@@ -63,4 +65,15 @@ public class InstanceService {
     public List<Instance> findByType(InstanceType type) {
         return instanceRepository.findByInstanceType(type);
     }
+
+    @Transactional
+    public List<Instance> findByAndExcludeFromHealthcheckFalse() {
+        return instanceRepository.findByAndExcludeFromHealthcheckFalse();
+    }
+
+    @Transactional
+    public List<Instance> findByInstanceTypeAndExcludeFromHealthcheckFalse(InstanceType type) {
+        return instanceRepository.findByInstanceTypeAndAndExcludeFromHealthcheckFalse(type);
+    }
+
 }

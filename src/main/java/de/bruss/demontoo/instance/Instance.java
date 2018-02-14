@@ -34,6 +34,9 @@ public class Instance extends MonitoredSuperEntity {
 	private String version;
 	private String licensedFor;
 
+    @Column(nullable=false, columnDefinition="boolean default false")
+	private boolean excludeFromHealthcheck = false;
+
 	@ManyToOne
     @JsonIgnoreProperties("instances")
 	private InstanceType instanceType;

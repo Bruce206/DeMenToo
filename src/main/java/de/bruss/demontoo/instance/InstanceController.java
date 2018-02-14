@@ -2,8 +2,7 @@ package de.bruss.demontoo.instance;
 
 import de.bruss.demontoo.domain.Domain;
 import de.bruss.demontoo.server.Server;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import de.bruss.demontoo.websockets.InstanceHealthChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,11 @@ public class InstanceController {
     @Autowired
     private InstanceService instanceService;
 
-    private final Logger logger = LoggerFactory.getLogger(InstanceController.class);
+    @Autowired
+    private InstanceTypeService instanceTypeService;
+
+    @Autowired
+    private InstanceHealthChecker instanceHealthChecker;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Instance> findAllInstances() {
@@ -37,9 +40,19 @@ public class InstanceController {
         instanceService.delete(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void updateInstance(@PathVariable long id, @RequestBody Instance instance) {
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public void updateInstance(@RequestBody Instance instance) {
         instanceService.save(instance);
+    }
+
+    @RequestMapping(value = "refresh", method = RequestMethod.GET)
+    public void refreshHealthChecks() {
+        instanceHealthChecker.checkHealthStatus();
+    }
+
+    @RequestMapping(value = "refresh/{type}", method = RequestMethod.GET)
+    public void refreshHealthChecks(@PathVariable String type) {
+        instanceHealthChecker.checkHealthStatus(instanceTypeService.findByName(type));
     }
 
     /**

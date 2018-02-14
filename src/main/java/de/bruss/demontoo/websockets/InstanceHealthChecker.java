@@ -49,15 +49,15 @@ public class InstanceHealthChecker {
         worker.setInstance(instance);
 
         taskExecutor.execute(worker);
-        logger.info("Instance-Thread added to Health-Check-Queue: " + instance.toString());
+        logger.debug("Instance-Thread added to Health-Check-Queue: " + instance.toString());
     }
 
     @Async
     @Scheduled(cron = "0 * * * * ?")
     public void checkHealthStatus() {
-        logger.info("Currently connected subscribers: " + sessionListener.getCurrentUsers());
+        logger.debug("Currently connected subscribers: " + sessionListener.getCurrentUsers());
         if (sessionListener.getCurrentUsers() > 0) {
-            List<Instance> instances = instanceService.findAll();
+            List<Instance> instances = instanceService.findByAndExcludeFromHealthcheckFalse();
 
             for (Instance i : instances) {
                 addToQueue(i);
@@ -67,9 +67,9 @@ public class InstanceHealthChecker {
 
     @Async
     public void checkHealthStatus(InstanceType type) {
-        logger.info("Currently connected subscribers: " + sessionListener.getCurrentUsers());
+        logger.debug("Currently connected subscribers: " + sessionListener.getCurrentUsers());
         if (sessionListener.getCurrentUsers() > 0) {
-            List<Instance> instances = instanceService.findByType(type);
+            List<Instance> instances = instanceService.findByInstanceTypeAndExcludeFromHealthcheckFalse(type);
 
             for (Instance i : instances) {
                 addToQueue(i);

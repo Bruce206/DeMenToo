@@ -3,7 +3,7 @@
     <p-panel>
       <p-header>
         <div class="ui-helper-clearfix">
-          <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Informations</span>
+          <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Sent Information</span>
           <button pButton type="button" label="Delete" (click)="delete()" style="float: right;"></button>
         </div>
       </p-header>
@@ -21,6 +21,16 @@
           {{instance.server.serverName}}<br>{{instance.server.ip}}
         </ng-template>
       </form-row>
+    </p-panel>
+    <p-panel header="DeMonToo-Settings">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-5">
+          Exclude from Healthcheck
+        </div>
+        <div class="ui-grid-col-7">
+          <input type="checkbox" [(ngModel)]="instance.excludeFromHealthcheck" (change)="save()">
+        </div>
+      </div>
     </p-panel>
     <p-panel header="Domänen">
       <div *ngFor="let domain of instance.domains">

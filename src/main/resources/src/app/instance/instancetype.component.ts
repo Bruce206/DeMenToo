@@ -5,6 +5,7 @@ import {SelectItem} from "primeng/primeng";
 import {InstanceTypeService} from "./instancetype.service";
 import {SortPipe} from "../sort.pipe";
 import {StompService} from 'ng2-stomp-service';
+import {InstanceService} from "./instance.service";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
 
   private subscription: any;
 
-  constructor(private instanceTypeService: InstanceTypeService, private route: ActivatedRoute, private sortPipe: SortPipe, private stomp: StompService) {
+  constructor(private instanceTypeService: InstanceTypeService, private route: ActivatedRoute, private sortPipe: SortPipe, private stomp: StompService, private instanceService: InstanceService) {
   }
 
   private subscribeToInstanceHealth() {
@@ -51,7 +52,8 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
       {field: 'version', header: 'Version', filter: true, pos: 5},
       {field: 'server', header: 'Server', filter: true, pos: 6},
       {field: 'modified', header: 'Last Message', filter: false, pos: 7},
-      {field: 'status', header: 'Status', filter: false, pos: 8}
+      {field: 'status', header: 'Status', filter: false, pos: 8},
+      {field: 'responseTime', header: 'Responsetime', filter: false, pos: 9, class: "col-align-right"}
     ];
 
     this.columnOptions = [];
@@ -95,19 +97,23 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
   }
 
   public updateInstanceStatus(data) {
-    console.log(data);
     for (let i of this.instanceType.instances) {
       if (i.id === data.instance.id) {
         i.status = data.status;
         i.lastMessage = data.instance.lastMessage;
         i.timeAgo = data.instance.timeAgo;
         i.lastMessageCritical = data.instance.lastMessageCritical;
-        i.responseTime = data.responseTime;
+        i.responseTime = i.status === 'OK' ? data.responseTime : "";
       }
     }
   }
 
   lookupRowStyleClass(instance: any) {
+    if (instance.excludeFromHealthcheck === true) {
+      instance.status = "Excluded";
+      return "excluded-from-healthcheck";
+    }
+
     if (instance.status === undefined && instance.instanceType.healthUrl) {
       return "pending";
     }
@@ -119,6 +125,8 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
         return "testcritical";
       }
     }
+
+    return "ok";
   }
 
   save() {
@@ -136,6 +144,27 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
 
   handleRowClick(event: any) {
     window.open('/instance/detail/' + event.data.id, "_blank");
+  }
+
+  getColorForResponseTime(responseTime: number) {
+    if (responseTime < 150) {
+      return "green";
+    }
+
+    if (responseTime >= 150 && responseTime < 300) {
+      return "orange";
+    }
+
+    if (responseTime >= 300) {
+      return "red";
+    }
+  }
+
+  refreshHealth() {
+    for (let instance of this.instanceType.instances) {
+      delete instance.status;
+    }
+    this.instanceService.refreshHealth();
   }
 
 }
