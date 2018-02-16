@@ -61,9 +61,9 @@ public class InstanceController {
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> createInstance(@RequestBody Instance instance, HttpServletRequest request) {
         // dont show local pcs
-//        if (instance.getServer().getServerName().startsWith("PC-") || instance.getServer().getServerName().startsWith("DESKTOP-")) {
-//            return new ResponseEntity<>(HttpStatus.CREATED);
-//        }
+        if (instance.getServer().getServerName().startsWith("PC-") || instance.getServer().getServerName().startsWith("pc-") || instance.getServer().getServerName().startsWith("DESKTOP-")) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
 
         String remoteAddr = request.getHeader("X-Forwarded-For");
         if (StringUtils.isEmpty(remoteAddr)) {

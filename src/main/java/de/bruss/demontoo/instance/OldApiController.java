@@ -34,7 +34,7 @@ public class OldApiController {
         JsonNode node = mapper.readTree(json);
 
         // dont show local pcs
-        if (node.path("serverName").asText().startsWith("PC-") || node.path("serverName").asText().startsWith("DESKTOP-")) {
+        if (node.path("serverName").asText().startsWith("PC-") || node.path("serverName").asText().startsWith("pc-") || node.path("serverName").asText().startsWith("DESKTOP-")) {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
 

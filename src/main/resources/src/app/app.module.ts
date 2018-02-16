@@ -38,7 +38,7 @@ import { StompService } from 'ng2-stomp-service';
     RouterModule.forRoot([
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/instance',
         pathMatch: 'full'
       },
       {
