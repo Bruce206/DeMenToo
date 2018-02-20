@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="/a.sql">
           <value>
             <set />
@@ -93,6 +98,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/DocumentRoiImage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/document/DocumentService.java">
           <value>
             <set />
@@ -143,6 +153,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/DocumentTemplateSideImage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/documentTemplate/dtos/CompactTemplate.java">
           <value>
             <set />
@@ -169,6 +184,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/files/TempUploadService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/image/Image.java">
           <value>
             <set />
           </value>
@@ -223,6 +243,36 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printingTechnique/PrintingSubTechnique.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printingTechnique/PrintingSubTechniqueImage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printingTechnique/PrintingTechnique.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printingTechnique/PrintingTechniqueDetails.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printingTechnique/PrintingTechniqueImage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/printingTechnique/SubTechnique.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/security/MvcConfig.java">
           <value>
             <set />
@@ -263,7 +313,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/app.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/app.module.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/core/services/structure.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/frame.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/addSubTechniqueModal.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/imageList/addImageModal.html">
           <value>
             <set />
           </value>
@@ -278,12 +353,42 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique/printingTechnique.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique/printingTechnique.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/uiComponents/formrow/form-row.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/uiComponents/formrow/form-row.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/uiComponents/formrow/uiComponents.module.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/user/userList.html">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/user/userlist.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/css/styles.css">
           <value>
             <set />
           </value>
@@ -299,6 +404,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/webpack.dev.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/structure.json">
           <value>
             <set />
           </value>
@@ -963,6 +1073,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/admin/nodes/AdminNodeService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/job/implementations/LicensingService.java">
           <value>
             <set />
@@ -988,6 +1103,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/nodes/node/NodesSpecs.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/search/IndexedDocument.java">
           <value>
             <set />
@@ -998,12 +1118,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/user/StandardSerializeCustomerService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/resources/default-logback.xml">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/resources/default.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/admin/scripts/node/contents/contents.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/admin/scripts/node/contents/contents.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/admin/scripts/node/directives.js">
           <value>
             <set />
           </value>
