@@ -1,5 +1,8 @@
 package de.bruss.demontoo.instance;
 
+import de.bruss.demontoo.server.Server;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +60,32 @@ public class InstanceTypeController {
         instancetypeService.setUpdateFile(id, file);
     }
 
+    @RequestMapping(value="/install/{id}", method = RequestMethod.POST)
+    public void setUpdate(@PathVariable Long instanceTypeId, @RequestBody InstanceInstallationRequest request) throws IOException {
+        instancetypeService.installNewInstance(instanceTypeId, request);
+    }
+
+    @Getter
+    @Setter
+    public static class InstanceInstallationRequest {
+        // deployment-settings
+        private Server server;
+        private String ip;
+
+        private String domain;
+        private String customer;
+        private String identifier;
+
+        // application-properties
+        private String port;
+        private List<ApplicationProperty> additionalApplicationProperties;
+        private String activeSpringProfiles;
+
+        @Getter
+        @Setter
+        public class ApplicationProperty {
+            private String key;
+            private String value;
+        }
+    }
 }

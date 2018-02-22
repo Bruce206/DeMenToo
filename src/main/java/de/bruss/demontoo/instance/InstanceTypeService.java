@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,7 +68,12 @@ public class InstanceTypeService {
         persistedType.setUpdatePath(instancetype.getUpdatePath());
         persistedType.setAppType(instancetype.getAppType());
 
-        if (instancetype.getUpdateTime() != null) {
+        persistedType.setApacheTemplate(instancetype.getApacheTemplate());
+        persistedType.setServiceTemplate(instancetype.getServiceTemplate());
+        persistedType.setCertbot(instancetype.getCertbot());
+        persistedType.setApplicationPropertiesTemplate(instancetype.getApplicationPropertiesTemplate());
+
+        if (instancetype.getUpdateTime() != null && instancetype.getUpdateTime().isAfter(ZonedDateTime.now())) {
             // if updateTime was changed, set new time and schedule update, else leave as is
             if (!instancetype.getUpdateTime().withSecond(0).withNano(0).equals(persistedType.getUpdateTime())) {
                 persistedType.setUpdateTime(instancetype.getUpdateTime().withSecond(0).withNano(0));
@@ -140,5 +148,50 @@ public class InstanceTypeService {
         ScheduledFuture future = taskExecutor.schedule(updateWorker, Date.from(instanceType.getUpdateTime().toInstant()));
 
         scheduledFutures.put(instanceType.getName(), future);
+    }
+
+    @Transactional
+    public void installNewInstance(Long instanceTypeId, InstanceTypeController.InstanceInstallationRequest request) throws IOException {
+        InstanceType instanceType = instancetypeRepository.findOne(instanceTypeId);
+
+        String apacheTemplate = instanceType.getApacheTemplate();
+        apacheTemplate = apacheTemplate.replace("[DOMAIN]", request.getDomain());
+        apacheTemplate = apacheTemplate.replace("[PORT]", request.getPort());
+
+        Files.write(Paths.get("C:/tmp/demontooTests/virt-" + request.getIdentifier() + ".conf"), apacheTemplate.getBytes());
+
+        String applicationPropertiesTemplate = instanceType.getApplicationPropertiesTemplate();
+        applicationPropertiesTemplate = applicationPropertiesTemplate.replace("[DOMAIN]", request.getDomain());
+        applicationPropertiesTemplate = applicationPropertiesTemplate.replace("[PORT]", request.getPort());
+        applicationPropertiesTemplate = applicationPropertiesTemplate.replace("[RAND]", randomString(32));
+        applicationPropertiesTemplate = applicationPropertiesTemplate.replace("[CUSTOMER]", request.getCustomer());
+        applicationPropertiesTemplate = applicationPropertiesTemplate.replace("[IDENTIFIER]", request.getIdentifier());
+
+        for (InstanceTypeController.InstanceInstallationRequest.ApplicationProperty prop : request.getAdditionalApplicationProperties()) {
+            applicationPropertiesTemplate = applicationPropertiesTemplate.replace("[ADD_" + prop.getKey() + "]", prop.getValue());
+        }
+
+        if (!StringUtils.isEmpty(request.getActiveSpringProfiles())) {
+            applicationPropertiesTemplate = applicationPropertiesTemplate + "\nspring.profiles.active=" + request.getActiveSpringProfiles();
+        }
+
+        Files.write(Paths.get("C:/tmp/demontooTests/application.properties"), applicationPropertiesTemplate.getBytes());
+
+        String serviceTemplate = instanceType.getServiceTemplate();
+        serviceTemplate = serviceTemplate.replace("[IDENTIFIER]", request.getIdentifier());
+        serviceTemplate = serviceTemplate.replace("[INSTANCE_TYPE_UPDATE_PATH]", instanceType.getUpdatePath());
+        serviceTemplate = serviceTemplate.replace("[INSTANCE_TYPE_NAME]", instanceType.getName().toLowerCase());
+
+        Files.write(Paths.get("C:/tmp/demontooTests/" + request.getIdentifier() + ".service"), serviceTemplate.getBytes());
+    }
+
+    private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!§$%&/()?#*+~:;_-";
+    private static SecureRandom rnd = new SecureRandom();
+
+    String randomString( int len ){
+        StringBuilder sb = new StringBuilder( len );
+        for( int i = 0; i < len; i++ )
+            sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+        return sb.toString();
     }
 }

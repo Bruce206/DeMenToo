@@ -1,0 +1,126 @@
+<div class="ui-g">
+  <div class="ui-g-6">
+    <p-panel *ngIf="instanceType" header="Details">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-5" style="padding: .25em .5em;">
+          Image
+        </div>
+        <div class="ui-grid-col-7">
+          <img [src]="'data:image/png;base64,' + instanceType?.image" alt="No Image uploaded">
+          <p-fileUpload mode="basic" name="file" [url]="'/api/instanceType/image/' + instanceType?.id" accept="image/*" maxFileSize="1000000" auto="true" chooseLabel="Change" (onUpload)="onUploadFinished($event)"></p-fileUpload>
+        </div>
+      </div>
+      <form-row [(ngModel)]="instanceType.messageInterval" [editable]="true" label="Message-Interval in minutes" (submitted)="save()"></form-row>
+      <form-row [(ngModel)]="instanceType.appType" [editable]="true" label="App-Type" (submitted)="save()" [options]="['SPRING_BOOT', 'OTHER']"></form-row>
+      <div *ngIf="instanceType.appType === 'OTHER'">
+        <form-row [(ngModel)]="instanceType.healthUrl" [editable]="true" label="Heath-URL" (submitted)="save()"></form-row>
+      </div>
+    </p-panel>
+  </div>
+  <div class="ui-g-6">
+    <p-panel *ngIf="instanceType" header="">
+      <p-header>
+        All-Instance-Deployment
+      </p-header>
+      <p>
+        Here you can deploy a new JAR-File to all Systems of this Instance-Type at a specific point in time.
+      </p>
+      <form-row [(ngModel)]="instanceType.updatePath" [editable]="true" label="Update-Path" (submitted)="save()"></form-row>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+          <form-row [(ngModel)]="instanceType.updateFileName" [editable]="true" label="Aktuelle Updatedatei" (submitted)="save()">
+            <ng-template>
+              {{instanceType.updateFileName}} <span (click)="changeFile = true;" style="cursor: pointer; color: blue;">Ändern</span>
+            </ng-template>
+          </form-row>
+          <div class="ui-grid-row" style="padding-left: 8px;" *ngIf="changeFile">
+            <div class="ui-grid-col-12">
+              <p-fileUpload name="file" [url]="'/api/instanceType/update/' + instanceType?.id" maxFileSize="100000000" chooseLabel="Upload new Update" (onUpload)="onUploadFinished($event)"></p-fileUpload>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-5" style="padding: .25em .5em;">
+              Update-Zeitpunkt
+            </div>
+            <div class="ui-grid-col-7">
+              <div *ngIf="!changeTime">
+                {{instanceType.updateTime | date:'dd.MM.yyy &nbsp;&nbsp;HH:mm'}} <span (click)="instanceType.updateTime = null; changeTime = true;" style="cursor: pointer; color: blue;">Ändern</span>
+              </div>
+              <div *ngIf="changeTime">
+                <p-calendar [(ngModel)]="instanceType.updateTime" showTime="true" hourFormat="24" dateFormat="dd.mm.yy"></p-calendar>
+                <span (click)="changeTime = false; save();" style="cursor: pointer; color: blue;">Speichern</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+</div>
+<hr>
+<div class="ui-g">
+  <div class="ui-g-8">
+    <p-panel *ngIf="instanceType" header="">
+      <p-header>
+        Apache-Deployment-Settings
+      </p-header>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-5">
+          Do Certbot
+        </div>
+        <div class="ui-grid-col-7">
+          <input type="checkbox" [(ngModel)]="instanceType.certbot" (change)="save()">
+        </div>
+      </div>
+      <form-row label="Apache-Template" [(ngModel)]="instanceType.apacheTemplate" rows="20" [editable]="true" (submitted)="save()"></form-row>
+
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-7 ui-md-offset-5">
+          <button type="text" pButton label="Placeholders" (click)="opApachePlaceholders.toggle($event)"></button>
+          <p-overlayPanel #opApachePlaceholders>
+            [DOMAIN]: Instance-Domain <br>
+            [PORT]: Instance-Port
+          </p-overlayPanel>
+        </div>
+      </div>
+
+    </p-panel>
+    <p-panel *ngIf="instanceType" header="">
+      <p-header>
+        application.properties-Settings
+      </p-header>
+      <form-row label="application.properties-Template" [(ngModel)]="instanceType.applicationPropertiesTemplate" rows="20" [editable]="true" (submitted)="save()"></form-row>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-7 ui-md-offset-5">
+          <button type="text" pButton label="Placeholders" (click)="opApplicationPropertiesPlaceholders.toggle($event)"></button>
+          <p-overlayPanel #opApplicationPropertiesPlaceholders>
+            [DOMAIN]: Instance-Domain <br>
+            [PORT]: Instance-Port <br>
+            [RAND]: Generates a random Passphrase 32-digits <br>
+            [CUSTOMER]: Customer name <br>
+            [IDENTIFIER]: Identifier
+          </p-overlayPanel>
+        </div>
+      </div>
+    </p-panel>
+    <p-panel *ngIf="instanceType" header="">
+      <p-header>
+        System-Template
+      </p-header>
+      <form-row label="Service-Template" [(ngModel)]="instanceType.serviceTemplate" rows="20" [editable]="true" (submitted)="save()"></form-row>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-7 ui-md-offset-5">
+          <button type="text" pButton label="Placeholders" (click)="opServicePlaceholders.toggle($event)"></button>
+          <p-overlayPanel #opServicePlaceholders>
+            [INDENTIFIER]: Identifier <br>
+            [INSTANCE_TYPE_UPDATE_PATH]: Update-Path of Instance-Type <br>
+            [INSTANCE_TYPE_NAME]: Name of Instance-Type in lower-case <br>
+          </p-overlayPanel>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  <div class="ui-g-4">
+
+  </div>
+</div>

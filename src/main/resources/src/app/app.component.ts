@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MenuItem} from "primeng/primeng";
-import {InstanceTypeService} from "./instance/instancetype.service";
+import {InstanceTypeService} from "./instancetype/instancetype.service";
 
 @Component({
   selector: 'app',
@@ -42,7 +42,9 @@ export class AppComponent {
 
     this.instanceTypeService.getList().subscribe(types => {
       for (let type of types) {
-        this.items.push({icon: 'fa-cubes', label: type.name, routerLink: '/instanceType/' + type.name});
+        this.items.push({icon: 'fa-cubes', label: type.name});
+        this.items.push({icon: 'fa-cogs', label: "Settings", routerLink: '/instanceType/' + type.name + "/settings", styleClass: "indentMenuItem"});
+        this.items.push({icon: 'fa-list', label: "Instances", routerLink: '/instanceType/' + type.name + "/instances", styleClass: "indentMenuItem"});
       }
     });
   }

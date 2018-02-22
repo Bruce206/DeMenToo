@@ -39,6 +39,19 @@ public class InstanceType {
     private AppType appType;
     private String healthUrl;
 
+    @Column(columnDefinition = "text")
+    private String apacheTemplate;
+
+    @Column(columnDefinition = "text")
+    private String applicationPropertiesTemplate;
+
+    @Column(columnDefinition = "text")
+    private String serviceTemplate;
+
+    private Boolean certbot;
+
+    private String databaseNameTemplate;
+
     /**
      * in minutes!
      */

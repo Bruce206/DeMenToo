@@ -20,9 +20,10 @@ import {InstanceService} from "./instance/instance.service";
 import {SortPipe} from "./sort.pipe";
 import {InstanceDetailComponent, KeysPipe} from "./instance/instance.detail.component";
 import {FormRowComponent} from "./uiComponents/formrow/form-row.component";
-import {InstanceTypeService} from "./instance/instancetype.service";
-import {InstanceTypeComponent} from "./instance/instancetype.component";
+import {InstanceTypeService} from "./instancetype/instancetype.service";
+import {InstanceTypeComponent} from "./instancetype/instancetype.component";
 import { StompService } from 'ng2-stomp-service';
+import {InstanceTypeInstancesComponent} from "./instancetype/instancetype.instances.component";
 
 @NgModule({
   imports: [
@@ -58,8 +59,12 @@ import { StompService } from 'ng2-stomp-service';
         component: InstanceDetailComponent
       },
       {
-        path: 'instanceType/:type',
+        path: 'instanceType/:type/settings',
         component: InstanceTypeComponent
+      },
+      {
+        path: 'instanceType/:type/instances',
+        component: InstanceTypeInstancesComponent
       }
     ])
 
@@ -72,6 +77,7 @@ import { StompService } from 'ng2-stomp-service';
     InstanceListComponent,
     InstanceDetailComponent,
     InstanceTypeComponent,
+    InstanceTypeInstancesComponent,
     SortPipe,
     KeysPipe
   ],

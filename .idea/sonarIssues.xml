@@ -643,6 +643,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/src/app/instancetype/instancetype.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/src/app/instancetype/instancetype.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/src/app/instancetype/instancetype.instances.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/src/app/instancetype/instancetype.instances.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/src/app/server/server.list.component.html">
           <value>
             <set />
@@ -1093,6 +1113,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/nodes/content/StandardSerializeNodeService2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/java/com/iratec/cms/nodes/node/NodeEntity.java">
           <value>
             <set />
@@ -1153,6 +1178,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/localstyles/azubitage/email/email.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/localstyles/bard/products/products.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/localstyles/felina/shopextension/shopextension.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/styles/metaContents.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../XibisOne/src/main/webapp/styles/person/layout_person.xsl">
           <value>
             <set />
@@ -1194,6 +1239,11 @@
           </value>
         </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/3da7c5a1-e0ba-4aa9-a244-9e776af5a657/console.sql">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/fb75b799-0d8a-4e2a-aae3-53380863629c/console.sql">
           <value>
             <set />
           </value>

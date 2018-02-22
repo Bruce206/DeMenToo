@@ -5,16 +5,16 @@ import {SelectItem} from "primeng/primeng";
 import {InstanceTypeService} from "./instancetype.service";
 import {SortPipe} from "../sort.pipe";
 import {StompService} from 'ng2-stomp-service';
-import {InstanceService} from "./instance.service";
+import {InstanceService} from "../instance/instance.service";
 
 
 @Component({
-  selector: 'instancetype',
-  templateUrl: 'instancetype.component.html',
-  styleUrls: ['instance.component.css'],
+  selector: 'instancetypeinstances',
+  templateUrl: 'instancetype.instances.component.html',
+  styleUrls: ['../instance/instance.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class InstanceTypeComponent implements OnInit, OnDestroy {
+export class InstanceTypeInstancesComponent implements OnInit, OnDestroy {
   public instanceType: any = {instances: []};
   public columnOptions: SelectItem[];
   public cols: any[];
@@ -127,19 +127,6 @@ export class InstanceTypeComponent implements OnInit, OnDestroy {
     }
 
     return "ok";
-  }
-
-  save() {
-    this.instanceTypeService.save(this.instanceType).subscribe(it => {
-      this.instanceType = it;
-    });
-  }
-
-  onUploadFinished($event) {
-    this.changeFile = false;
-    this.fetchInstanceType();
-    this.subscription.unsubscribe();
-    this.subscription = this.stomp.subscribe('/instancestatus', this.updateInstanceStatus.bind(this));
   }
 
   handleRowClick(event: any) {
