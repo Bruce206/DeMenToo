@@ -1,9 +1,10 @@
-import {Component, OnInit, Pipe, ViewEncapsulation, OnDestroy} from '@angular/core';
+import {Component, OnInit, Pipe, ViewEncapsulation, OnDestroy, ViewChild} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {Router} from "@angular/router";
 import {InstanceService} from "./instance.service";
-import {OverlayPanel, SelectItem} from "primeng/primeng";
+import {OverlayPanel, SelectItem, DataTable} from "primeng/primeng";
 import {StompService} from 'ng2-stomp-service';
+
 
 @Component({
   selector: 'instance',
@@ -12,6 +13,9 @@ import {StompService} from 'ng2-stomp-service';
   encapsulation: ViewEncapsulation.None
 })
 export class InstanceListComponent implements OnInit, OnDestroy {
+  @ViewChild(('dt')) dt: DataTable;
+
+  private dataTableVisible: boolean = true;
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     this.stomp.disconnect().then(() => console.log("Socket closd"));
@@ -50,6 +54,8 @@ export class InstanceListComponent implements OnInit, OnDestroy {
         i.responseTime = i.status === 'OK' ? data.responseTime : "";
       }
     }
+
+    this.dt.handleDataChange();
   };
 
   ngOnInit(): void {

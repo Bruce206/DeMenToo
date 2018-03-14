@@ -313,12 +313,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/public/index.html">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/app.component.ts">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/app.module.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/core/pagination.pipe.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/core/predefinedValue.pipe.ts">
           <value>
             <set />
           </value>
@@ -343,12 +358,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printer.module.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique.list.component.html">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique.list.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique/printingTechnique.comparison.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique/printingTechnique.comparison.component.ts">
           <value>
             <set />
           </value>
@@ -388,7 +418,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/vendor.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/css/primengThemes/andrupos/theme.scss">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/css/styles.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/css/theme.scss">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/index.html">
           <value>
             <set />
           </value>
@@ -1213,7 +1263,92 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../technologymap/src/main/java/de/eins/technologymap/AppConfiguration.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../technologymap/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/.bowerrc">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/bower.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/build/index.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/java/de/eins/scheuerle/administration/AdministrationController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/java/de/eins/scheuerle/config/WebConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/java/de/eins/scheuerle/security/SecurityConfiguration.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/index.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/admin/document/document.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/admin/document/partials/list.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/admin/index/index.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/app.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/internal/internal.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/login/login.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/main/main.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../tii/src/main/resources/public/js/public/public.js">
           <value>
             <set />
           </value>
