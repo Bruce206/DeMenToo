@@ -25,6 +25,9 @@ public class InstanceController {
     @Autowired
     private InstanceHealthChecker instanceHealthChecker;
 
+    @Autowired
+	private InstanceChecker instanceChecker;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Instance> findAllInstances() {
         return instanceService.findAll();
@@ -92,4 +95,8 @@ public class InstanceController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+	@RequestMapping(value = "/checkActive", method = RequestMethod.GET)
+	public void checkActive() {
+    	instanceChecker.activeCheck();
+	}
 }

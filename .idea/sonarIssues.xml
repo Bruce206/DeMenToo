@@ -193,6 +193,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/image/ImageController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/image/ImageService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/imageupload/Images.java">
           <value>
             <set />
@@ -358,6 +368,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/imageList/editImageModal.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/imageList/imageList.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/imageList/imageList.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printer.module.ts">
           <value>
             <set />
@@ -369,6 +394,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique.list.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/resources/src/app/printer/printingTechnique/detail/printingTechnique.detail.component.html">
           <value>
             <set />
           </value>
@@ -519,6 +549,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/Instance.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/de/bruss/demontoo/instance/InstanceChecker.java">
           <value>
             <set />
           </value>
