@@ -64,7 +64,7 @@ public class OldApiController {
 
         instanceService.addToQueue(instance);
 
-        logger.info("Instance added to Queue! [" + instance.toString() + "]");
+        logger.debug("Instance added to Queue! [" + instance.toString() + "]");
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

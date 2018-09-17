@@ -143,8 +143,7 @@ public class SshService {
 
 			}
 		} catch (SftpException e) {
-			logger.info("Folder creation failed!");
-			e.printStackTrace();
+			logger.error("Folder creation failed!", e);
 		}
 
 	}
@@ -201,8 +200,8 @@ public class SshService {
 
 			return StringUtils.chomp(outputBuffer.toString());
 		} catch (JSchException | IOException e) {
-			logger.info("Failed to connect to Server while sending Command: " + command);
-			e.printStackTrace();
+			logger.error("Failed to connect to Server while sending Command: " + command, e);
+
 		}
 		return null;
 	}

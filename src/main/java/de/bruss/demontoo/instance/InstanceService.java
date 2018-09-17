@@ -41,7 +41,7 @@ public class InstanceService {
         worker.setInstance(instance);
 
         taskExecutor.execute(worker);
-        logger.info("Instance-Thread added to Queue: " + instance.toString());
+        logger.debug("Instance-Thread added to Queue: " + instance.toString());
     }
 
     @Transactional

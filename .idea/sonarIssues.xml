@@ -63,6 +63,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/centralRepository/ImageUploadWorker.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/centralRepository/PrinterRepositoryService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/common/LazyLoadEvent.java">
           <value>
             <set />
@@ -164,6 +174,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/entityHelper/AbstractTimestampEntity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/externalapi/analysis/BanknoteAnalyser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Andrupos/src/main/java/de/eins/andrupos/externalapi/scan/ScanService.java">
           <value>
             <set />
           </value>
@@ -498,6 +518,121 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/Application.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/controllers/HomeController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/mail/MailService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/ranking/Rating.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/ranking/updateServices/SimilarwebUpdateService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/ranking/updateServices/UpdateService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/ranking/updateServices/UpdateStarter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/site/Site.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/site/SiteRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/site/SiteService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/site/companyCategory/CompanyCategoryService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/site/specialCategory/SpecialCategoryService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/site/websiteCategory/WebsiteCategoryService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/solr/IndexWorker.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/java/de/eins/rating/solr/SolrService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/resources/application.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/resources/db/changelog/changelog.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/resources/static/list.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/resources/static/scripts/backend/sites/detail.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/resources/static/templates/confirmationMail.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/resources/templates/confirmationMail.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../BesteSeiten/src/main/resources/templates/confirmationSuccess.html">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/.gitattributes">
           <value>
             <set />
@@ -803,6 +938,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SimilarwebSimulationServer/src/main/java/de/eins/bootexample/test/Controller.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/pom.xml">
           <value>
             <set />
@@ -828,6 +968,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/AppointmentRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/AppointmentService.java">
           <value>
             <set />
@@ -839,6 +984,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/AppointmentValidationService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/CustomerInformationJob.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/appointments/CustomerNotificationJob.java">
           <value>
             <set />
           </value>
@@ -874,6 +1029,21 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/configuration/ConfigurationController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/configuration/ConfigurationEntry.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/configuration/parts/Notification.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/configuration/parts/Sms.java">
           <value>
             <set />
           </value>
@@ -958,6 +1128,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/sms/SmsLog.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/sms/SmsRequest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/java/de/eins/skin/treatment/TreatmentController.java">
           <value>
             <set />
@@ -989,6 +1169,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/database/changelogs/1.500-changelog.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/database/changelogs/1.700-changelog.xml">
           <value>
             <set />
           </value>
@@ -1084,6 +1269,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/customer/fragments/appointments.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SkinGo/src/main/resources/public/templates/customer/fragments/core.html">
           <value>
             <set />
           </value>
@@ -1409,6 +1599,11 @@
           </value>
         </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/3da7c5a1-e0ba-4aa9-a244-9e776af5a657/console.sql">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/ea4897a3-2fa9-43e8-8843-39414a87e821/console.sql">
           <value>
             <set />
           </value>

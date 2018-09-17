@@ -33,7 +33,7 @@ public class InstanceWorker implements Runnable {
     @Transactional
     public void run() {
         try {
-            logger.info("Updating instance [" + instance.toString() + "]...");
+            logger.debug("Updating instance [" + instance.toString() + "]...");
 
             // find matching server in database (by id and name)
 //        Server server = serverRepository.findByIpAndServerName(instance.getServer().getIp(), instance.getServer().getServerName());
@@ -47,7 +47,7 @@ public class InstanceWorker implements Runnable {
                 }
             }
 
-            logger.info("Server found: " + (server != null ? server.toString() : "null"));
+            logger.debug("Server found: " + (server != null ? server.toString() : "null"));
 
             // check if server is already in database, if not add
             if (server == null) {
@@ -55,19 +55,19 @@ public class InstanceWorker implements Runnable {
                 server.setIp(instance.getServer().getIp());
                 server.setServerName(instance.getServer().getServerName());
                 serverRepository.save(server);
-                logger.info("Server created: " + server.toString());
+                logger.debug("Server created: " + server.toString());
             }
 
             server.setLastMessage(LocalDateTime.now());
 
-            logger.info("Searching for Instance");
+            logger.debug("Searching for Instance");
             Instance persistedInstance;
             Optional<Instance> persistedInstanceOpt = server.getInstances().stream().filter(i -> i.getIdentifier().equals(instance.getIdentifier())).findFirst();
             if (persistedInstanceOpt.isPresent()) {
-                logger.info("Instance found: " + persistedInstanceOpt.get().toString());
+                logger.debug("Instance found: " + persistedInstanceOpt.get().toString());
                 persistedInstance = persistedInstanceOpt.get();
             } else {
-                logger.info("Instance created");
+                logger.debug("Instance created");
                 persistedInstance = new Instance();
             }
 
@@ -114,7 +114,7 @@ public class InstanceWorker implements Runnable {
             instanceRepository.save(persistedInstance);
 
 
-            logger.info("Instanceupdate successful! [" + instance.toString() + "]");
+            logger.debug("Instanceupdate successful! [" + instance.toString() + "]");
         } catch (Exception e) {
             logger.error("Error during instanceupdate", e);
         }

@@ -18,6 +18,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -40,6 +41,8 @@ public class InstanceChecker {
 	private LocalDateTime lastPassiveMailSent;
 	private LocalDateTime lastActiveMailSent;
 
+	private HashMap<Instance, LocalDateTime> repeatedNonCallingInstances = new HashMap<>();
+
 	private enum CheckType {
 		ACTIVE, PASSIVE
 	}
@@ -51,21 +54,70 @@ public class InstanceChecker {
 			if (lastPassiveMailSent == null || lastPassiveMailSent.plusMinutes(10).isBefore(LocalDateTime.now())) {
 				List<InstanceType> instanceTypes = instanceTypeService.findAll();
 
-				List<Instance> unreachableInstances = new ArrayList<>();
+				List<Instance> nonCallingInstances = new ArrayList<>();
 
 				for (InstanceType it : instanceTypes) {
 					for (Instance i : it.getInstances()) {
 						if (!i.isExcludeFromHealthcheck() && i.getLastMessage().plusMinutes(it.getMessageInterval()).isBefore(LocalDateTime.now())) {
-							unreachableInstances.add(i);
+							if (!repeatedNonCallingInstances.containsKey(i)) {
+								repeatedNonCallingInstances.put(i, LocalDateTime.now());
+								nonCallingInstances.add(i);
+							}
+						} else {
+							repeatedNonCallingInstances.remove(i);
 						}
 					}
 				}
 
-				if (!unreachableInstances.isEmpty()) {
-					sendMail(unreachableInstances, CheckType.PASSIVE);
+				if (!nonCallingInstances.isEmpty()) {
+					sendMail(nonCallingInstances, CheckType.PASSIVE);
 				}
 			}
 		}
+	}
+
+	@Scheduled(cron = "0 0 * * * *")
+	public void sendRepeatedNonCallingInstancesMail() {
+		logger.error("Instances down: " + repeatedNonCallingInstances.size());
+		MimeMessage mail = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mail, false);
+			helper.setTo(mailto.split(","));
+			helper.setReplyTo("info@eins-gmbh.de");
+			helper.setFrom("demontoo@eins-gmbh.de");
+			helper.setPriority(1);
+			helper.setSubject("Seiten länger nicht erreichbar");
+
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("Folgende Seiten sind nicht mehr erreichbar:\n\n");
+			sb.append("<table><thead><th>Instance</th><th>Url</th><th>Server</th><th>Last Message</th></thead><tbody>");
+			for (Instance i : repeatedNonCallingInstances.keySet()) {
+				sb.append("<tr>");
+				sb.append("<td>");
+				sb.append(i.getIdentifier());
+				sb.append("</td>");
+				sb.append("<td>");
+				if (!i.getDomains().isEmpty()) {
+					sb.append(i.getDomains().get(0).getUrl());
+				}
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(i.getServer().getServerName());
+				sb.append("</td>");
+				sb.append("<td>");
+				sb.append(i.getLastMessage());
+				sb.append("</td>");
+
+				sb.append("</tr>");
+			}
+
+			helper.setText(sb.toString(), true);
+		} catch (MessagingException e) {
+			logger.error("Could not send mail", e);
+		}
+
+		javaMailSender.send(mail);
 	}
 
 	@Scheduled(cron = "10 */15 * * * *")
