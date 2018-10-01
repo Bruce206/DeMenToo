@@ -38,7 +38,7 @@ public class Instance extends MonitoredSuperEntity {
 	private boolean excludeFromHealthcheck = false;
 
 	@ManyToOne
-    @JsonIgnoreProperties("instances")
+    @JsonIgnoreProperties({"instances"})
 	private InstanceType instanceType;
 
 	@Transient
@@ -95,4 +95,18 @@ public class Instance extends MonitoredSuperEntity {
         }
         return false;
     }
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Instance instance = (Instance) o;
+		return Objects.equals(id, instance.id);
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(id);
+	}
 }

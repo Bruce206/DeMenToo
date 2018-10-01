@@ -19,7 +19,7 @@ public class ServerController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Server getServer(@PathVariable long id) {
-        return serverService.findOne(id);
+        return serverService.getOne(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -24,13 +24,13 @@ public class InstanceService {
     private ApplicationContext applicationContext;
 
     @Transactional
-    public Instance findOne(Long id) {
-        return instanceRepository.findOne(id);
+    public Instance getOne(Long id) {
+        return instanceRepository.getOne(id);
     }
 
     @Transactional
     public Instance save(Instance instance) {
-        Instance persistedInstance = instanceRepository.findOne(instance.getId());
+        Instance persistedInstance = instanceRepository.getOne(instance.getId());
         persistedInstance.setExcludeFromHealthcheck(instance.isExcludeFromHealthcheck());
         return persistedInstance;
     }
@@ -47,7 +47,7 @@ public class InstanceService {
     @Transactional
     public void delete(Long id) {
         logger.info("Deleting instance with id: " + id);
-        Instance instance = instanceRepository.findOne(id);
+        Instance instance = instanceRepository.getOne(id);
         instance.getServer().removeInstance(instance);
         instance.setServer(null);
 

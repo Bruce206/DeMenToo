@@ -1,7 +1,6 @@
 package de.bruss.demontoo.websockets;
 
 import de.bruss.demontoo.instance.Instance;
-import de.bruss.demontoo.instance.InstanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +27,15 @@ public class InstanceHealthCheckWorker implements Runnable {
     private Instance instance;
 
     @Autowired
-    public InstanceHealthCheckWorker(InstanceService instanceService, SimpMessagingTemplate template, SessionListener sessionListener) {
-        this.instanceService = instanceService;
+    public InstanceHealthCheckWorker(SimpMessagingTemplate template) {
         this.template = template;
-        this.sessionListener = sessionListener;
     }
 
     public void setInstance(Instance instance) {
         this.instance = instance;
     }
 
-    private final InstanceService instanceService;
-
     private final SimpMessagingTemplate template;
-
-    private final SessionListener sessionListener;
 
     private final Logger logger = LoggerFactory.getLogger(InstanceHealthCheckWorker.class);
 
@@ -104,5 +97,6 @@ public class InstanceHealthCheckWorker implements Runnable {
         } else {
             template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "No Domain", 0));
         }
+
     }
 }

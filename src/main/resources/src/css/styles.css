@@ -6,6 +6,10 @@ h1 {
   font-size: 250%;
 }
 
+body {
+  font-size: 12px;
+}
+
 .card-block-button {
   cursor: pointer;
 }

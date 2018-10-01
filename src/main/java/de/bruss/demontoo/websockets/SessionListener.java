@@ -25,7 +25,7 @@ public class SessionListener {
     @EventListener(SessionConnectedEvent.class)
     @Transactional
     public void connected(SessionConnectedEvent event) {
-        logger.info("Connected: " + String.valueOf(event.getTimestamp()));
+        logger.info("Connected: " + String.valueOf(event.getTimestamp()) + " | currentUsers: " + currentUsers);
         currentUsers++;
         instanceHealthChecker.checkHealthStatus();
     }
@@ -33,7 +33,7 @@ public class SessionListener {
     @EventListener(SessionDisconnectEvent.class)
     public void disconnected(SessionDisconnectEvent event) {
         currentUsers--;
-        logger.info("Disconnected: " + String.valueOf(event.getTimestamp()));
+        logger.info("Disconnected: " + String.valueOf(event.getTimestamp()) + " | currentUsers: " + currentUsers);
     }
 
     public int getCurrentUsers() {

@@ -24,7 +24,6 @@ public class InstanceType {
 
     private String name;
 
-    @Lob
     private byte[] image;
 
     private String updateFileName;

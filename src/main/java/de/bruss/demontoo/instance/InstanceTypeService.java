@@ -59,7 +59,7 @@ public class InstanceTypeService {
     public InstanceType save(InstanceType instancetype) {
         InstanceType persistedType;
         if (instancetype.getId() != null) {
-            persistedType = instancetypeRepository.findOne(instancetype.getId());
+            persistedType = instancetypeRepository.getOne(instancetype.getId());
         } else {
             persistedType = instancetype;
         }
@@ -107,7 +107,7 @@ public class InstanceTypeService {
 
     @Transactional
     public void delete(Long id) {
-        instancetypeRepository.delete(id);
+        instancetypeRepository.deleteById(id);
     }
 
     @Transactional
@@ -122,13 +122,13 @@ public class InstanceTypeService {
 
     @Transactional
     public void setFile(Long id, byte[] bytes) {
-        instancetypeRepository.findOne(id).setImage(bytes);
+        instancetypeRepository.getOne(id).setImage(bytes);
     }
 
 
     @Transactional
     public void setUpdateFile(Long id, MultipartFile file) throws IOException {
-        InstanceType type = instancetypeRepository.findOne(id);
+        InstanceType type = instancetypeRepository.getOne(id);
 
         if (!filesHome.endsWith("/")) {
             filesHome += "/";
@@ -152,7 +152,7 @@ public class InstanceTypeService {
 
     @Transactional
     public void installNewInstance(Long instanceTypeId, InstanceTypeController.InstanceInstallationRequest request) throws IOException {
-        InstanceType instanceType = instancetypeRepository.findOne(instanceTypeId);
+        InstanceType instanceType = instancetypeRepository.getOne(instanceTypeId);
 
         String apacheTemplate = instanceType.getApacheTemplate();
         apacheTemplate = apacheTemplate.replace("[DOMAIN]", request.getDomain());

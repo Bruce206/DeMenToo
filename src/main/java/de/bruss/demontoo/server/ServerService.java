@@ -12,8 +12,8 @@ public class ServerService {
     ServerRepository serverRepository;
 
     @Transactional
-    public Server findOne(Long id) {
-        Server server = serverRepository.findOne(id);
+    public Server getOne(Long id) {
+        Server server = serverRepository.getOne(id);
         return server;
     }
 
@@ -29,7 +29,7 @@ public class ServerService {
 
     @Transactional
     public void delete(Long id) {
-        serverRepository.delete(id);
+        serverRepository.deleteById(id);
     }
 
     @Transactional

@@ -33,7 +33,7 @@ public class InstanceController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Instance getInstance(@PathVariable long id) {
-        return instanceService.findOne(id);
+        return instanceService.getOne(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
