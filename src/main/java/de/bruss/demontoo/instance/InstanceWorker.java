@@ -77,6 +77,7 @@ public class InstanceWorker implements Runnable {
             persistedInstance.setProd(instance.isProd());
             persistedInstance.setVersion(instance.getVersion());
             persistedInstance.setIdentifier(instance.getIdentifier());
+			persistedInstance.setPort(instance.getPort());
 
             if (persistedInstance.getServer() != null) {
                 if (!persistedInstance.getServer().getIp().equals(instance.getServer().getIp()) || !persistedInstance.getServer().getServerName().equals(instance.getServer().getServerName())) {

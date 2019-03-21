@@ -26,6 +26,11 @@ module.exports = webpackMerge(commonConfig, {
         secure: false,
         changeOrigin: true
       },
+      '/images': {
+        target: 'http://127.0.0.1:8080',
+        secure: false,
+        changeOrigin: true
+      },
       '/Resources': {
         target: 'http://127.0.0.1:8080',
         secure: false,

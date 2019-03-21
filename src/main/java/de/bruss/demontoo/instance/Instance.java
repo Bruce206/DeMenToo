@@ -33,6 +33,7 @@ public class Instance extends MonitoredSuperEntity {
 	private String identifier;
 	private String version;
 	private String licensedFor;
+	private String port;
 
     @Column(nullable=false, columnDefinition="boolean default false")
 	private boolean excludeFromHealthcheck = false;
@@ -90,7 +91,11 @@ public class Instance extends MonitoredSuperEntity {
     }
 
     public boolean getLastMessageCritical() {
-	    if ( ChronoUnit.MINUTES.between(lastMessage, LocalDateTime.now()) > (this.instanceType.getMessageInterval() == null ? 60 : this.instanceType.getMessageInterval())) {
+	    if (this.instanceType != null &&
+				ChronoUnit.MINUTES.between(lastMessage,
+						LocalDateTime.now())
+						> (this.instanceType.getMessageInterval() == null ? 60
+						: this.instanceType.getMessageInterval())) {
             return true;
         }
         return false;

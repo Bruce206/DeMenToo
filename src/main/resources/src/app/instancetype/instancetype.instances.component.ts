@@ -51,9 +51,10 @@ export class InstanceTypeInstancesComponent implements OnInit, OnDestroy {
       {field: 'licensedFor', header: 'Customer', filter: true, pos: 4},
       {field: 'version', header: 'Version', filter: true, pos: 5},
       {field: 'server', header: 'Server', filter: true, pos: 6},
-      {field: 'modified', header: 'Last Message', filter: false, pos: 7},
-      {field: 'status', header: 'Status', filter: false, pos: 8},
-      {field: 'responseTime', header: 'Responsetime', filter: false, pos: 9, class: "col-align-right"}
+      {field: 'port', header: 'Port', filter: true, pos: 7},
+      {field: 'modified', header: 'Letzte Meldung', filter: false, pos: 8},
+      {field: 'status', header: 'Status', filter: false, pos: 9},
+      {field: 'responseTime', header: 'Responsetime', filter: false, pos: 10, class: "col-align-right"}
     ];
 
     this.columnOptions = [];

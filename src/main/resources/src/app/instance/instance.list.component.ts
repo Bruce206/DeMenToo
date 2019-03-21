@@ -71,9 +71,10 @@ export class InstanceListComponent implements OnInit, OnDestroy {
       {field: 'licensedFor', header: 'Kunde', filter: true, pos: 5},
       {field: 'version', header: 'Version', filter: true, pos: 6},
       {field: 'server', header: 'Server', filter: true, pos: 7},
-      {field: 'modified', header: 'Letzte Meldung', filter: false, pos: 8},
-      {field: 'status', header: 'Status', filter: false, pos: 9},
-      {field: 'responseTime', header: 'Responsetime', filter: false, pos: 10, class: "col-align-right"}
+      {field: 'port', header: 'Port', filter: true, pos: 8},
+      {field: 'modified', header: 'Letzte Meldung', filter: false, pos: 9},
+      {field: 'status', header: 'Status', filter: false, pos: 10},
+      {field: 'responseTime', header: 'Responsetime', filter: false, pos: 11, class: "col-align-right"}
     ];
 
     this.columnOptions = [];

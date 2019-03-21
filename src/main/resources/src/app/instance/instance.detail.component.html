@@ -21,6 +21,7 @@
           {{instance.server.serverName}}<br>{{instance.server.ip}}
         </ng-template>
       </form-row>
+      <form-row [editable]="false" label="Port" [(ngModel)]="instance.port"></form-row>
     </p-panel>
     <p-panel header="DeMonToo-Settings">
       <div class="ui-grid-row">
