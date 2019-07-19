@@ -24,7 +24,7 @@ public class InstanceType {
 
     private String name;
 
-    @Lob
+   @Column(columnDefinition = "clob")
     private byte[] image;
 
     private String updateFileName;
