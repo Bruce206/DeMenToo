@@ -34,7 +34,7 @@
     </ng-template>
 
     <ng-template *ngIf="col.field === 'server'" let-item let-data="rowData" pTemplate type="body">
-      {{data.server.serverName}}
+      {{data.server?.serverName}}
     </ng-template>
   </p-column>
 </p-dataTable>

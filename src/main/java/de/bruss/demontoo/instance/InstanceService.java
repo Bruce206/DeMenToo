@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class InstanceService {
@@ -25,12 +26,12 @@ public class InstanceService {
 
     @Transactional
     public Instance findOne(Long id) {
-        return instanceRepository.findOne(id);
+        return instanceRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     @Transactional
     public Instance save(Instance instance) {
-        Instance persistedInstance = instanceRepository.findOne(instance.getId());
+        Instance persistedInstance = instanceRepository.findById(instance.getId()).orElseThrow(NoSuchElementException::new);
         persistedInstance.setExcludeFromHealthcheck(instance.isExcludeFromHealthcheck());
         return persistedInstance;
     }
@@ -47,12 +48,16 @@ public class InstanceService {
     @Transactional
     public void delete(Long id) {
         logger.info("Deleting instance with id: " + id);
-        Instance instance = instanceRepository.findOne(id);
-        instance.getServer().removeInstance(instance);
-        instance.setServer(null);
+        Instance instance = instanceRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        if (instance.getServer() != null) {
+            instance.getServer().removeInstance(instance);
+            instance.setServer(null);
+        }
 
-        instance.getInstanceType().removeInstance(instance);
-        instance.setInstanceType(null);
+        if (instance.getInstanceType() != null) {
+            instance.getInstanceType().removeInstance(instance);
+            instance.setInstanceType(null);
+        }
         instanceRepository.delete(instance);
     }
 

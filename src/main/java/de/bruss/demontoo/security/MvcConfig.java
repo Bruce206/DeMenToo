@@ -10,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
+import java.time.Duration;
+
 @Configuration
 @EnableConfigurationProperties({ResourceProperties.class})
 public class MvcConfig extends WebMvcConfigurerAdapter {
@@ -30,7 +32,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        Integer cachePeriod = resourceProperties.getCachePeriod();
+        Duration cachePeriod = resourceProperties.getCache().getPeriod();
+
+        if (cachePeriod == null) {
+            cachePeriod = Duration.ofHours(1);
+        }
 
         final String[] staticLocations = resourceProperties.getStaticLocations();
         registry.addResourceHandler(
@@ -57,11 +63,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
                 "/**/*.rpm",
                 "/**/*.zip"
         ).addResourceLocations(staticLocations)
-                .setCachePeriod(cachePeriod);
+                .setCachePeriod((int) cachePeriod.getSeconds());
 
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/public/index.html")
-                .setCachePeriod(cachePeriod).resourceChain(true)
+                .setCachePeriod((int) cachePeriod.getSeconds()).resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) {

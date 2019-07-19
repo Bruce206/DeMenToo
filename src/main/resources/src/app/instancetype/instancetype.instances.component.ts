@@ -65,17 +65,18 @@ export class InstanceTypeInstancesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log("destroy");
     this.subscription.unsubscribe();
     this.stomp.disconnect().then(() => console.log("Socket closd"));
   }
 
   fetchInstanceType() {
-    this.columnOptions = [];
-    for (let i = 0; i < this.cols.length; i++) {
-      this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
-    }
-
     this.route.params.subscribe(params => {
+      this.columnOptions = [];
+      for (let i = 0; i < this.cols.length; i++) {
+        this.columnOptions.push({label: this.cols[i].header, value: this.cols[i]});
+      }
+
       this.instanceTypeService.get(params['type']).subscribe((data) => {
         this.instanceType = data;
         this.subscribeToInstanceHealth();
@@ -88,6 +89,7 @@ export class InstanceTypeInstancesComponent implements OnInit, OnDestroy {
 
           let pos = 9;
           this.sortPipe.transform(data.instances[0].details, 'key');
+          data.instanceDetailKeys.sort();
           for (let key of data.instanceDetailKeys) {
             this.columnOptions.push({label: key, value: {field: key, header: key, filter: true, pos: pos++}});
           }

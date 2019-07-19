@@ -5,16 +5,20 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ServerService {
+    private final ServerRepository serverRepository;
+
     @Autowired
-    ServerRepository serverRepository;
+    public ServerService(ServerRepository serverRepository) {
+        this.serverRepository = serverRepository;
+    }
 
     @Transactional
     public Server findOne(Long id) {
-        Server server = serverRepository.findOne(id);
-        return server;
+        return serverRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     @Transactional
@@ -23,13 +27,8 @@ public class ServerService {
     }
 
     @Transactional
-    public void create(Server server) {
-        serverRepository.save(server);
-    }
-
-    @Transactional
     public void delete(Long id) {
-        serverRepository.delete(id);
+        serverRepository.deleteById(id);
     }
 
     @Transactional

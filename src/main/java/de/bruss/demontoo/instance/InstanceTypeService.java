@@ -19,10 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 
 @Service
@@ -59,7 +56,7 @@ public class InstanceTypeService {
     public InstanceType save(InstanceType instancetype) {
         InstanceType persistedType;
         if (instancetype.getId() != null) {
-            persistedType = instancetypeRepository.findOne(instancetype.getId());
+            persistedType = instancetypeRepository.findById(instancetype.getId()).orElseThrow(NoSuchElementException::new);
         } else {
             persistedType = instancetype;
         }
@@ -107,7 +104,7 @@ public class InstanceTypeService {
 
     @Transactional
     public void delete(Long id) {
-        instancetypeRepository.delete(id);
+        instancetypeRepository.deleteById(id);
     }
 
     @Transactional
@@ -122,13 +119,13 @@ public class InstanceTypeService {
 
     @Transactional
     public void setFile(Long id, byte[] bytes) {
-        instancetypeRepository.findOne(id).setImage(bytes);
+        instancetypeRepository.findById(id).orElseThrow(NoSuchElementException::new).setImage(bytes);
     }
 
 
     @Transactional
     public void setUpdateFile(Long id, MultipartFile file) throws IOException {
-        InstanceType type = instancetypeRepository.findOne(id);
+        InstanceType type = instancetypeRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
         if (!filesHome.endsWith("/")) {
             filesHome += "/";
@@ -152,7 +149,7 @@ public class InstanceTypeService {
 
     @Transactional
     public void installNewInstance(Long instanceTypeId, InstanceTypeController.InstanceInstallationRequest request) throws IOException {
-        InstanceType instanceType = instancetypeRepository.findOne(instanceTypeId);
+        InstanceType instanceType = instancetypeRepository.findById(instanceTypeId).orElseThrow(NoSuchElementException::new);
 
         String apacheTemplate = instanceType.getApacheTemplate();
         apacheTemplate = apacheTemplate.replace("[DOMAIN]", request.getDomain());

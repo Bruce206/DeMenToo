@@ -49,7 +49,7 @@ public class InstanceHealthCheckWorker implements Runnable {
     @Override
     @Transactional
     public void run() {
-        if (!instance.getDomains().isEmpty() && instance.getDomains().get(0) != null && !StringUtils.isEmpty(instance.getDomains().get(0).getUrl()) && instance.getInstanceType().getHealthUrl() != null) {
+        if (!instance.getDomains().isEmpty() && instance.getDomains().get(0) != null && !StringUtils.isEmpty(instance.getDomains().get(0).getUrl()) && instance.getInstanceType() != null && instance.getInstanceType().getHealthUrl() != null) {
             int timeout = 10000;
             HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
             clientHttpRequestFactory.setConnectTimeout(timeout);
@@ -102,7 +102,7 @@ public class InstanceHealthCheckWorker implements Runnable {
                 template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Error occured", responseTime));
             }
         } else {
-            template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "No Domain", 0));
+            template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Missing domain or instanceType", 0));
         }
     }
 }

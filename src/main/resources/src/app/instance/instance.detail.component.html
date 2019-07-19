@@ -10,7 +10,7 @@
       <form-row [editable]="false" label="Identifier" [(ngModel)]="instance.identifier"></form-row>
       <form-row [editable]="false" label="Type" [(ngModel)]="instance.type">
         <ng-template>
-          <img [src]="'data:image/png;base64,' + instance.instanceType.image" [alt]="instance.instanceType.name">
+          <img [src]="'data:image/png;base64,' + instance.instanceType?.image" [alt]="instance.instanceType?.name">
         </ng-template>
       </form-row>
       <form-row [editable]="false" label="Version" [(ngModel)]="instance.version"></form-row>
@@ -18,7 +18,7 @@
       <form-row [editable]="false" label="Production-System" [(ngModel)]="instance.prod"></form-row>
       <form-row [editable]="false" label="Installed on" [(ngModel)]="instance.server">
         <ng-template>
-          {{instance.server.serverName}}<br>{{instance.server.ip}}
+          {{instance.server?.serverName}}<br>{{instance.server?.ip}}
         </ng-template>
       </form-row>
     </p-panel>
