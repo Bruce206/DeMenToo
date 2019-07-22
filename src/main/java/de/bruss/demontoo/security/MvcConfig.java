@@ -34,6 +34,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         Duration cachePeriod = resourceProperties.getCache().getPeriod();
 
+        if (cachePeriod == null) {
+            cachePeriod = Duration.ofHours(1);
+        }
+
         final String[] staticLocations = resourceProperties.getStaticLocations();
         registry.addResourceHandler(
                 "/**/*.css",
@@ -58,11 +62,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
                 "/**/*.cab",
                 "/**/*.rpm",
                 "/**/*.zip"
-        ).addResourceLocations(staticLocations);
+        ).addResourceLocations(staticLocations)
+                .setCachePeriod((int) cachePeriod.getSeconds());
 
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/public/index.html")
-                .resourceChain(true)
+                .setCachePeriod((int) cachePeriod.getSeconds()).resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) {
