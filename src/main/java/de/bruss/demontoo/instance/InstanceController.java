@@ -24,7 +24,7 @@ public class InstanceController {
     private InstanceHealthChecker instanceHealthChecker;
 
     @Autowired
-	private InstanceChecker instanceChecker;
+    private InstanceChecker instanceChecker;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Instance> findAllInstances() {
@@ -33,7 +33,7 @@ public class InstanceController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Instance getInstance(@PathVariable long id) {
-        return instanceService.getOne(id);
+        return instanceService.findOne(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -93,8 +93,8 @@ public class InstanceController {
 //        return new ResponseEntity<>(HttpStatus.CREATED);
 //    }
 
-	@RequestMapping(value = "/checkActive", method = RequestMethod.GET)
-	public void checkActive() {
-    	instanceChecker.activeCheck();
-	}
+    @RequestMapping(value = "/checkActive", method = RequestMethod.GET)
+    public void checkActive() {
+        instanceChecker.activeCheck();
+    }
 }

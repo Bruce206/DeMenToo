@@ -33,6 +33,7 @@ public class Instance extends MonitoredSuperEntity {
     private String identifier;
     private String version;
     private String licensedFor;
+    private String port;
 
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean excludeFromHealthcheck = false;
@@ -94,13 +95,35 @@ public class Instance extends MonitoredSuperEntity {
     }
 
     public boolean getLastMessageCritical() {
-        if (ChronoUnit.MINUTES.between(lastMessage, LocalDateTime.now()) > (this.getInstanceType().getMessageInterval() == null ? 60 : this.getInstanceType().getMessageInterval())) {
-            return true;
+        if (ChronoUnit.MINUTES.between(lastMessage, LocalDateTime.now()) > (this.instanceType.getMessageInterval() == null ? 60 : this.instanceType.getMessageInterval())) {
+            if (this.instanceType != null &&
+                    ChronoUnit.MINUTES.between(lastMessage,
+                            LocalDateTime.now())
+                            > (this.instanceType.getMessageInterval() == null ? 60
+                            : this.instanceType.getMessageInterval())) {
+                return true;
+            }
+            return false;
         }
+
         return false;
     }
 
     public InstanceType getInstanceType() {
         return instanceType != null ? instanceType : new InstanceType();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Instance instance = (Instance) o;
+        return Objects.equals(id, instance.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }

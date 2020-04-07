@@ -1,0 +1,66 @@
+.ui-grid-row .inline-edit-description {
+  padding: .25em .5em;
+  min-height: 30px;
+}
+
+.inline-edit {
+  padding: 4px;
+  min-width: 50px;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+.inline-edit.editable {
+  cursor: pointer;
+}
+.inline-edit.empty {
+  opacity: 0.5;
+}
+
+.inline-edit.editable:hover {
+  border: 1px solid grey;
+}
+
+.inline-edit-icon-box {
+  border: 1px solid grey;
+  border-left: none;
+  margin-left: -4px;
+  padding: 0 4px;
+  background-color: white;
+  color: #5f6c7a;
+  visibility: hidden;
+}
+
+.inline-edit-save-box {
+  border: 1px solid darkgrey;
+  border-left: none;
+  padding: 3px 4px;
+  background-color: white;
+  color: #5f6c7a;
+  cursor: pointer;
+  float: left;
+}
+
+.inline-edit.editable:hover ~ .inline-edit-icon-box {
+  visibility: visible !important;
+}
+
+input, select, textarea, :host /deep/ .ui-dropdown {
+  width: calc(100% - 30px) !important;
+  float: left;
+  max-width: 400px;
+  padding: .2em;
+}
+
+:host /deep/ .ui-dropdown {
+  padding: 0;
+}
+
+.templateContainer {
+  /*margin-left: 4px;*/
+  /*margin-top: 4px;*/
+}
+
+body .ui-listbox .ui-listbox-list .ui-listbox-item {
+	padding: 0.2em 0.6em;
+}

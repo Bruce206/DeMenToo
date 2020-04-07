@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class InstanceService {
@@ -63,7 +64,17 @@ public class InstanceService {
 
     @Transactional
     public List<Instance> findAll() {
-        return instanceRepository.findAll();
+        return instanceRepository.findAll().stream().sorted((a, b) -> {
+            if (b.isExcludeFromHealthcheck() || b.getIdentifier() == null) {
+                return -1;
+            }
+
+            if (a.isExcludeFromHealthcheck() || a.getIdentifier() == null) {
+                return 1;
+            }
+
+            return a.getIdentifier().toLowerCase().compareTo(b.getIdentifier().toLowerCase());
+        }).collect(Collectors.toList());
     }
 
     @Transactional

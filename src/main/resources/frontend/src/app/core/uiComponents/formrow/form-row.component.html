@@ -1,0 +1,60 @@
+<div class="p-grid" [ngClass]="styleClass">
+	<div class="inline-edit-description" [ngClass]="getLabelClass()">
+		{{label}}
+		<span *ngIf="clearable && optionsType === 'listbox'" (click)="clear($event);">
+			<span class="fas fa-times"></span>
+		</span>
+	</div>
+	<div [ngClass]="getValueClass()">
+		<div *ngIf="innerTemplate" class="templateContainer">
+			<ng-container *ngTemplateOutlet="innerTemplate;"></ng-container>
+		</div>
+
+		<div *ngIf="!innerTemplate">
+			<div *ngIf="editing || permanent || editable">
+				<input pInputText *ngIf="!options && !rows && type !== 'checkbox' && type !== 'date'" #inlineEdit [required]="required" (blur)="save($event)" [name]="value"
+               [(ngModel)]="value" [type]="type" [autofocus]="autofocus" [tabindex]="tabindex" autocomplete="nope" (focus)="onFocus.emit()"/>
+
+        <p-calendar [(ngModel)]="value" dateFormat="dd.mm.yy" *ngIf="!options && !rows && type == 'date'" #inlineEdit [required]="required"
+                    (blur)="save($event)" [name]="value" [tabindex]="tabindex" (focus)="onFocus.emit()" [disabled]="disabled" [appendTo]="appendTo"></p-calendar>
+
+				<p-checkbox *ngIf="!options && !rows && type === 'checkbox'" [name]="label" [value]="value" [(ngModel)]="value" binary="true" [tabindex]="tabindex" (focus)="onFocus.emit()"></p-checkbox>
+
+				<select *ngIf="options && !multiple && optionsType === 'select'" [compareWith]="compareOptions.bind(this)" #inlineEdit [required]="required" (blur)="save($event)" [name]="value" [(ngModel)]="value" [tabindex]="tabindex" (focus)="onFocus.emit()">
+					<option *ngFor="let item of options" [ngValue]="optionValue === 'WHOLE_OBJECT' ? item : (optionValue ? item[optionValue] : item)">{{optionLabel ? item[optionLabel] : item}}</option>
+				</select>
+
+				<div *ngIf="options && !multiple && optionsType === 'listbox'">
+					<p-listbox [options]="options" [(ngModel)]="value" [tabindex]="tabindex"></p-listbox> <!-- ONLY WORKS WITH LABEL / VALUE PAIRS ATM!!! -->
+				</div>
+
+				<textarea pInputTextarea *ngIf="rows" #inlineEdit [required]="required" (blur)="save($event)" [name]="value" [(ngModel)]="value" [rows]="rows" [tabindex]="tabindex" (focus)="onFocus.emit()"></textarea>
+
+				<div *ngIf="options && multiple === true">
+					<div *ngIf="!multipleType || multipleType === 'multiselect'">
+						<p-multiSelect [options]="options" [(ngModel)]="value" maxSelectedLabels="100" defaultLabel="Choose" [optionLabel]="optionLabel" [tabindex]="tabindex" (focus)="onFocus.emit()"></p-multiSelect>
+					</div>
+					<div *ngIf="multipleType === 'checkbox'">
+						<div *ngFor="let item of options">
+							<p-checkbox [name]="optionLabel ? item[optionLabel] : item" [value]="optionValue === 'WHOLE_OBJECT' ? item : (optionValue ? item[optionValue] : item)" [(ngModel)]="value" [label]="optionLabel ? item[optionLabel] : item" [tabindex]="tabindex" (focus)="onFocus.emit()"></p-checkbox>
+						</div>
+					</div>
+				</div>
+
+				<span *ngIf="!permanent" class="inline-edit-save-box" (click)="save($event);">
+          			<span *ngIf="!permanent" class="fa fa-check"></span>
+       			</span>
+
+				<span *ngIf="clearable && optionsType !== 'listbox'" class="inline-edit-save-box" (click)="clear($event);">
+					<span class="fas fa-times"></span>
+        		</span>
+			</div>
+			<div *ngIf="!editing && !permanent && !editable">
+				<span (click)="edit(value)" (focus)="edit(value);" tabindex="0" class="inline-edit" [ngClass]="{'editable': editable, 'empty': value === undefined}" style="white-space: pre-wrap;">{{value !== undefined ? getValue(value) : (editable ? "Click to edit" : "n.a.")}}&nbsp;</span>
+				<span class="inline-edit-icon-box">
+        			<span class="fa fa-pencil"></span>
+      			</span>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,41 @@
+.print-only {
+  display: none;
+}
+
+@media print {
+  .header-menu {
+    display: none !important;
+  }
+
+  .menu-container {
+    display: none !important;
+  }
+
+  .ui-panelmenu {
+    display: none !important;
+  }
+
+  .copyright-tag {
+    display: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .p-col {
+    padding-right: 5px !important;
+  }
+
+  .print-only {
+    display: flex !important;
+    padding-left: 10px;
+  }
+
+  .content-area {
+    padding: 0 !important;
+  }
+
+}
+
+

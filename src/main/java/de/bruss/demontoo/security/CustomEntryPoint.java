@@ -14,7 +14,7 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException {
-        if (request.getServletPath().startsWith("/api") || request.getServletPath().startsWith("/management") || request.getServletPath().startsWith("/service")) {
+        if (request.getServletPath().startsWith("/api") || request.getServletPath().startsWith("/management") || request.getServletPath().startsWith("/service") || request.getServletPath().startsWith("/currentUser")) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             response.sendRedirect("/login");
