@@ -1,28 +1,38 @@
 <div class="p-grid">
   <div class="p-col">
     <p-card header="Serverlist">
-      <button pButton label="Server aufräumen" (click)="cleanServers()"></button>
+      <button pButton label="Check SSH Connections" (click)="checkConnections()" style="float: right;" class="ui-button-info"></button>
+      <button pButton label="Clean up servers" (click)="cleanServers()" style="float: right; margin-right: 10px;" class="ui-button-warning"></button>
+      <button pButton label="Add Server" (click)="addServerDialogVisible = true"></button>
       <p-table [value]="servers" [rowHover]="true">
         <ng-template pTemplate="header">
           <tr>
-            <th style="width: 250px;">Server</th>
+            <th style="width: 200px;">
+              Server <br>
+              <small>Click to open</small>
+            </th>
             <th>Displayname</th>
             <th>Customer</th>
             <th style="width: 70px;">Hoster</th>
             <th>IP</th>
-            <th style="width: 70px;">Instances</th>
-            <th>Last Message</th>
+            <th *ngIf="!selectedServer" style="width: 50px; font-size: 10px; padding: 2px">Instances</th>
+            <th *ngIf="!selectedServer">Last Message</th>
+            <th  style="width: 70px;" *ngIf="isConnectionTest()">SSH</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-server>
-          <tr (click)="selectedServer = server" style="cursor: pointer;">
-            <td>{{server.serverName}}</td>
+          <tr>
+            <td (click)="selectedServer = server" style="cursor: pointer;">{{server.serverName}}</td>
             <td>{{server.displayName}}</td>
             <td>{{server.customer}}</td>
             <td>{{server.hoster}}</td>
-            <td>{{server.ip}}</td>
-            <td>{{server.instances?.length}}</td>
-            <td>{{server.modified | date}}</td>
+            <td><a [href]="'sftp://root@' + server.ip | safeUrl">{{server.ip}}</a></td>
+            <td *ngIf="!selectedServer">{{server.instances?.length}}</td>
+            <td *ngIf="!selectedServer">{{server.modified | date}}</td>
+            <td *ngIf="isConnectionTest()">
+              <span class="fas fa-check" *ngIf="connections[server.id]" style="color: green;"></span>
+              <span class="fas fa-times" *ngIf="connections[server.id] === false" style="color: red;"></span>
+            </td>
           </tr>
         </ng-template>
       </p-table>
@@ -31,21 +41,68 @@
   <div class="p-col-6" *ngIf="selectedServer" style="position:relative;">
     <p-card [header]="selectedServer.serverName + ' - ' + selectedServer.ip">
       <div style="position: absolute; right: 10px; top: 10px;">
+        <button pButton label="Test SSH Connection" class="ui-button-info" (click)="testConnection(selectedServer)" style="margin-right: 10px;"></button>
         <button pButton label="Delete" class="ui-button-danger" (click)="deleteServer(selectedServer)" style="margin-right: 10px;"></button>
         <button pButton label="Blacklist" class="ui-button-danger" title="Server will not be deleted but blacklisted and hidden." (click)="blacklistServer(selectedServer)"></button>
       </div>
-      <p-accordion [multiple]="true" [activeIndex]="[0,1]">
+      <p-accordion [multiple]="true" [activeIndex]="[0]">
         <p-accordionTab header="Information">
+          <form-row label="ID" [(ngModel)]="selectedServer.id" editable="false"></form-row>
           <form-row label="Displayname" [(ngModel)]="selectedServer.displayName"></form-row>
           <form-row label="Customer" [(ngModel)]="selectedServer.customer"></form-row>
           <form-row label="Hoster" [(ngModel)]="selectedServer.hoster"></form-row>
+          <form-row label="Whitelisted" [(ngModel)]="selectedServer.whitelisted" type="checkbox"></form-row>
           <button pButton label="Save" (click)="save(selectedServer)"></button>
         </p-accordionTab>
         <p-accordionTab header="Instances">
           <app-instance-table [instances]="selectedServer.instances" [initialColumns]="['prod', 'type', 'identifier', 'status']"></app-instance-table>
         </p-accordionTab>
+        <p-accordionTab header="Apache URLs">
+          <button pButton label="Update" (click)="updateApacheConfs(selectedServer)"></button>
+          <p-table [value]="selectedServer.apacheConfs">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>URL</th>
+                <th>HTTP</th>
+                <th>HTTPS</th>
+                <th>
+                  <button pButton label="Ping" (click)="pingApacheUrls(selectedServer)"></button>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-conf>
+              <tr [title]="conf.filenames | json">
+                <td>{{conf.url}}</td>
+                <td>
+                  <span class="fas fa-check" *ngIf="conf.http" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.http" style="color: orange;"></span>
+                </td>
+                <td>
+                  <span class="fas fa-check" *ngIf="conf.https" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.https" style="color: red;"></span>
+                </td>
+                <td>
+                  <span [style.color]="ipResponses[conf.url]?.matchesServer ? 'green' : 'red'">{{ipResponses[conf.url]?.ip}}</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-accordionTab>
       </p-accordion>
     </p-card>
   </div>
 </div>
+
+<p-card header="Public Demontoo Key">
+  <div style="word-break: break-all">
+  ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiZjm2lo933Pa4z1PqHEClieJTmDQosAPIA18pEmPTL5zlR2uUove3A4gFPR9TiRQe/RsogbO3z6DD1nzOfNR1aAvJU44M/88V1ard14Wz3uUzTECuPvLF0WFHBUAZJSyDn5/TuGElL1EqArBiFOsUbDBtPYGXJ89ZTXAaeYph4708zoF+JaC/64zc1poC9WrkAB2sSyRnFT5HJGz5M/7wFPYX/HDJ1r5bgxDVbgS5HgT6/+IUEc5L18FeKyeIxII7dEzey9tgtK3GlmcaWWBxsSjdEa3be8toNUN3nyo9NttEapmv5XOH6TDgnjqUIvDM9nfmL5I0zUaUdPEe9faww== demontoo
+  </div>
+</p-card>
+
+<p-dialog header="Add Server" [(visible)]="addServerDialogVisible" [style]="{width: '300px'}">
+  <form-row label="IP" [(ngModel)]="addedServer.ip"></form-row>
+  <p-footer>
+    <button pButton label="Save" (click)="addServer()"></button>
+  </p-footer>
+</p-dialog>
 

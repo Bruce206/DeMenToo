@@ -9,5 +9,5 @@ import java.util.List;
 public interface ServerRepository extends JpaRepository<Server, Long>, JpaSpecificationExecutor<Server> {
 	Server findByIpAndServerName(String remoteAddr, String asText);
 
-    List<Server> findAllByBlacklistedIsFalse();
+    List<Server> findAllByBlacklistedIsFalseOrderByServerNameAsc();
 }

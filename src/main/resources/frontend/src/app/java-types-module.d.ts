@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.20.583 on 2020-04-08 12:06:34.
+// Generated using typescript-generator version 2.20.583 on 2020-04-08 13:48:44.
 
 export interface Server extends MonitoredSuperEntity {
     id?: number;
@@ -12,6 +12,7 @@ export interface Server extends MonitoredSuperEntity {
     hoster?: string;
     displayName?: string;
     customer?: string;
+    apacheConfs?: ApacheUrlConf[];
     instances?: Instance[];
     lastMessage?: Date;
     timeAgo?: string;
@@ -21,6 +22,13 @@ export interface InstanceHealthMessage {
     instance?: Instance;
     status?: string;
     responseTime?: number;
+}
+
+export interface ApacheUrlConf {
+    url?: string;
+    https?: boolean;
+    http?: boolean;
+    filenames?: string[];
 }
 
 export interface Instance extends MonitoredSuperEntity {
@@ -37,10 +45,10 @@ export interface Instance extends MonitoredSuperEntity {
     details?: InstanceDetail[];
     server?: Server;
     lastMessage?: Date;
-    instanceDetailsByCategory?: { [index: string]: InstanceDetail[] };
+    timeAgo?: string;
     lastMessageCritical?: boolean;
     instanceDetailsByKey?: { [index: string]: InstanceDetail[] };
-    timeAgo?: string;
+    instanceDetailsByCategory?: { [index: string]: InstanceDetail[] };
 }
 
 export interface MonitoredSuperEntity {

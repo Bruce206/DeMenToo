@@ -37,4 +37,16 @@ export class ServerService {
   blacklist(server: Server) {
     return this.http.post("/api/server/blacklist/" + server.id, {});
   }
+
+  updateApacheConfs(server: Server) {
+    return this.http.get("/api/server/check-apache-confs/" + server.id);
+  }
+
+  pingApacheConfs(server: Server) {
+    return this.http.get("/api/server/ping-apache-confs/" + server.id);
+  }
+
+  testSSHConnection(server: Server) {
+    return this.http.get("/api/server/test-ssh-connection/" + server.id);
+  }
 }

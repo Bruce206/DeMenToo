@@ -2,8 +2,11 @@ package de.bruss.demontoo.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -19,6 +22,9 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 @Setter
+@TypeDefs({
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public abstract class MonitoredSuperEntity {
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)

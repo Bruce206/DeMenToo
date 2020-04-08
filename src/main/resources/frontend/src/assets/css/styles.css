@@ -130,3 +130,8 @@ p-panel ~ p-panel > .ui-panel {
 .ui-datatable-data tr {
   cursor: pointer;
 }
+
+.ui-accordion-content {
+  margin-top: -3px;
+  margin-bottom: 20px;
+}

@@ -27,7 +27,9 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
     'port', 'modified', 'status', 'responseTime'];
 
   ngOnDestroy(): void {
-    this.subscription.disconnect();
+    if (this.subscription) {
+      this.subscription.disconnect();
+    }
   }
 
   public columnOptions: SelectItem[];
@@ -42,7 +44,7 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
     let that = this;
 
     this.subscription.connect({}, function() {
-      that.subscription.subscribe("/instancestatus", (data) => that.response(JSON.parse(data.body)));
+      that.subscription.subscribe("/status/instance", (data) => that.response(JSON.parse(data.body)));
     });
   }
 

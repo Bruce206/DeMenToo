@@ -5,7 +5,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/instance',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {

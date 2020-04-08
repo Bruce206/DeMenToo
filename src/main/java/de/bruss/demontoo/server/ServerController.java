@@ -1,7 +1,12 @@
 package de.bruss.demontoo.server;
 
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
+import de.bruss.demontoo.server.configContainer.ApacheUrlConf;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -47,6 +52,21 @@ public class ServerController {
     @PostMapping("/clean-up")
     public void cleanUpServers() {
         serverService.cleanUp();
+    }
+
+    @GetMapping("/check-apache-confs/{id}")
+    public Collection<ApacheUrlConf> checkApacheConfigs(@PathVariable Long id) throws JSchException, SftpException, IOException {
+        return serverService.checkApacheConfigs(id);
+    }
+
+    @GetMapping("/ping-apache-confs/{id}")
+    public void pingApacheConfigs(@PathVariable Long id) {
+        serverService.pingApacheConfigs(id);
+    }
+
+    @GetMapping("/test-ssh-connection/{id}")
+    public void testSSHConnection(@PathVariable Long id) throws JSchException {
+        serverService.testSSHConnection(id);
     }
 
 }

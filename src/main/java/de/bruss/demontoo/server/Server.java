@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.bruss.demontoo.common.CustomLocalDateTimeDeserializer;
 import de.bruss.demontoo.common.CustomLocalDateTimeSerializer;
 import de.bruss.demontoo.common.MonitoredSuperEntity;
+import de.bruss.demontoo.server.configContainer.ApacheUrlConf;
 import de.bruss.demontoo.websockets.Instance;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.*;
@@ -42,6 +44,10 @@ public class Server extends MonitoredSuperEntity {
     private String hoster;
     private String displayName;
     private String customer;
+
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private List<ApacheUrlConf> apacheConfs;
 	
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE}, mappedBy="server", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Instance> instances = new ArrayList<>();

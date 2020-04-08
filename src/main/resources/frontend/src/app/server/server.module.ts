@@ -8,10 +8,12 @@ import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {InstanceTableModule} from "../instance-table/instanceTable.module";
 import {AccordionModule} from "primeng/accordion";
+import {DialogModule} from 'primeng/dialog';
+
 
 @NgModule({
   imports: [
-    CommonModule, ServerRouting, UiComponentsModule, CardModule, TableModule, ButtonModule, InstanceTableModule, AccordionModule
+    CommonModule, ServerRouting, UiComponentsModule, CardModule, TableModule, ButtonModule, InstanceTableModule, AccordionModule, DialogModule
   ],
   declarations: [
     ServerListComponent
