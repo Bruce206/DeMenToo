@@ -1,6 +1,5 @@
 package de.bruss.demontoo.websockets;
 
-import de.bruss.demontoo.instance.Instance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,34 +67,34 @@ public class InstanceHealthCheckWorker implements Runnable {
                     status = response.getStatusCode();
                     if (HttpStatus.MOVED_PERMANENTLY.equals(status)) {
                         url = response.getHeaders().getLocation().toString();
-                        template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, response.getStatusCode().getReasonPhrase(), responseTime));
+                        template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, response.getStatusCode().getReasonPhrase(), responseTime));
                     } else {
                         if (HttpStatus.OK.equals(status)) {
                             instance.setLastMessage(LocalDateTime.now());
                         }
-                        template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, response.getStatusCode().getReasonPhrase(), responseTime));
+                        template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, response.getStatusCode().getReasonPhrase(), responseTime));
                     }
                 }
 
                 if (tries == 10) {
-                    template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Too many Redirects", responseTime));
+                    template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, "Too many Redirects", responseTime));
                 }
             } catch (ResourceAccessException ste) {
                 if (ste.getMessage().contains("timed out")) {
-                    template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Timeout", responseTime));
+                    template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, "Timeout", responseTime));
                 } else if (ste.getMessage().contains("Connection refused")) {
-                    template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Connection refused", responseTime));
+                    template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, "Connection refused", responseTime));
                 } else {
-                    template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, ste.getMessage(), responseTime));
+                    template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, ste.getMessage(), responseTime));
                 }
             } catch (HttpClientErrorException | HttpServerErrorException hcee) {
-                template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, hcee.getMessage(), responseTime));
+                template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, hcee.getMessage(), responseTime));
             } catch (Exception e) {
                 logger.warn("Error occured while fetching " + instance.getIdentifier() + " [" + instance.getDomains().get(0).getUrl() + "]", e);
-                template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Error occured", responseTime));
+                template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, "Error occured", responseTime));
             }
         } else {
-            template.convertAndSend("/instancestatus", new InstanceHealthChecker.InstanceHealthMessage(instance, "Missing domain or instanceType", 0));
+            template.convertAndSend("/instancestatus", new InstanceHealthMessage(instance, "Missing domain or instanceType", 0));
         }
 
     }

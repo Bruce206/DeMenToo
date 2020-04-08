@@ -1,6 +1,7 @@
 package de.bruss.demontoo.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.bruss.demontoo.websockets.Instance;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

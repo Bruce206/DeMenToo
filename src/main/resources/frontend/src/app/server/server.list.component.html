@@ -1,49 +1,51 @@
-<p-dataTable [value]="servers" #st class="server-list" expandableRows="true">
-  <p-header>Serverliste</p-header>
-  <p-column expander="true" styleClass="col-icon"></p-column>
-  <p-column field="serverName" header="Name" [filter]="true" [sortable]="true"></p-column>
-  <p-column field="ip" header="IP" [filter]="true" filterMatchMode="startsWith" [sortable]="true"></p-column>
-  <p-column field="instances.length" header="Laufende Instanzen" [sortable]="true"></p-column>
-  <p-column field="modified" header="Letzte Meldung" [sortable]="true">
-    <ng-template let-col let-modified="rowData.modified" pTemplate="body">
-      <span>{{modified | date:"dd.MM.yyy &nbsp;&nbsp;hh:mm"}}</span>
-    </ng-template>
-  </p-column>
-  <ng-template let-data pTemplate="rowexpansion">
-    <div class="ui-grid ui-grid-responsive ui-fluid">
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-12" style="text-align:left">
-          <p-dataGrid [value]="data.instances">
-            <p-header>
-              Instanzen
-            </p-header>
-            <ng-template let-instance pTemplate="item">
-              <div style="padding:3px" class="ui-g-3">
-                <p-panel>
-                  <p-header>
-                    <b>{{instance.identifier}}</b>
-                    <span style="float:right;">
-                    <a [routerLink]="['/instance/detail', instance.id]" href="" target="_blank">Details</a>
-                  </span>
-                  </p-header>
-                  <div class="ui-g">
-                  <div class="ui-g-6" style="padding: 0">Typ:</div>
-                  <div class="ui-g-6" style="padding: 0"><img [src]="'data:image/png;base64,' + instance.instanceType.image" [alt]="instance.instanceType.name"></div>
-                  <div class="ui-g-6" style="padding: 0">Version:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.version}}</div>
-                  <div class="ui-g-6" style="padding: 0">Kunde:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.licensedFor}}</div>
-                  <div class="ui-g-6" style="padding: 0">Produktiv:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.prod ? 'Ja' : 'Nein'}}</div>
-                  <div class="ui-g-6" style="padding: 0">Anzahl Domains:</div>
-                  <div class="ui-g-6" style="padding: 0">{{instance.domains.length}}</div>
-                  </div>
-                </p-panel>
-              </div>
-            </ng-template>
-          </p-dataGrid>
-        </div>
+<div class="p-grid">
+  <div class="p-col">
+    <p-card header="Serverlist">
+      <button pButton label="Server aufräumen" (click)="cleanServers()"></button>
+      <p-table [value]="servers" [rowHover]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 250px;">Server</th>
+            <th>Displayname</th>
+            <th>Customer</th>
+            <th style="width: 70px;">Hoster</th>
+            <th>IP</th>
+            <th style="width: 70px;">Instances</th>
+            <th>Last Message</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-server>
+          <tr (click)="selectedServer = server" style="cursor: pointer;">
+            <td>{{server.serverName}}</td>
+            <td>{{server.displayName}}</td>
+            <td>{{server.customer}}</td>
+            <td>{{server.hoster}}</td>
+            <td>{{server.ip}}</td>
+            <td>{{server.instances?.length}}</td>
+            <td>{{server.modified | date}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+  <div class="p-col-6" *ngIf="selectedServer" style="position:relative;">
+    <p-card [header]="selectedServer.serverName + ' - ' + selectedServer.ip">
+      <div style="position: absolute; right: 10px; top: 10px;">
+        <button pButton label="Delete" class="ui-button-danger" (click)="deleteServer(selectedServer)" style="margin-right: 10px;"></button>
+        <button pButton label="Blacklist" class="ui-button-danger" title="Server will not be deleted but blacklisted and hidden." (click)="blacklistServer(selectedServer)"></button>
       </div>
-    </div>
-  </ng-template>
-</p-dataTable>
+      <p-accordion [multiple]="true" [activeIndex]="[0,1]">
+        <p-accordionTab header="Information">
+          <form-row label="Displayname" [(ngModel)]="selectedServer.displayName"></form-row>
+          <form-row label="Customer" [(ngModel)]="selectedServer.customer"></form-row>
+          <form-row label="Hoster" [(ngModel)]="selectedServer.hoster"></form-row>
+          <button pButton label="Save" (click)="save(selectedServer)"></button>
+        </p-accordionTab>
+        <p-accordionTab header="Instances">
+          <app-instance-table [instances]="selectedServer.instances" [initialColumns]="['prod', 'type', 'identifier', 'status']"></app-instance-table>
+        </p-accordionTab>
+      </p-accordion>
+    </p-card>
+  </div>
+</div>
+

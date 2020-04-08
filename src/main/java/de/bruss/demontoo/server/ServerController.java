@@ -1,6 +1,5 @@
 package de.bruss.demontoo.server;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,32 +8,45 @@ import java.util.List;
 @RequestMapping(value = "/api/server")
 public class ServerController {
 
-    @Autowired
-    private ServerService serverService;
+    private final ServerService serverService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Server> findAllServers() {
-        return serverService.findAll();
+    public ServerController(ServerService serverService) {
+        this.serverService = serverService;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping
+    public List<Server> findAllServers() {
+        return serverService.findAllNonBlacklisted();
+    }
+
+    @GetMapping("/{id}")
     public Server getServer(@PathVariable long id) {
         return serverService.findOne(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{id}")
     public void deleteServer(@PathVariable long id) {
         serverService.delete(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PostMapping("/blacklist/{id}")
+    public void blacklistServer(@PathVariable long id) {
+        serverService.blacklist(id);
+    }
+
+    @PutMapping("/{id}")
     public void updateServer(@PathVariable long id, @RequestBody Server server) {
         serverService.save(server);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PostMapping
     public void saveServer(@RequestBody Server server) {
         serverService.save(server);
+    }
+
+    @PostMapping("/clean-up")
+    public void cleanUpServers() {
+        serverService.cleanUp();
     }
 
 }

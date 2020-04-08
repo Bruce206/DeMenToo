@@ -3,6 +3,7 @@ package de.bruss.demontoo.instance;
 import com.jcraft.jsch.*;
 import de.bruss.demontoo.server.Server;
 import de.bruss.demontoo.ssh.SshService;
+import de.bruss.demontoo.websockets.Instance;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

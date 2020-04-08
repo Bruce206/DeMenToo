@@ -7,11 +7,12 @@ import {InstanceRouting} from "./instance.routing";
 import {MultiSelectModule} from "primeng/multiselect";
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
+import {InstanceTableModule} from "../instance-table/instanceTable.module";
 
 @NgModule({
-  imports: [
-    CommonModule, InstanceRouting, UiComponentsModule, MultiSelectModule, TableModule, ButtonModule
-  ],
+    imports: [
+        CommonModule, InstanceRouting, UiComponentsModule, MultiSelectModule, TableModule, ButtonModule, InstanceTableModule
+    ],
   declarations: [
     InstanceDetailComponent,
     InstanceListComponent

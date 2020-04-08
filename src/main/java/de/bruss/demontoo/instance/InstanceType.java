@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.bruss.demontoo.common.CustomZonedDateTimeDeserializer;
 import de.bruss.demontoo.common.CustomZonedDateTimeSerializer;
+import de.bruss.demontoo.websockets.Instance;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

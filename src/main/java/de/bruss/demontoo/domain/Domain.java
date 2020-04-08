@@ -2,7 +2,7 @@ package de.bruss.demontoo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.bruss.demontoo.common.MonitoredSuperEntity;
-import de.bruss.demontoo.instance.Instance;
+import de.bruss.demontoo.websockets.Instance;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

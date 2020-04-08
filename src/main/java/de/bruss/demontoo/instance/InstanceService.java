@@ -1,5 +1,6 @@
 package de.bruss.demontoo.instance;
 
+import de.bruss.demontoo.websockets.Instance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,4 +93,8 @@ public class InstanceService {
         return instanceRepository.findByInstanceTypeAndAndExcludeFromHealthcheckFalse(type);
     }
 
+    @Transactional
+    public void deleteAll(List<Instance> instances) {
+        instanceRepository.deleteAll(instances);
+    }
 }

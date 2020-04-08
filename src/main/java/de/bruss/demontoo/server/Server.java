@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.bruss.demontoo.common.CustomLocalDateTimeDeserializer;
 import de.bruss.demontoo.common.CustomLocalDateTimeSerializer;
 import de.bruss.demontoo.common.MonitoredSuperEntity;
-import de.bruss.demontoo.instance.Instance;
+import de.bruss.demontoo.websockets.Instance;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,8 +31,19 @@ public class Server extends MonitoredSuperEntity {
 	
 	private String serverName;
 	private String ip;
+
+	@Column(columnDefinition = "boolean default false")
+	private boolean blacklisted;
+	private Boolean whitelisted;
+
+    @Column(columnDefinition = "boolean default false")
+	private boolean activeCheckDisabled;
+
+    private String hoster;
+    private String displayName;
+    private String customer;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="server", fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE}, mappedBy="server", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Instance> instances = new ArrayList<>();
 
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)

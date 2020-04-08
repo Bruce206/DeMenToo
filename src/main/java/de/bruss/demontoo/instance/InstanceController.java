@@ -1,5 +1,6 @@
 package de.bruss.demontoo.instance;
 
+import de.bruss.demontoo.websockets.Instance;
 import de.bruss.demontoo.websockets.InstanceHealthChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,7 @@
 package de.bruss.demontoo.instance;
 
 import de.bruss.demontoo.server.Server;
+import de.bruss.demontoo.websockets.Instance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
