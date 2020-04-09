@@ -27,8 +27,12 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
     'port', 'modified', 'status', 'responseTime'];
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.disconnect();
+    try {
+      if (this.subscription) {
+        this.subscription.disconnect();
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 

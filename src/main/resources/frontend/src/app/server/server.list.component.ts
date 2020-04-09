@@ -106,15 +106,25 @@ export class ServerListComponent implements OnInit, OnDestroy {
 
   checkConnections() {
     for (let server of this.servers) {
-      this.serversService.testSSHConnection(server).subscribe(() => {
-        this.connections[server.id] = true;
-      }, error => {
-        this.connections[server.id] = false;
-      });
+      if (server.activeCheckDisabled) {
+        this.connections[server.id] = "disabled";
+      } else {
+        this.serversService.testSSHConnection(server).subscribe(() => {
+          this.connections[server.id] = "connected";
+        }, error => {
+          console.log(server.serverName);
+          console.log(error);
+          this.connections[server.id] = "no_connection";
+        });
+      }
     }
   }
 
   isConnectionTest() {
     return Object.keys(this.connections).length > 0;
+  }
+
+  clearSelectedServer() {
+    delete this.selectedServer;
   }
 }

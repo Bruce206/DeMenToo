@@ -30,8 +30,9 @@
             <td *ngIf="!selectedServer">{{server.instances?.length}}</td>
             <td *ngIf="!selectedServer">{{server.modified | date}}</td>
             <td *ngIf="isConnectionTest()">
-              <span class="fas fa-check" *ngIf="connections[server.id]" style="color: green;"></span>
-              <span class="fas fa-times" *ngIf="connections[server.id] === false" style="color: red;"></span>
+              <span class="fas fa-check" *ngIf="connections[server.id] === 'connected'" style="color: green;"></span>
+              <span class="fas fa-times" *ngIf="connections[server.id] === 'no_connection'" style="color: red;"></span>
+              <span class="fas fa-times" *ngIf="connections[server.id] === 'disabled'" style="color: grey;" title="Active Checks disabled"></span>
             </td>
           </tr>
         </ng-template>
@@ -44,6 +45,7 @@
         <button pButton label="Test SSH Connection" class="ui-button-info" (click)="testConnection(selectedServer)" style="margin-right: 10px;"></button>
         <button pButton label="Delete" class="ui-button-danger" (click)="deleteServer(selectedServer)" style="margin-right: 10px;"></button>
         <button pButton label="Blacklist" class="ui-button-danger" title="Server will not be deleted but blacklisted and hidden." (click)="blacklistServer(selectedServer)"></button>
+        <button pButton label="Close" class="ui-button-secondary" (click)="clearSelectedServer()"></button>
       </div>
       <p-accordion [multiple]="true" [activeIndex]="[0]">
         <p-accordionTab header="Information">
