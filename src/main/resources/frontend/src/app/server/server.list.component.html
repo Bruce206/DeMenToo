@@ -52,6 +52,7 @@
           <form-row label="Customer" [(ngModel)]="selectedServer.customer"></form-row>
           <form-row label="Hoster" [(ngModel)]="selectedServer.hoster"></form-row>
           <form-row label="Whitelisted" [(ngModel)]="selectedServer.whitelisted" type="checkbox"></form-row>
+          <form-row label="Disable active Checks" [(ngModel)]="selectedServer.activeCheckDisabled" type="checkbox"></form-row>
           <button pButton label="Save" (click)="save(selectedServer)"></button>
         </p-accordionTab>
         <p-accordionTab header="Instances">
@@ -95,7 +96,7 @@
 
 <p-card header="Public Demontoo Key">
   <div style="word-break: break-all">
-  ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiZjm2lo933Pa4z1PqHEClieJTmDQosAPIA18pEmPTL5zlR2uUove3A4gFPR9TiRQe/RsogbO3z6DD1nzOfNR1aAvJU44M/88V1ard14Wz3uUzTECuPvLF0WFHBUAZJSyDn5/TuGElL1EqArBiFOsUbDBtPYGXJ89ZTXAaeYph4708zoF+JaC/64zc1poC9WrkAB2sSyRnFT5HJGz5M/7wFPYX/HDJ1r5bgxDVbgS5HgT6/+IUEc5L18FeKyeIxII7dEzey9tgtK3GlmcaWWBxsSjdEa3be8toNUN3nyo9NttEapmv5XOH6TDgnjqUIvDM9nfmL5I0zUaUdPEe9faww== demontoo
+    ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAgW+4SweGageTnkl6UbjQZ29K7rlo/wIJZAO6EtiA4YqneEitN2ikDShjJ+XAdqddPObrZyNbZ9eZdTU4NvbkABG4qWK3YT8MbNDeGDLUsyb2gmaD+ikL8uvuORftiY6vzZtUt41naVW420ZX6M4rrFQKWigNe/TnZYCbxeBQL+H73ohjPpFJguC4OEXJtQIPk97Rm/mYML5VSgkRrJE9xPerfU0XmiNI0I2Fgsi0MgJEuni1pr5Y/pdaTDlz/j+mcN4PD6DW0sONgqfiD3zu8pw/mf0qOuaoO3TrpsFhahO5ehQV84Aa6Eck6zvBB0LAf7qGxIRo8bZNXiplZmls/Q== DeMonToo
   </div>
 </p-card>
 

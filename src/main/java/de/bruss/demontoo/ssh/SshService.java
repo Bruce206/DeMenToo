@@ -18,6 +18,9 @@ public class SshService {
     @Value("${openssh.key}")
     private String prvKeyLocation;
 
+    @Value("${openssh.pass}")
+    private String privateKeyPass;
+
     private final Logger logger = LoggerFactory.getLogger(SshService.class);
 
 	public Session getSession(String host) {
@@ -25,7 +28,7 @@ public class SshService {
 			JSch jsch = new JSch();
 
 			if (jsch.getIdentityNames().size() == 0) {
-				jsch.addIdentity(prvKeyLocation, "Q2gAgpA-rn)65*2}B;wd%8N8vC$f]_[v");
+				jsch.addIdentity(prvKeyLocation, privateKeyPass);
 			}
 
 			Session session = jsch.getSession("root", host, 22);
