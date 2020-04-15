@@ -17,7 +17,7 @@
             <th>IP</th>
             <th *ngIf="!selectedServer" style="width: 50px; font-size: 10px; padding: 2px">Instances</th>
             <th *ngIf="!selectedServer">Last Message</th>
-            <th  style="width: 70px;" *ngIf="isConnectionTest()">SSH</th>
+            <th style="width: 70px;" *ngIf="isConnectionTest()">SSH</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-server>
@@ -66,16 +66,81 @@
             <ng-template pTemplate="header">
               <tr>
                 <th>URL</th>
-                <th>HTTP</th>
-                <th>HTTPS</th>
+                <th style="width: 60px;">HTTP</th>
+                <th style="width: 60px;">HTTPS</th>
                 <th>
-                  <button pButton label="Ping" (click)="pingApacheUrls(selectedServer)"></button>
+                  <button pButton label="Ping" (click)="pingUrls(selectedServer, 'apache')"></button>
                 </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-conf>
               <tr [title]="conf.filenames | json">
                 <td>{{conf.url}}</td>
+                <td>
+                  <span class="fas fa-check" *ngIf="conf.http" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.http" style="color: orange;"></span>
+                </td>
+                <td>
+                  <span class="fas fa-check" *ngIf="conf.https" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.https" style="color: red;"></span>
+                </td>
+                <td>
+                  <span [style.color]="ipResponses[conf.url]?.matchesServer ? 'green' : 'red'">{{ipResponses[conf.url]?.ip}}</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-accordionTab>
+        <p-accordionTab header="XibisOne Domains">
+          <button pButton label="Update" (click)="updateXibisOneDomains(selectedServer)"></button>
+          <p-table [value]="selectedServer.xibisOneDomains">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>URL</th>
+                <th>DB</th>
+                <th style="width: 60px;">HTTP</th>
+                <th style="width: 60px;">HTTPS</th>
+                <th>
+                  <button pButton label="Ping" (click)="pingUrls(selectedServer, 'xibisone')"></button>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-conf>
+              <tr [title]="conf.filenames | json">
+                <td>{{conf.url}}</td>
+                <td>{{conf.database}}</td>
+                <td>
+                  <span class="fas fa-check" *ngIf="conf.http" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.http" style="color: orange;"></span>
+                </td>
+                <td>
+                  <span class="fas fa-check" *ngIf="conf.https" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.https" style="color: red;"></span>
+                </td>
+                <td>
+                  <span [style.color]="ipResponses[conf.url]?.matchesServer ? 'green' : 'red'">{{ipResponses[conf.url]?.ip}}</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-accordionTab>
+        <p-accordionTab header="Combined Domains">
+          <p-table [value]="selectedServer.combinedDomains">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>URL</th>
+                <th>DB</th>
+                <th style="width: 60px;">HTTP</th>
+                <th style="width: 60px;">HTTPS</th>
+                <th>
+                  <button pButton label="Ping" (click)="pingUrls(selectedServer, 'xibisone')"></button>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-conf>
+              <tr [title]="conf.filenames | json">
+                <td>{{conf.url}}</td>
+                <td>{{conf.database}}</td>
                 <td>
                   <span class="fas fa-check" *ngIf="conf.http" style="color: green;"></span>
                   <span class="fas fa-times" *ngIf="!conf.http" style="color: orange;"></span>

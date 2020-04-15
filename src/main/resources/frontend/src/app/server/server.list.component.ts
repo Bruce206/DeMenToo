@@ -67,7 +67,16 @@ export class ServerListComponent implements OnInit, OnDestroy {
     });
   }
 
-  pingApacheUrls(selectedServer: Server) {
+  updateXibisOneDomains(selectedServer: any) {
+    this.serversService.updateXibisOneDomains(selectedServer).subscribe(data => {
+      selectedServer.xibisOneDomains = data;
+    }, error => {
+      console.error(error);
+      alert("Connection could not be established: " + error.error.message);
+    });
+  }
+
+  pingUrls(selectedServer: Server, urlType: string) {
     if (!this.subscription) {
       let ws = new SockJS("/socket");
       this.subscription = Stomp.over(ws);
@@ -79,13 +88,11 @@ export class ServerListComponent implements OnInit, OnDestroy {
           let response: any = JSON.parse(data.body);
           that.ipResponses[response.url] = response;
         });
-        that.serversService.pingApacheConfs(selectedServer).subscribe();
+        that.serversService.pingUrls(selectedServer, urlType).subscribe();
       });
     } else {
-      this.serversService.pingApacheConfs(selectedServer).subscribe();
+      this.serversService.pingUrls(selectedServer, urlType).subscribe();
     }
-
-
   }
 
   addServer() {
@@ -127,4 +134,6 @@ export class ServerListComponent implements OnInit, OnDestroy {
   clearSelectedServer() {
     delete this.selectedServer;
   }
+
+
 }

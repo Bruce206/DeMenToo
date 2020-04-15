@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.20.583 on 2020-04-08 13:48:44.
+// Generated using typescript-generator version 2.20.583 on 2020-04-09 13:21:38.
 
 export interface Server extends MonitoredSuperEntity {
     id?: number;
@@ -13,6 +13,7 @@ export interface Server extends MonitoredSuperEntity {
     displayName?: string;
     customer?: string;
     apacheConfs?: ApacheUrlConf[];
+    xibisOneDomains?: XibisOneDomain[];
     instances?: Instance[];
     lastMessage?: Date;
     timeAgo?: string;
@@ -29,6 +30,13 @@ export interface ApacheUrlConf {
     https?: boolean;
     http?: boolean;
     filenames?: string[];
+}
+
+export interface XibisOneDomain {
+    url?: string;
+    https?: boolean;
+    http?: boolean;
+    node?: string;
 }
 
 export interface Instance extends MonitoredSuperEntity {

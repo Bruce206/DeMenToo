@@ -3,6 +3,7 @@ package de.bruss.demontoo.server;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import de.bruss.demontoo.server.configContainer.ApacheUrlConf;
+import de.bruss.demontoo.server.configContainer.XibisOneDomain;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -59,9 +60,18 @@ public class ServerController {
         return serverService.checkApacheConfigs(id);
     }
 
-    @GetMapping("/ping-apache-confs/{id}")
-    public void pingApacheConfigs(@PathVariable Long id) {
-        serverService.pingApacheConfigs(id);
+    @GetMapping("/check-xibisone-domains/{id}")
+    public Collection<XibisOneDomain> checkXibisOneDomains(@PathVariable Long id) throws JSchException {
+        return serverService.checkXibisOneDomains(id);
+    }
+
+    @GetMapping("/ping-{type}/{id}")
+    public void pingApacheConfigs(@PathVariable Long id, @PathVariable String type) {
+        if (type.equals("apache")) {
+            serverService.pingApacheConfigs(id);
+        } else if (type.equals("xibisone")) {
+            serverService.pingXibisOneDomains(id);
+        }
     }
 
     @GetMapping("/test-ssh-connection/{id}")

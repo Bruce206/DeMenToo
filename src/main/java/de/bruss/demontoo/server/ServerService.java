@@ -6,6 +6,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 import de.bruss.demontoo.instance.InstanceService;
 import de.bruss.demontoo.server.configContainer.ApacheUrlConf;
+import de.bruss.demontoo.server.configContainer.XibisOneDomain;
 import de.bruss.demontoo.ssh.SshService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -162,19 +164,26 @@ public class ServerService {
 
     public void pingApacheConfigs(Long id) {
         Server server = serverRepository.getOne(id);
-
-        server.getApacheConfs().forEach(ac -> {
-            try {
-                logger.info("Pinging {}...", ac.getUrl());
-                InetAddress address = InetAddress.getByName(ac.getUrl());
-                logger.info("Response for {}: {}", ac.getUrl(), address.getHostAddress());
-                template.convertAndSend("/status/iptest", new IPResolverResponse(ac.getUrl(), address.getHostAddress(), address.getHostAddress().equals(server.getIp())));
-            } catch (UnknownHostException e) {
-                template.convertAndSend("/status/iptest", new IPResolverResponse(ac.getUrl(), "Unknown Host", false));
-            }
-
-        });
+        server.getApacheConfs().stream().map(ApacheUrlConf::getUrl).forEach(url -> ping(url, server.getIp()));
     }
+
+    public void pingXibisOneDomains(Long id) {
+        Server server = serverRepository.getOne(id);
+        server.getXibisOneDomains().stream().map(XibisOneDomain::getUrl).forEach(url -> ping(url, server.getIp()));
+    }
+
+    private void ping(String url, String serverIp) {
+        try {
+            logger.info("Pinging {}...", url);
+            InetAddress address = InetAddress.getByName(url);
+            logger.info("Response for {}: {}", url, address.getHostAddress());
+            template.convertAndSend("/status/iptest", new IPResolverResponse(url, address.getHostAddress(), address.getHostAddress().equals(serverIp)));
+        } catch (UnknownHostException e) {
+            template.convertAndSend("/status/iptest", new IPResolverResponse(url, "Unknown Host", false));
+        }
+    }
+
+
 
     @Transactional
     public void testSSHConnection(Long id) throws JSchException {
@@ -187,6 +196,55 @@ public class ServerService {
             server.setServerName(sshService.sendCommand(session, "hostname"));
         }
     }
+
+    @Transactional
+    public Collection<XibisOneDomain> checkXibisOneDomains(Long id) throws JSchException {
+        Server server = serverRepository.getOne(id);
+
+        Session session = this.sshService.getSession(server.getIp());
+        session.connect();
+
+        List<String> psql_l = Arrays.asList(sshService.sendCommand(session, "su - postgres -c \"psql -l\"").split("\\r?\\n"));
+
+        Set<String> databaseNames = new HashSet<>();
+        for (String line : psql_l.subList(3, psql_l.size() - 2)) {
+            String dbName = line.substring(0, line.indexOf("|")).trim();
+            if (!StringUtils.isEmpty(dbName)) {
+                databaseNames.add(dbName);
+            }
+        }
+
+        List<XibisOneDomain> xibisOneDomains = new ArrayList<>();
+        for (String db : databaseNames) {
+            List<String> nodesDomains = Arrays.asList(sshService.sendCommand(session, " psql -U postgres " + db + " -c \"select domain, secure, name from nodes_domains left join nodes on nodes_domains.node = nodes.id\"").split("\\r?\\n"));
+
+            if (nodesDomains.size() == 1 && nodesDomains.get(0).trim().length() == 0) {
+                // not a cms database
+                continue;
+            }
+
+            try {
+                for (String line : nodesDomains.subList(2, nodesDomains.size() - 1)) {
+                    String[] data = line.split(Pattern.quote("|"));
+                    XibisOneDomain xod = new XibisOneDomain();
+                    xod.setUrl(data[0].trim());
+                    xod.setHttp(data[1].trim().equals("f"));
+                    xod.setHttps(data[1].trim().equals("t"));
+                    xod.setNode(data[2].trim());
+                    xod.setDatabase(db);
+                    xibisOneDomains.add(xod);
+                }
+            } catch (IllegalArgumentException iae) {
+                logger.warn("Something doesnt fit with the response from postgres: {} in database {}", String.join(", ", nodesDomains), db, iae.getMessage());
+            }
+
+
+        }
+
+        server.setXibisOneDomains(xibisOneDomains);
+        return xibisOneDomains;
+    }
+
 
     @Data
     @AllArgsConstructor

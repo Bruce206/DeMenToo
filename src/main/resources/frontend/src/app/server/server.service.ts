@@ -42,11 +42,15 @@ export class ServerService {
     return this.http.get("/api/server/check-apache-confs/" + server.id);
   }
 
-  pingApacheConfs(server: Server) {
-    return this.http.get("/api/server/ping-apache-confs/" + server.id);
+  pingUrls(server: Server, urlType: string) {
+    return this.http.get("/api/server/ping-" + urlType + "/" + server.id);
   }
 
   testSSHConnection(server: Server) {
     return this.http.get("/api/server/test-ssh-connection/" + server.id);
+  }
+
+  updateXibisOneDomains(server: Server) {
+    return this.http.get("/api/server/check-xibisone-domains/" + server.id);
   }
 }

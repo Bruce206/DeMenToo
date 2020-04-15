@@ -1,14 +1,13 @@
 package de.bruss.demontoo.server.configContainer;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-public class ApacheUrlConf {
-    private String url;
-    private boolean https = false;
-    private boolean http = false;
+@Getter
+@Setter
+public class ApacheUrlConf extends DomainContainer {
     private List<String> filenames = new ArrayList<>();
 }

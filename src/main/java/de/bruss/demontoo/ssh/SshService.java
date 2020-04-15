@@ -166,19 +166,19 @@ public class SshService {
 		return true;
 	}
 
-    public String stopService(Session session, ServiceType serviceType, String serviceName) {
+    public void stopService(Session session, ServiceType serviceType, String serviceName) {
         if (ServiceType.UPSTART.equals(serviceType)) {
-            return sendCommand(session, "stop " + serviceName);
+            sendCommand(session, "stop " + serviceName);
         } else {
-            return sendCommand(session, "service " + serviceName + " stop");
+            sendCommand(session, "service " + serviceName + " stop");
         }
     }
 
-    public String startService(Session session, ServiceType serviceType, String serviceName) {
+    public void startService(Session session, ServiceType serviceType, String serviceName) {
         if (ServiceType.UPSTART.equals(serviceType)) {
-            return sendCommand(session, "start " + serviceName);
+            sendCommand(session, "start " + serviceName);
         } else {
-            return sendCommand(session, "service " + serviceName + " start");
+            sendCommand(session, "service " + serviceName + " start");
         }
     }
 
@@ -201,7 +201,7 @@ public class SshService {
 
 			execChannel.disconnect();
 
-			return StringUtils.chomp(outputBuffer.toString());
+			return outputBuffer.toString();
 		} catch (JSchException | IOException e) {
 			logger.error("Failed to connect to Server while sending Command: " + command, e);
 
@@ -225,9 +225,9 @@ public class SshService {
     public ServiceType getServiceType(Session session) {
         String response = sendCommand(session, "lsb_release -r");
 
-        String version = response.substring(response.indexOf(":") + 1, response.length()).trim();
+        String version = StringUtils.chomp(response.substring(response.indexOf(":") + 1, response.length()).trim());
 
-        Double versionDbl = Double.parseDouble(version);
+        double versionDbl = Double.parseDouble(version);
 
         if (versionDbl < 16) {
             logger.info("Detected Ubuntu-Version: " + version + ". Using " + ServiceType.UPSTART.toString());
