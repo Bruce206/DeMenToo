@@ -213,14 +213,22 @@
                 <excludes>
                     <exclude>frontend/**</exclude>
                     <exclude>frontend/node_modules/**</exclude>
-                    <exclude>public/fonts/**</exclude>
+                    <exclude>public/**.woff</exclude>
+                    <exclude>public/**.eot</exclude>
+                    <exclude>public/**.ttf</exclude>
+                    <exclude>public/**.woff2</exclude>
+                    <exclude>public/**.svg</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
                 <includes>
-                    <include>public/fonts/**</include>
+                    <include>public/**.woff</include>
+                    <include>public/**.eot</include>
+                    <include>public/**.ttf</include>
+                    <include>public/**.woff2</include>
+                    <include>public/**.svg</include>
                 </includes>
             </resource>
         </resources>

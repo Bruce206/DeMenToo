@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.21.588 on 2020-04-20 16:32:33.
+// Generated using typescript-generator version 2.21.588 on 2020-04-20 17:53:16.
 
 export interface Server extends MonitoredSuperEntity {
     id?: number;
@@ -57,9 +57,9 @@ export interface Instance extends MonitoredSuperEntity {
     server?: Server;
     lastMessage?: Date;
     timeAgo?: string;
+    lastMessageCritical?: boolean;
     instanceDetailsByKey?: { [index: string]: InstanceDetail[] };
     instanceDetailsByCategory?: { [index: string]: InstanceDetail[] };
-    lastMessageCritical?: boolean;
 }
 
 export interface MonitoredSuperEntity {

@@ -7,16 +7,16 @@
       <p-table [value]="servers" [rowHover]="true">
         <ng-template pTemplate="header">
           <tr>
-            <th style="width: 200px;">
-              Server <br>
+            <th style="width: 200px;" pSortableColumn="serverName">
+              Server <p-sortIcon field="serverName"></p-sortIcon><br>
               <small>Click to open</small>
             </th>
-            <th>Displayname</th>
-            <th>Customer</th>
-            <th style="width: 70px;">Hoster</th>
-            <th>IP</th>
+            <th pSortableColumn="displayName">Displayname <p-sortIcon field="displayName"></p-sortIcon></th>
+            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+            <th pSortableColumn="hoster" style="width: 70px;">Hoster <p-sortIcon field="hoster"></p-sortIcon></th>
+            <th pSortableColumn="ip">IP <p-sortIcon field="ip"></p-sortIcon></th>
             <th *ngIf="!selectedServer" style="width: 50px; font-size: 10px; padding: 2px">Instances</th>
-            <th *ngIf="!selectedServer">Last Message</th>
+            <th pSortableColumn="modified" *ngIf="!selectedServer">Last Message <p-sortIcon field="modified"></p-sortIcon></th>
             <th style="width: 70px;" *ngIf="isConnectionTest()">SSH</th>
           </tr>
         </ng-template>

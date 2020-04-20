@@ -13,7 +13,7 @@
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 50px;"></th>
-      <th *ngFor="let col of cols | sortBy:'pos'" [class]="col.class">
+      <th *ngFor="let col of cols | sortBy:'pos'" [class]="col.class" [pSortableColumn]="col.field">
         {{col.header}} <p-sortIcon [field]="col.field"></p-sortIcon>
       </th>
     </tr>

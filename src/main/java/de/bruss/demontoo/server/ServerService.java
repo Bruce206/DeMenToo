@@ -334,7 +334,11 @@ public class ServerService {
         List<CombinedDomainContainer> allDomains = new ArrayList<>();
 
         for (Server server : servers) {
-            allDomains.addAll(checkCombinedDomains(server));
+            try {
+                allDomains.addAll(checkCombinedDomains(server));
+            } catch (Exception e) {
+                logger.warn("Could not get domains for server {}", server.getServerName(), e);
+            }
         }
 
         return allDomains.stream().sorted(Comparator.comparing(CombinedDomainContainer::getUrl)).collect(Collectors.toList());
