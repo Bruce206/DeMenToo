@@ -7,7 +7,7 @@ import {InstanceRouting} from "./instance.routing";
 import {MultiSelectModule} from "primeng/multiselect";
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
-import {InstanceTableModule} from "../instance-table/instanceTable.module";
+import {InstanceTableModule} from "../instance-table/instance-table.module";
 import {PanelModule} from "primeng/panel";
 
 @NgModule({

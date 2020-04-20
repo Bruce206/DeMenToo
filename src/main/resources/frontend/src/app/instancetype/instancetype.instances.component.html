@@ -1,51 +1,6 @@
-<div class="ui-g">
-  <div class="ui-g-12">
-    <p-dataTable [value]="instanceType.instances" #dt class="instance-list" exportFilename="instances" (onRowClick)="handleRowClick($event)" [rowStyleClass]="lookupRowStyleClass">
-      <p-header>
-        <button type="button" pButton icon="fa-refresh" iconPos="left" label="Refresh Health-Status" (click)="refreshHealth()" style="float:right" class="ui-button-success"></button>
-        <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:right" class="ui-button-secondary"></button>
-        <div style="text-align:left">
-          <p-multiSelect [options]="columnOptions" [(ngModel)]="cols" (onChange)="colsChanged" scrollHeight="545px" styleClass="col-selector"></p-multiSelect>
-        </div>
-      </p-header>
-      <p-column field="" header="#" [style]="{width:'35px','text-align':'left'}">
-        <ng-template let-i="rowIndex" pTemplate type="body">
-          {{i + 1}}
-        </ng-template>
-      </p-column>
-      <p-column *ngFor="let col of cols | sortBy : 'pos'" [field]="col.field" [header]="col.header" [filter]="col.filter" [filterMatchMode]="col.filterMatchMode ? col.filterMatchMode : 'contains'" [sortable]="true" [styleClass]="col.class">
-        <ng-template *ngIf="col.field === 'modified'" let-item let-data="rowData" pTemplate type="body">
-          <span [title]="data.lastMessage | date:'dd.MM.yyy &nbsp;&nbsp;HH:mm'">{{data.timeAgo}}</span>
-        </ng-template>
-
-        <ng-template *ngIf="col.field === 'domains'" let-item let-data="rowData" pTemplate type="body">
-          <a *ngIf="data.domains && data.domains.length > 0" [href]="'http://' + data.domains[0].url" target="_blank">{{data.domains[0].name}}</a>
-          <span style="float:right; color: #aaa;" *ngIf="data.domains.length > 1">[+{{data.domains.length}}]</span>
-        </ng-template>
-
-        <ng-template *ngIf="col.field === 'prod'" let-item let-data="rowData" pTemplate type="body">
-          <i class="fa fa-check" *ngIf="data.prod"></i>
-        </ng-template>
-
-        <ng-template *ngIf="col.field === 'type'" let-item let-data="rowData" pTemplate type="body">
-          <img [src]="instance.instanceType?.image" [alt]="instance.instanceType?.name" style="max-width: 95px;">
-        </ng-template>
-
-        <ng-template *ngIf="col.field === 'status'" let-item let-data="rowData" pTemplate type="body">
-          <span *ngIf="!data.status"><span class="fa fa-spinner fa-pulse"></span> Checking </span>
-          {{data.status}}
-        </ng-template>
-
-        <ng-template *ngIf="col.field === 'responseTime'" let-item let-data="rowData" pTemplate type="body">
-          <span [ngStyle]="{ 'color': getColorForResponseTime(data.responseTime)}">{{data.responseTime}}<span *ngIf="data.responseTime">ms</span></span>
-        </ng-template>
-
-        <ng-template *ngIf="col.field === 'server'" let-item let-data="rowData" pTemplate type="body">
-          {{data.server.serverName}}
-        </ng-template>
-      </p-column>
-    </p-dataTable>
-
+<div class="p-grid">
+  <div class="p-col">
+    <app-instance-table [instances]="instances" [additionalColumnOptions]="columnOptions"></app-instance-table>
   </div>
 </div>
 

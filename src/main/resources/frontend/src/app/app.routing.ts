@@ -18,13 +18,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'instance',
-    loadChildren: './instance/instance.module#InstanceModule'
-    //loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule)
+    // loadChildren: './instance/instance.module#InstanceModule'
+    loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule)
   },
-  // {
-  //   path: 'instanceType',
-  //   loadChildren: () => import('./instancetype/instanceType.module').then(m => m.InstanceTypeModule)
-  // }
+  {
+    path: 'instanceType',
+    loadChildren: () => import('./instancetype/instanceType.module').then(m => m.InstanceTypeModule)
+  }
 ];
 
 @NgModule({

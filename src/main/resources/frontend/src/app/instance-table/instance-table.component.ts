@@ -18,6 +18,21 @@ export interface InstanceImpl extends Instance {
   styleUrls: ['./instance-table.component.scss']
 })
 export class InstanceTableComponent implements OnInit, OnDestroy {
+  get additionalColumnOptions(): SelectItem[] {
+    return this._additionalColumnOptions;
+  }
+
+  @Input()
+  set additionalColumnOptions(value: SelectItem[]) {
+    this._additionalColumnOptions = value;
+  }
+  get columnOptions(): SelectItem[] {
+    return [...this._columnOptions, ...this._additionalColumnOptions];
+  }
+
+  set columnOptions(value: SelectItem[]) {
+    this._columnOptions.push(...value);
+  }
 
   @ViewChild(('dt')) dt: Table;
 
@@ -36,10 +51,11 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  public columnOptions: SelectItem[];
+  private _columnOptions: SelectItem[] = [];
+  private _additionalColumnOptions: SelectItem[] = [];
   public cols: any[] = [];
 
-  private subscription : any;
+  private subscription: any;
 
   constructor(private instanceService: InstanceService) {
     let ws = new SockJS("/socket");
@@ -47,7 +63,7 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
     this.subscription.debug = null;
     let that = this;
 
-    this.subscription.connect({}, function() {
+    this.subscription.connect({}, function () {
       that.subscription.subscribe("/status/instance", (data) => that.response(JSON.parse(data.body)));
     });
   }
@@ -67,7 +83,7 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
-    let initialCols:any[] = [
+    let initialCols: any[] = [
       {field: 'prod', header: 'Prod', filter: false, class: "col-icon"},
       {field: 'type', header: 'App-Typ', filter: true},
       {field: 'identifier', header: 'App-Name', filter: true},
@@ -81,7 +97,7 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
       {field: 'responseTime', header: 'Responsetime', filter: false, class: "col-align-right"}
     ];
 
-    let pos:number = 0;
+    let pos: number = 0;
     for (let col of initialCols) {
       col.pos = pos++;
       if (this.initialColumns.includes(col.field)) {
@@ -89,9 +105,9 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.columnOptions = [];
+    this._columnOptions = [];
     for (let i = 0; i < initialCols.length; i++) {
-      this.columnOptions.push({label: initialCols[i].header, value: initialCols[i]});
+      this._columnOptions.push({label: initialCols[i].header, value: initialCols[i]});
     }
   }
 

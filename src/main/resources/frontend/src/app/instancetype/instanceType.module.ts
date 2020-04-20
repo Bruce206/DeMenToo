@@ -6,10 +6,11 @@ import {InstanceTypeInstancesComponent} from "./instancetype.instances.component
 import {InstanceTypeService} from "./instancetype.service";
 import {InstanceTypeRouting} from "./instanceType.routing";
 import {ButtonModule} from "primeng/button";
+import {InstanceTableModule} from "../instance-table/instance-table.module";
 
 @NgModule({
     imports: [
-      CommonModule, InstanceTypeRouting, UiComponentsModule, ButtonModule
+        CommonModule, InstanceTypeRouting, UiComponentsModule, ButtonModule, InstanceTableModule
     ],
   declarations: [
     InstanceTypeComponent,

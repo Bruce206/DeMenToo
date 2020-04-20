@@ -5,12 +5,12 @@ import {InstanceTypeInstancesComponent} from "./instancetype.instances.component
 
 const routes: Routes = [
   {
-    path: '/:type/settings',
+    path: ':type/settings',
     component: InstanceTypeComponent,
     data: {title: 'Instanz-Typ Einstellungen'}
   },
   {
-    path: '/:type/instances',
+    path: ':type/instances',
     component: InstanceTypeInstancesComponent,
     data: {title: 'Instanz-Typ Liste'}
   },

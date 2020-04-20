@@ -6,7 +6,7 @@ import {ServerRouting} from "./server.routing";
 import {CardModule} from "primeng/card";
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
-import {InstanceTableModule} from "../instance-table/instanceTable.module";
+import {InstanceTableModule} from "../instance-table/instance-table.module";
 import {AccordionModule} from "primeng/accordion";
 import {DialogModule} from 'primeng/dialog';
 import { ServerAnalysisComponent } from './server-analysis/server-analysis.component';

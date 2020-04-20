@@ -19,7 +19,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {TieredMenuModule} from "primeng/tieredmenu";
 import {SortPipe} from "./sort.pipe";
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import { InstanceTableComponent } from './instance-table/instance-table.component';
+import {InstanceTableModule} from "./instance-table/instance-table.module";
 
 const appInitializerFn = (currentUserService: CurrentUserService) => {
 	return () => {
@@ -38,6 +38,7 @@ const appInitializerFn = (currentUserService: CurrentUserService) => {
     HttpClientModule,
     MenubarModule,
     UiComponentsModule, ToastModule, TooltipModule, ConfirmDialogModule, TieredMenuModule,
+    InstanceTableModule
   ],
 	declarations: [
 		AppComponent,

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.20.583 on 2020-04-15 17:01:02.
+// Generated using typescript-generator version 2.21.588 on 2020-04-20 16:32:33.
 
 export interface Server extends MonitoredSuperEntity {
     id?: number;
@@ -38,8 +38,8 @@ export interface XibisOneDomain extends DomainContainer {
 export interface CombinedDomainContainer extends DomainContainer {
     pingStatus?: PingStatus;
     actualServerName?: string;
-    inXibisOne?: boolean;
     inApache?: boolean;
+    inXibisOne?: boolean;
 }
 
 export interface Instance extends MonitoredSuperEntity {
@@ -56,10 +56,10 @@ export interface Instance extends MonitoredSuperEntity {
     details?: InstanceDetail[];
     server?: Server;
     lastMessage?: Date;
-    instanceDetailsByCategory?: { [index: string]: InstanceDetail[] };
-    instanceDetailsByKey?: { [index: string]: InstanceDetail[] };
-    lastMessageCritical?: boolean;
     timeAgo?: string;
+    instanceDetailsByKey?: { [index: string]: InstanceDetail[] };
+    instanceDetailsByCategory?: { [index: string]: InstanceDetail[] };
+    lastMessageCritical?: boolean;
 }
 
 export interface MonitoredSuperEntity {
@@ -69,9 +69,11 @@ export interface MonitoredSuperEntity {
 
 export interface DomainContainer {
     url?: string;
+    ip?: string;
     https?: boolean;
     http?: boolean;
     serverId?: number;
+    serverName?: string;
 }
 
 export interface InstanceType {

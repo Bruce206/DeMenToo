@@ -8,7 +8,7 @@ import {CombinedDomainContainer} from "../../java-types-module";
   styleUrls: ['./server-analysis.component.scss']
 })
 export class ServerAnalysisComponent implements OnInit {
-  private combinedDomains: CombinedDomainContainer[];
+  public combinedDomains: CombinedDomainContainer[];
   public updating: boolean = false;
 
   constructor(private serverService: ServerService) { }
