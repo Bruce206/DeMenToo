@@ -10,4 +10,6 @@ public interface ServerRepository extends JpaRepository<Server, Long>, JpaSpecif
 	Server findByIpAndServerName(String remoteAddr, String asText);
 
     List<Server> findAllByBlacklistedIsFalseOrderByServerNameAsc();
+
+    List<Server> findByIp(String hostAddress);
 }

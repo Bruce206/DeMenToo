@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.20.583 on 2020-04-09 13:21:38.
+// Generated using typescript-generator version 2.20.583 on 2020-04-15 17:01:02.
 
 export interface Server extends MonitoredSuperEntity {
     id?: number;
@@ -14,6 +14,7 @@ export interface Server extends MonitoredSuperEntity {
     customer?: string;
     apacheConfs?: ApacheUrlConf[];
     xibisOneDomains?: XibisOneDomain[];
+    combinedDomains?: CombinedDomainContainer[];
     instances?: Instance[];
     lastMessage?: Date;
     timeAgo?: string;
@@ -25,18 +26,20 @@ export interface InstanceHealthMessage {
     responseTime?: number;
 }
 
-export interface ApacheUrlConf {
-    url?: string;
-    https?: boolean;
-    http?: boolean;
+export interface ApacheUrlConf extends DomainContainer {
     filenames?: string[];
 }
 
-export interface XibisOneDomain {
-    url?: string;
-    https?: boolean;
-    http?: boolean;
+export interface XibisOneDomain extends DomainContainer {
     node?: string;
+    database?: string;
+}
+
+export interface CombinedDomainContainer extends DomainContainer {
+    pingStatus?: PingStatus;
+    actualServerName?: string;
+    inXibisOne?: boolean;
+    inApache?: boolean;
 }
 
 export interface Instance extends MonitoredSuperEntity {
@@ -53,15 +56,22 @@ export interface Instance extends MonitoredSuperEntity {
     details?: InstanceDetail[];
     server?: Server;
     lastMessage?: Date;
-    timeAgo?: string;
-    lastMessageCritical?: boolean;
-    instanceDetailsByKey?: { [index: string]: InstanceDetail[] };
     instanceDetailsByCategory?: { [index: string]: InstanceDetail[] };
+    instanceDetailsByKey?: { [index: string]: InstanceDetail[] };
+    lastMessageCritical?: boolean;
+    timeAgo?: string;
 }
 
 export interface MonitoredSuperEntity {
     created?: Date;
     modified?: Date;
+}
+
+export interface DomainContainer {
+    url?: string;
+    https?: boolean;
+    http?: boolean;
+    serverId?: number;
 }
 
 export interface InstanceType {
@@ -95,5 +105,7 @@ export interface InstanceDetail {
     key?: string;
     value?: string;
 }
+
+export type PingStatus = "SAME_SERVER" | "OTHER_SERVER" | "FOREIGN_SERVER" | "UNKNOWN_HOST";
 
 export type AppType = "SPRING_BOOT" | "OTHER";

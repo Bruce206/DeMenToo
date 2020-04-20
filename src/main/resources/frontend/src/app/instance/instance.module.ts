@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {InstanceDetailComponent} from "./instance.detail.component";
+import {InstanceDetailComponent, KeysPipe} from "./instance.detail.component";
 import {InstanceListComponent} from "./instance.list.component";
 import {CommonModule} from "@angular/common";
 import {UiComponentsModule} from "../core/uiComponents/uiComponents.module";
@@ -8,14 +8,16 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {InstanceTableModule} from "../instance-table/instanceTable.module";
+import {PanelModule} from "primeng/panel";
 
 @NgModule({
-    imports: [
-        CommonModule, InstanceRouting, UiComponentsModule, MultiSelectModule, TableModule, ButtonModule, InstanceTableModule
-    ],
+  imports: [
+    CommonModule, InstanceRouting, UiComponentsModule, MultiSelectModule, TableModule, ButtonModule, InstanceTableModule, PanelModule
+  ],
   declarations: [
     InstanceDetailComponent,
-    InstanceListComponent
+    InstanceListComponent,
+    KeysPipe
   ],
   providers: [
   ]

@@ -9,6 +9,7 @@ import {ButtonModule} from "primeng/button";
 import {InstanceTableModule} from "../instance-table/instanceTable.module";
 import {AccordionModule} from "primeng/accordion";
 import {DialogModule} from 'primeng/dialog';
+import { ServerAnalysisComponent } from './server-analysis/server-analysis.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {DialogModule} from 'primeng/dialog';
     CommonModule, ServerRouting, UiComponentsModule, CardModule, TableModule, ButtonModule, InstanceTableModule, AccordionModule, DialogModule
   ],
   declarations: [
-    ServerListComponent
+    ServerListComponent,
+    ServerAnalysisComponent
   ],
   providers: []
 })

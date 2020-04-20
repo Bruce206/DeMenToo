@@ -131,6 +131,7 @@ export class InstanceTableComponent implements OnInit, OnDestroy {
   }
 
   handleRowClick(instance: any) {
+    console.log(instance);
     window.open('/instance/detail/' + instance.id, "_blank");
   }
 

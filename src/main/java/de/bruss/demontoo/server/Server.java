@@ -6,6 +6,7 @@ import de.bruss.demontoo.common.CustomLocalDateTimeDeserializer;
 import de.bruss.demontoo.common.CustomLocalDateTimeSerializer;
 import de.bruss.demontoo.common.MonitoredSuperEntity;
 import de.bruss.demontoo.server.configContainer.ApacheUrlConf;
+import de.bruss.demontoo.server.configContainer.CombinedDomainContainer;
 import de.bruss.demontoo.server.configContainer.XibisOneDomain;
 import de.bruss.demontoo.websockets.Instance;
 import lombok.Getter;
@@ -48,11 +49,15 @@ public class Server extends MonitoredSuperEntity {
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private List<ApacheUrlConf> apacheConfs;
+    private List<ApacheUrlConf> apacheConfs = new ArrayList<>();
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private List<XibisOneDomain> xibisOneDomains;
+    private List<XibisOneDomain> xibisOneDomains = new ArrayList<>();
+
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private List<CombinedDomainContainer> combinedDomains = new ArrayList<>();
 
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE}, mappedBy="server", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Instance> instances = new ArrayList<>();
@@ -82,13 +87,4 @@ public class Server extends MonitoredSuperEntity {
         PrettyTime p = new PrettyTime(new Locale("de"));
         return p.format(Date.from(this.lastMessage.atZone(ZoneId.systemDefault()).toInstant()));
     }
-
-//    public List<CombinedDomainContainer> getCombinedDomains() {
-//        Map<String, CombinedDomainContainer> combinedDomainContainerMap = new HashMap<>();
-//
-//        for (ApacheUrlConf auc : apacheConfs) {
-//
-//        }
-//
-//    }
 }

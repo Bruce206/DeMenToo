@@ -4,7 +4,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Server} from "../java-types-module";
+import {CombinedDomainContainer, Server} from "../java-types-module";
 import {serializeI18nMessageForGetMsg} from "@angular/compiler/src/render3/view/i18n/get_msg_utils";
 
 @Injectable({
@@ -52,5 +52,17 @@ export class ServerService {
 
   updateXibisOneDomains(server: Server) {
     return this.http.get("/api/server/check-xibisone-domains/" + server.id);
+  }
+
+  updateCombinedDomainContainers(server: Server): Observable<CombinedDomainContainer[]> {
+    return this.http.get<CombinedDomainContainer[]>("/api/server/check-combined-domains/" + server.id);
+  }
+
+  updateCombinedDomainContainersForAll() {
+    return this.http.get<CombinedDomainContainer[]>("/api/server/check-combined-domains");
+  }
+
+  getCombinedDomainContainersForAll() {
+    return this.http.get<CombinedDomainContainer[]>("/api/server/get-combined-domains");
   }
 }

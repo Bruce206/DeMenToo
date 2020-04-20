@@ -31,6 +31,10 @@ export class AppComponent {
         routerLink: '/server'
       },
       {
+        label: '------ Analysis',
+        routerLink: '/server/analysis'
+      },
+      {
         label: 'Apps',
         icon: 'fas fa-cubes',
         routerLink: '/instance'

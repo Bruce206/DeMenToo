@@ -1,0 +1,45 @@
+<div class="p-grid">
+  <p-card>
+    <button pButton label="Update" (click)="updateCombinedDomainContainers()"></button>
+    <div *ngIf="updating">
+      Data is loading...
+    </div>
+    <div *ngIf="combinedDomains && !updating">
+      <p-table [value]="combinedDomains">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="url">URL <p-sortIcon field="url"></p-sortIcon></th>
+            <th pSortableColumn="serverName">Auf Server gefunden  <p-sortIcon field="serverName"></p-sortIcon></th>
+            <th pSortableColumn="inApache" style="width: 80px;">Apache <p-sortIcon field="inApache"></p-sortIcon></th>
+            <th pSortableColumn="inXibisOne" style="width: 80px;">XibisOne <p-sortIcon field="inXibisOne"></p-sortIcon></th>
+            <th pSortableColumn="pingStatus">Status <p-sortIcon field="pingStatus"></p-sortIcon></th>
+            <th pSortableColumn="ip">IP <p-sortIcon field="ip"></p-sortIcon></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-conf>
+          <tr>
+            <td>{{conf.url}}</td>
+            <td>{{conf.serverName}}</td>
+            <td>
+              <span class="fas fa-check" *ngIf="conf.inApache" style="color: green;"></span>
+              <span class="fas fa-times" *ngIf="!conf.inApache" style="color: red;"></span>
+            </td>
+            <td>
+              <span class="fas fa-check" *ngIf="conf.inXibisOne" style="color: green;"></span>
+              <span class="fas fa-times" *ngIf="!conf.inXibisOne" style="color: red;"></span>
+            </td>
+            <td [ngSwitch]="conf.pingStatus">
+              <span *ngSwitchCase="'SAME_SERVER'">OK</span>
+              <span *ngSwitchCase="'FOREIGN_SERVER'" style="color: red;">Umzug nach Fremd</span>
+              <span *ngSwitchCase="'OTHER_SERVER'" style="color: orange;">Umzug nach {{conf.actualServerName}}</span>
+              <span *ngSwitchCase="'UNKNOWN_HOST'" style="color: red;">Unknown Host</span>
+            </td>
+            <td>
+              {{conf.ip}}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </p-card>
+</div>

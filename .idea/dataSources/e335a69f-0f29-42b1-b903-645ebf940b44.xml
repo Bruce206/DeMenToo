@@ -12,7 +12,7 @@
     <database id="3" parent="1" name="demontoo">
       <ObjectId>97028</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>9665</IntrospectionStateNumber>
+      <IntrospectionStateNumber>9788</IntrospectionStateNumber>
       <Current>1</Current>
     </database>
     <database id="4" parent="1" name="insuranceapp">
@@ -115,7 +115,7 @@
       <Comment>standard public schema</Comment>
       <StateNumber>352</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>9666</IntrospectionStateNumber>
+      <IntrospectionStateNumber>9789</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="27" parent="3" name="btree">
@@ -204,9 +204,8 @@
     </table>
     <table id="39" parent="26" name="server">
       <ObjectId>97057</ObjectId>
-      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
-      <StateNumber>9658</StateNumber>
+      <StateNumber>9785</StateNumber>
     </table>
     <column id="40" parent="35" name="id">
       <Position>1</Position>
@@ -577,14 +576,70 @@
       <StateNumber>9623</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="95" parent="39" name="server_pkey">
+    <column id="95" parent="39" name="active_check_disabled">
+      <Position>10</Position>
+      <DataType>boolean|0s</DataType>
+      <StateNumber>9667</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="96" parent="39" name="blacklisted">
+      <Position>11</Position>
+      <DataType>boolean|0s</DataType>
+      <StateNumber>9668</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="97" parent="39" name="whitelisted">
+      <Position>12</Position>
+      <DataType>boolean|0s</DataType>
+      <StateNumber>9669</StateNumber>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="98" parent="39" name="customer">
+      <Position>13</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>9671</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="99" parent="39" name="display_name">
+      <Position>14</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>9672</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="100" parent="39" name="hoster">
+      <Position>15</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>9673</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="101" parent="39" name="apache_confs">
+      <Position>16</Position>
+      <DataType>jsonb|0s</DataType>
+      <StateNumber>9675</StateNumber>
+      <TypeId>3802</TypeId>
+    </column>
+    <column id="102" parent="39" name="xibis_one_domains">
+      <Position>17</Position>
+      <DataType>jsonb|0s</DataType>
+      <StateNumber>9703</StateNumber>
+      <TypeId>3802</TypeId>
+    </column>
+    <column id="103" parent="39" name="combined_domains">
+      <Position>18</Position>
+      <DataType>jsonb|0s</DataType>
+      <StateNumber>9785</StateNumber>
+      <TypeId>3802</TypeId>
+    </column>
+    <index id="104" parent="39" name="server_pkey">
       <ObjectId>97074</ObjectId>
-      <StateNumber>9646</StateNumber>
+      <StateNumber>9668</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="96" parent="39" name="server_pkey">
+    <key id="105" parent="39" name="server_pkey">
       <ObjectId>97075</ObjectId>
       <StateNumber>9646</StateNumber>
       <ColNames>id</ColNames>

@@ -18,7 +18,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'instance',
-    loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule)
+    loadChildren: './instance/instance.module#InstanceModule'
+    //loadChildren: () => import('./instance/instance.module').then(m => m.InstanceModule)
   },
   // {
   //   path: 'instanceType',

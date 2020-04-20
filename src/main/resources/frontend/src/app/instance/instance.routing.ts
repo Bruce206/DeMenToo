@@ -3,22 +3,22 @@ import {NgModule} from "@angular/core";
 import {InstanceListComponent} from "./instance.list.component";
 import {InstanceDetailComponent} from "./instance.detail.component";
 
-const customerRoutes: Routes = [
+const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: InstanceListComponent,
     data: {title: 'Instanzen'}
   },
   {
-    path: '/detail/:id',
+    path: 'detail/:id',
+    pathMatch: 'full',
     component: InstanceDetailComponent,
     data: {title: 'Instanz'}
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(customerRoutes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class InstanceRouting { }

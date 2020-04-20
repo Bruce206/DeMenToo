@@ -125,32 +125,36 @@
           </p-table>
         </p-accordionTab>
         <p-accordionTab header="Combined Domains">
+          <button pButton label="Update" (click)="updateCombinedDomainContainers(selectedServer)"></button>
           <p-table [value]="selectedServer.combinedDomains">
             <ng-template pTemplate="header">
               <tr>
                 <th>URL</th>
-                <th>DB</th>
-                <th style="width: 60px;">HTTP</th>
-                <th style="width: 60px;">HTTPS</th>
-                <th>
-                  <button pButton label="Ping" (click)="pingUrls(selectedServer, 'xibisone')"></button>
-                </th>
+                <th style="width: 80px;">Apache</th>
+                <th style="width: 80px;">XibisOne</th>
+                <th>Status</th>
+                <th>IP</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-conf>
-              <tr [title]="conf.filenames | json">
-                <td>{{conf.url}}</td>
-                <td>{{conf.database}}</td>
+              <tr>
+                <td [style.background-color]="getCombinedColor(conf)">{{conf.url}}</td>
                 <td>
-                  <span class="fas fa-check" *ngIf="conf.http" style="color: green;"></span>
-                  <span class="fas fa-times" *ngIf="!conf.http" style="color: orange;"></span>
+                  <span class="fas fa-check" *ngIf="conf.inApache" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.inApache" style="color: red;"></span>
                 </td>
                 <td>
-                  <span class="fas fa-check" *ngIf="conf.https" style="color: green;"></span>
-                  <span class="fas fa-times" *ngIf="!conf.https" style="color: red;"></span>
+                  <span class="fas fa-check" *ngIf="conf.inXibisOne" style="color: green;"></span>
+                  <span class="fas fa-times" *ngIf="!conf.inXibisOne" style="color: red;"></span>
+                </td>
+                <td [ngSwitch]="conf.pingStatus">
+                  <span *ngSwitchCase="'SAME_SERVER'">OK</span>
+                  <span *ngSwitchCase="'FOREIGN_SERVER'" style="color: red;">Umzug nach Fremd</span>
+                  <span *ngSwitchCase="'OTHER_SERVER'" style="color: orange;">Umzug nach {{conf.actualServerName}}</span>
+                  <span *ngSwitchCase="'UNKNOWN_HOST'" style="color: red;">Unknown Host</span>
                 </td>
                 <td>
-                  <span [style.color]="ipResponses[conf.url]?.matchesServer ? 'green' : 'red'">{{ipResponses[conf.url]?.ip}}</span>
+                  {{conf.ip}}
                 </td>
               </tr>
             </ng-template>

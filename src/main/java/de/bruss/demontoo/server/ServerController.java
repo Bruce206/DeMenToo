@@ -3,6 +3,7 @@ package de.bruss.demontoo.server;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 import de.bruss.demontoo.server.configContainer.ApacheUrlConf;
+import de.bruss.demontoo.server.configContainer.CombinedDomainContainer;
 import de.bruss.demontoo.server.configContainer.XibisOneDomain;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,12 +66,33 @@ public class ServerController {
         return serverService.checkXibisOneDomains(id);
     }
 
+    @GetMapping("/check-combined-domains/{id}")
+    public Collection<CombinedDomainContainer> checkCombinedDomainContainersForServers(@PathVariable Long id) throws JSchException, IOException, SftpException {
+        return serverService.checkCombinedDomains(id);
+    }
+
+    @GetMapping("/check-combined-domains")
+    public Collection<CombinedDomainContainer> checkCombinedDomainContainers() throws JSchException, IOException, SftpException {
+        return serverService.checkCombinedDomains();
+    }
+
+    @GetMapping("/get-combined-domains")
+    public Collection<CombinedDomainContainer> getCombinedDomainContainers() {
+        return serverService.getCombinedDomains();
+    }
+
     @GetMapping("/ping-{type}/{id}")
     public void pingApacheConfigs(@PathVariable Long id, @PathVariable String type) {
-        if (type.equals("apache")) {
-            serverService.pingApacheConfigs(id);
-        } else if (type.equals("xibisone")) {
-            serverService.pingXibisOneDomains(id);
+        switch (type) {
+            case "apache":
+                serverService.pingApacheConfigs(id);
+                break;
+            case "xibisone":
+                serverService.pingXibisOneDomains(id);
+                break;
+            case "combined":
+                serverService.pingAllDomainsAndSendToWebsocket(id);
+                break;
         }
     }
 

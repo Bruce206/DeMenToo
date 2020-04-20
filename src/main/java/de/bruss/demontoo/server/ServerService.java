@@ -5,8 +5,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 import de.bruss.demontoo.instance.InstanceService;
-import de.bruss.demontoo.server.configContainer.ApacheUrlConf;
-import de.bruss.demontoo.server.configContainer.XibisOneDomain;
+import de.bruss.demontoo.server.configContainer.*;
 import de.bruss.demontoo.ssh.SshService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -97,6 +96,11 @@ public class ServerService {
     @Transactional
     public Collection<ApacheUrlConf> checkApacheConfigs(Long id) throws JSchException, SftpException, IOException {
         Server server = serverRepository.getOne(id);
+        return checkApacheConfigs(server);
+    }
+
+    @Transactional
+    public Collection<ApacheUrlConf> checkApacheConfigs(Server server) throws JSchException, SftpException, IOException {
         Map<String, ApacheUrlConf> apacheConfigs = new HashMap<>();
 
         Session session = this.sshService.getSession(server.getIp());
@@ -136,6 +140,7 @@ public class ServerService {
                                 apacheUrlConf = apacheConfigs.get(url);
                             } else {
                                 apacheUrlConf = new ApacheUrlConf();
+                                apacheUrlConf.setServerId(server.getId());
                                 apacheUrlConf.setUrl(url);
                                 apacheConfigs.put(url, apacheUrlConf);
                             }
@@ -164,15 +169,25 @@ public class ServerService {
 
     public void pingApacheConfigs(Long id) {
         Server server = serverRepository.getOne(id);
-        server.getApacheConfs().stream().map(ApacheUrlConf::getUrl).forEach(url -> ping(url, server.getIp()));
+        server.getApacheConfs().stream().map(ApacheUrlConf::getUrl).forEach(url -> pingAndSendToWebsocket(url, server.getIp()));
     }
 
     public void pingXibisOneDomains(Long id) {
         Server server = serverRepository.getOne(id);
-        server.getXibisOneDomains().stream().map(XibisOneDomain::getUrl).forEach(url -> ping(url, server.getIp()));
+        server.getXibisOneDomains().stream().map(XibisOneDomain::getUrl).forEach(url -> pingAndSendToWebsocket(url, server.getIp()));
     }
 
-    private void ping(String url, String serverIp) {
+    public void pingAllDomainsAndSendToWebsocket(Long id) {
+        Server server = serverRepository.getOne(id);
+
+        Set<DomainContainer> allDomains = new HashSet<>();
+        allDomains.addAll(server.getApacheConfs());
+        allDomains.addAll(server.getXibisOneDomains());
+
+        allDomains.forEach(conf -> pingAndSendToWebsocket(conf.getUrl(), server.getIp()));
+    }
+
+    private void pingAndSendToWebsocket(String url, String serverIp) {
         try {
             logger.info("Pinging {}...", url);
             InetAddress address = InetAddress.getByName(url);
@@ -182,7 +197,6 @@ public class ServerService {
             template.convertAndSend("/status/iptest", new IPResolverResponse(url, "Unknown Host", false));
         }
     }
-
 
 
     @Transactional
@@ -200,7 +214,11 @@ public class ServerService {
     @Transactional
     public Collection<XibisOneDomain> checkXibisOneDomains(Long id) throws JSchException {
         Server server = serverRepository.getOne(id);
+        return checkXibisOneDomains(server);
+    }
 
+    @Transactional
+    public Collection<XibisOneDomain> checkXibisOneDomains(Server server) throws JSchException {
         Session session = this.sshService.getSession(server.getIp());
         session.connect();
 
@@ -215,6 +233,7 @@ public class ServerService {
         }
 
         List<XibisOneDomain> xibisOneDomains = new ArrayList<>();
+        Set<String> foundUrls = new HashSet<>();
         for (String db : databaseNames) {
             List<String> nodesDomains = Arrays.asList(sshService.sendCommand(session, " psql -U postgres " + db + " -c \"select domain, secure, name from nodes_domains left join nodes on nodes_domains.node = nodes.id\"").split("\\r?\\n"));
 
@@ -227,7 +246,17 @@ public class ServerService {
                 for (String line : nodesDomains.subList(2, nodesDomains.size() - 1)) {
                     String[] data = line.split(Pattern.quote("|"));
                     XibisOneDomain xod = new XibisOneDomain();
-                    xod.setUrl(data[0].trim());
+                    xod.setServerId(server.getId());
+
+                    String url = data[0].trim();
+                    if (!foundUrls.contains(url)) {
+                        foundUrls.add(url);
+                        xod.setUrl(url);
+                    } else {
+                        String random = "-duplicate-" + (Math.random() * 10000);
+                        xod.setUrl(url + random);
+                    }
+
                     xod.setHttp(data[1].trim().equals("f"));
                     xod.setHttps(data[1].trim().equals("t"));
                     xod.setNode(data[2].trim());
@@ -245,6 +274,86 @@ public class ServerService {
         return xibisOneDomains;
     }
 
+    @Transactional
+    public List<CombinedDomainContainer> checkCombinedDomains(Long id) throws JSchException, SftpException, IOException {
+        Server server = serverRepository.getOne(id);
+        return checkCombinedDomains(server);
+    }
+
+    @Transactional
+    public List<CombinedDomainContainer> checkCombinedDomains(Server server) throws JSchException, SftpException, IOException {
+        Map<String, ApacheUrlConf> apacheUrlConfs = checkApacheConfigs(server).stream().collect(Collectors.toMap(ApacheUrlConf::getUrl, dc -> dc));
+        Map<String, XibisOneDomain> xibisOneDomains = checkXibisOneDomains(server).stream().collect(Collectors.toMap(XibisOneDomain::getUrl, dc -> dc));
+
+        Set<String> allUrls = new HashSet<>();
+        allUrls.addAll(apacheUrlConfs.keySet());
+        allUrls.addAll(xibisOneDomains.keySet());
+
+        List<CombinedDomainContainer> combined = new ArrayList<>();
+        for (String url : allUrls) {
+            CombinedDomainContainer cdc = new CombinedDomainContainer();
+
+            try {
+                InetAddress address = InetAddress.getByName(url);
+                cdc.setIp(address.getHostAddress());
+                if (address.getHostAddress().equals(server.getIp())) {
+                    cdc.setPingStatus(PingStatus.SAME_SERVER);
+                } else {
+                    List<Server> byIp = serverRepository.findByIp(address.getHostAddress());
+                    if (byIp.isEmpty()) {
+                        cdc.setPingStatus(PingStatus.FOREIGN_SERVER);
+                    } else {
+                        cdc.setPingStatus(PingStatus.OTHER_SERVER);
+                        cdc.setActualServerName(byIp.get(0).getServerName());
+                    }
+                }
+            } catch (UnknownHostException e) {
+                cdc.setPingStatus(PingStatus.UNKNOWN_HOST);
+            }
+
+            cdc.setServerId(server.getId());
+            cdc.setServerName(StringUtils.isEmpty(server.getDisplayName()) ? server.getServerName() : server.getDisplayName());
+            cdc.setUrl(url);
+            cdc.setInApache(apacheUrlConfs.containsKey(url));
+            cdc.setInXibisOne(xibisOneDomains.containsKey(url));
+            combined.add(cdc);
+        }
+
+        if (server.getCombinedDomains() != null) {
+            server.getCombinedDomains().clear();
+        }
+        server.setCombinedDomains(combined);
+
+        return combined;
+    }
+
+    @Transactional
+    public Collection<CombinedDomainContainer> checkCombinedDomains() throws JSchException, SftpException, IOException {
+        List<Server> servers = serverRepository.findAllByBlacklistedIsFalseOrderByServerNameAsc().stream().filter(s -> !s.isActiveCheckDisabled()).collect(Collectors.toList());
+
+        List<CombinedDomainContainer> allDomains = new ArrayList<>();
+
+        for (Server server : servers) {
+            allDomains.addAll(checkCombinedDomains(server));
+        }
+
+        return allDomains.stream().sorted(Comparator.comparing(CombinedDomainContainer::getUrl)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Collection<CombinedDomainContainer> getCombinedDomains() {
+        List<Server> servers = serverRepository.findAllByBlacklistedIsFalseOrderByServerNameAsc().stream().filter(s -> !s.isActiveCheckDisabled()).collect(Collectors.toList());
+
+        List<CombinedDomainContainer> allDomains = new ArrayList<>();
+
+        for (Server server : servers) {
+            if (server.getCombinedDomains() != null) {
+                allDomains.addAll(server.getCombinedDomains());
+            }
+        }
+
+        return allDomains.stream().sorted(Comparator.comparing(CombinedDomainContainer::getUrl)).collect(Collectors.toList());
+    }
 
     @Data
     @AllArgsConstructor

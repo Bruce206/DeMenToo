@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ServerService} from "./server.service";
-import {Server} from "../java-types-module";
+import {CombinedDomainContainer, Server} from "../java-types-module";
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
@@ -22,7 +22,7 @@ export class ServerListComponent implements OnInit, OnDestroy {
   public addServerDialogVisible: boolean = false;
   private connections: any = {};
 
-  constructor(private serversService: ServerService) {
+  constructor(private serverService: ServerService) {
   }
 
   ngOnDestroy(): void {
@@ -37,29 +37,29 @@ export class ServerListComponent implements OnInit, OnDestroy {
 
   refresh() {
     delete this.selectedServer;
-    this.serversService.getList().subscribe((data) => {
+    this.serverService.getList().subscribe((data) => {
       this.servers = data;
     });
   }
 
   cleanServers() {
-    this.serversService.cleanUp().subscribe(() => this.refresh());
+    this.serverService.cleanUp().subscribe(() => this.refresh());
   }
 
   blacklistServer(selectedServer: Server) {
-    this.serversService.blacklist(selectedServer).subscribe(() => this.refresh());
+    this.serverService.blacklist(selectedServer).subscribe(() => this.refresh());
   }
 
   deleteServer(selectedServer: Server) {
-    this.serversService.delete(selectedServer).subscribe(() => this.refresh());
+    this.serverService.delete(selectedServer).subscribe(() => this.refresh());
   }
 
   save(selectedServer: Server) {
-    this.serversService.save(selectedServer).subscribe(() => this.refresh());
+    this.serverService.save(selectedServer).subscribe(() => this.refresh());
   }
 
   updateApacheConfs(selectedServer: any) {
-    this.serversService.updateApacheConfs(selectedServer).subscribe(data => {
+    this.serverService.updateApacheConfs(selectedServer).subscribe(data => {
       selectedServer.apacheConfs = data;
     }, error => {
       console.error(error);
@@ -68,7 +68,7 @@ export class ServerListComponent implements OnInit, OnDestroy {
   }
 
   updateXibisOneDomains(selectedServer: any) {
-    this.serversService.updateXibisOneDomains(selectedServer).subscribe(data => {
+    this.serverService.updateXibisOneDomains(selectedServer).subscribe(data => {
       selectedServer.xibisOneDomains = data;
     }, error => {
       console.error(error);
@@ -88,21 +88,21 @@ export class ServerListComponent implements OnInit, OnDestroy {
           let response: any = JSON.parse(data.body);
           that.ipResponses[response.url] = response;
         });
-        that.serversService.pingUrls(selectedServer, urlType).subscribe();
+        that.serverService.pingUrls(selectedServer, urlType).subscribe();
       });
     } else {
-      this.serversService.pingUrls(selectedServer, urlType).subscribe();
+      this.serverService.pingUrls(selectedServer, urlType).subscribe();
     }
   }
 
   addServer() {
-    this.serversService.save(this.addedServer).subscribe(() => this.refresh());
+    this.serverService.save(this.addedServer).subscribe(() => this.refresh());
     this.addedServer = {};
     this.addServerDialogVisible = false;
   }
 
   testConnection(server: Server) {
-    this.serversService.testSSHConnection(server).subscribe(() => {
+    this.serverService.testSSHConnection(server).subscribe(() => {
       this.refresh();
       alert("Connection successful!");
     }, error => {
@@ -116,7 +116,7 @@ export class ServerListComponent implements OnInit, OnDestroy {
       if (server.activeCheckDisabled) {
         this.connections[server.id] = "disabled";
       } else {
-        this.serversService.testSSHConnection(server).subscribe(() => {
+        this.serverService.testSSHConnection(server).subscribe(() => {
           this.connections[server.id] = "connected";
         }, error => {
           console.log(server.serverName);
@@ -136,4 +136,16 @@ export class ServerListComponent implements OnInit, OnDestroy {
   }
 
 
+  updateCombinedDomainContainers(selectedServer: Server) {
+    this.serverService.updateCombinedDomainContainers(selectedServer).subscribe(data => {
+      selectedServer.combinedDomains = data;
+    }, error => {
+      console.error(error);
+      alert("Connection could not be established: " + error.error.message);
+    });
+  }
+
+  getCombinedColor(cdc: CombinedDomainContainer) {
+    return (cdc.inApache && cdc.inXibisOne && cdc.pingStatus === "SAME_SERVER") ? '' : '#ff9898';
+  }
 }

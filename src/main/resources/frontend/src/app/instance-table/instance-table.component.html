@@ -2,7 +2,7 @@
          [rows]="150" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,150,250,500]"
          [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
          [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [style]="{'background-color': 'white'}"
-         exportFilename="instances" (onRowClick)="handleRowClick($event)">
+         exportFilename="instances">
   <ng-template pTemplate="caption">
     <button type="button" pButton icon="fa-refresh" iconPos="left" label="Refresh Health-Status" (click)="refreshHealth()" style="float:right" class="ui-button-success"></button>
     <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export Data" (click)="dt.exportCSV()" style="float:right" class="ui-button-secondary"></button>
